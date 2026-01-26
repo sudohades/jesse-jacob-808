@@ -3,44 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JESSE JACOB</title>
-    <link rel="stylesheet" href="styles2.css">
+    <meta name="description" content="Jesse Jacob - Computer Scientist specializing in Embedded Systems, Web Design, and Systems Architecture.">
+    <meta name="theme-color" content="#050210">
+    <title>JESSE JACOB | Home</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="jj-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body>
-    <header class="header" >
-        <div class="logo"></div>
-        <nav>
-            <ul>
-                <li><a href="/welcome">Home</a></li>
-                <li><a href="/whoIam">About</a></li>
-                <li><a href="/whatCanIdo">Skills</a></li>
-                <li><a href="/whatIveDone">Projects</a></li>
+<body class="circuit-alt">
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    <header class="header" role="banner">
+        <div class="logo" aria-label="Jesse Jacob Portfolio"></div>
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/index.html">Home</a></li>
+                <li class="nav-item"><a href="/about.html">About</a></li>
+                <li class="nav-item"><a href="/skills.html">Skills</a></li>
+                <li class="nav-item"><a href="/projects.html">Projects</a></li>
             </ul>
         </nav>
     </header>
     
-    <section class="hero">
+    <section class="hero" id="main-content" role="main">
         <h1>Hello, I'm Jesse</h1>
         <p>A passionate multi-disciplinary Computer Scientist focused on creating meaningful and impactful solutions to modern day problems and efficient systems.</p>
-        <a href="/whatCanIdo" class="cta-button">Technical Info</a>
+        <a href="/skills.html" class="cta-button">Technical Info</a>
     </section>
     
-    <section class="featured">
+    <section class="section-featured">
         <h2>Featured Work</h2>
-        <div class="project-preview">
+        <div class="featured-item">
             <h3>STICKY PALS</h3>
             <p> Sticky Pals is an attempt at offering people a means to put out their passions and interests in a unique way by customizing items and 
                 making them more personalized. This is a project that I am still working on and will be adding more features to it in the future.
             </p>
-            <a href="/whatIveDone">See more projects →</a>
+            <a href="/projects.html" class="action-link">See more projects →</a>
         </div>
     </section>
     
-    <footer>
+    <footer role="contentinfo">
         <p>&copy; 2025 Jesse Jacob. All rights reserved.</p>
-        <p>Contact: <a href="mailto:jacobjesse78@gmail.com">jacobjesse78@gmail.com</a></p>
+        <p>Contact: <a href="mailto:jacobjesse78@gmail.com" aria-label="Email Jesse Jacob">jacobjesse78@gmail.com</a></p>
     </footer>
-    <script src="JESSE.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

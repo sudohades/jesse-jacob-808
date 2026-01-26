@@ -1,0 +1,79 @@
+/* Design tokens and theme palettes */
+:root {
+  /* Dark mode (default) */
+  --primary-bg: #050210;
+  --secondary-bg: #0a0418;
+  --secondary-bg-rgb: 10, 4, 24;
+  --light-bg: #100828;
+  --light-bg-rgb: 16, 8, 40;
+  --accent-yellow: #c084fc;
+  --accent-blue: #8A2BE2;
+  --accent-pink: #D100FF;
+  --text-primary: #ffffff;
+  --text-secondary: #e0c8ff;
+  --text-muted: #b59ce6;
+  --glow-yellow: 0 0 15px rgba(192, 132, 252, 0.7);
+  --glow-blue: 0 0 15px rgba(138, 43, 226, 0.7);
+  --glow-pink: 0 0 15px rgba(209, 0, 255, 0.7);
+  --accent-blue-rgb: 138, 43, 226;
+  --accent-pink-rgb: 209, 0, 255;
+  --overlay-1: rgba(0, 255, 204, 0.22);
+  --overlay-2: rgba(255, 179, 0, 0.22);
+  --overlay-3: rgba(192, 132, 252, 0.2);
+  --overlay-4: rgba(64, 196, 255, 0.18);
+  --overlay-line-1: rgba(0, 255, 204, 0.46);
+  --overlay-line-2: rgba(255, 179, 0, 0.46);
+  --transition-speed: 0.3s;
+}
+
+[data-theme="red"] {
+  --primary-bg: #020202;
+  --secondary-bg: #050505;
+  --secondary-bg-rgb: 5, 5, 5;
+  --light-bg: #0a0a0a;
+  --light-bg-rgb: 10, 10, 10;
+  --accent-yellow: #ff4500;
+  --accent-blue: #ff0040;
+  --accent-pink: #ff0040;
+  --accent-blue-rgb: 255, 0, 64;
+  --accent-pink-rgb: 255, 0, 64;
+  --glow-yellow: 0 0 15px rgba(255, 69, 0, 0.7);
+  --glow-blue: 0 0 15px rgba(255, 0, 64, 0.7);
+  --glow-pink: 0 0 15px rgba(255, 0, 64, 0.7);
+  --text-primary: #e6e6e6;
+  --text-secondary: #ffcccc;
+  --text-muted: #cc8888;
+  --overlay-1: rgba(0, 210, 255, 0.22);
+  --overlay-2: rgba(255, 196, 0, 0.22);
+  --overlay-3: rgba(255, 120, 180, 0.2);
+  --overlay-4: rgba(0, 255, 170, 0.18);
+  --overlay-line-1: rgba(0, 210, 255, 0.4);
+  --overlay-line-2: rgba(255, 196, 0, 0.4);
+}
+
+/* Remove mobile-wide palette overrides to keep the core purple theme consistent on all breakpoints. */
+
+[data-theme="green"] {
+  --primary-bg: #010502;
+  --secondary-bg: #020a05;
+  --secondary-bg-rgb: 2, 10, 5;
+  --light-bg: #051a0d;
+  --light-bg-rgb: 5, 26, 13;
+  --accent-yellow: #00ff41;
+  --accent-blue: #39ff14;
+  --accent-pink: #00ffaa;
+  --accent-blue-rgb: 57, 255, 20;
+  --accent-pink-rgb: 0, 255, 170;
+  --glow-yellow: 0 0 15px rgba(0, 255, 65, 0.7);
+  --glow-blue: 0 0 15px rgba(57, 255, 20, 0.7);
+  --glow-pink: 0 0 15px rgba(0, 255, 170, 0.7);
+  --text-primary: #ffffff;
+  --text-secondary: #ccffcc;
+  --text-muted: #99cc99;
+  --overlay-1: rgba(255, 64, 255, 0.22);
+  --overlay-2: rgba(64, 140, 255, 0.22);
+  --overlay-3: rgba(255, 200, 64, 0.2);
+  --overlay-4: rgba(0, 255, 170, 0.16);
+  --overlay-line-1: rgba(255, 64, 255, 0.4);
+  --overlay-line-2: rgba(64, 140, 255, 0.4);
+}

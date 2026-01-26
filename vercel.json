@@ -4,6 +4,10 @@
     { "source": "/whatCanIdo", "destination": "/skills.html" },
     { "source": "/welcome", "destination": "/index.html" },
     { "source": "/whatIveDone", "destination": "/projects.html" },
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/skills", "destination": "/skills.html" },
+    { "source": "/projects", "destination": "/projects.html" }
   ]
 }

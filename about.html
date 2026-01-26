@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JESSE JACOB | About</title>
-    <link rel="stylesheet" href="styles2.css">
+    <meta name="description" content="About Jesse Jacob - Computer Scientist with 2 years of experience in IT, Systems design, and Embedded Systems.">
+    <meta name="theme-color" content="#050210">
+    <title>JESSE JACOB | Who I Am</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="jj-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body>
+<body class="circuit-alt">
     <header class="header">
-        <div class="logo"></div>
-        <nav>
-            <ul>
-                <li><a href="/welcome">Home</a></li>
-                <li><a href="/whoIam">About</a></li>
-                <li><a href="/whatCanIdo">Skills</a></li>
-                <li><a href="/whatIveDone">Projects</a></li>
+        <div class="logo" aria-label="Jesse Jacob Portfolio"></div>
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/index.html">Home</a></li>
+                <li class="nav-item"><a href="/about.html">About</a></li>
+                <li class="nav-item"><a href="/skills.html">Skills</a></li>
+                <li class="nav-item"><a href="/projects.html">Projects</a></li>
             </ul>
         </nav>
     </header>
@@ -24,11 +28,11 @@
         <h1>About Me</h1>
     </section>
     
-    <section class="about-content">
-        <div class="about-image">
-            <img src="jesse.png" alt="Your Name">
+    <section class="content-box about-content">
+        <div class="column image">
+            <img src="jesse.png" alt="Jesse Jacob, Computer Scientist" loading="lazy" width="400" height="500">
         </div>
-        <div class="about-text">
+        <div class="column text">
             <h2>Who I Am</h2>
             <p>Hello! I'm Jesse, a Computer Scientist based in Nairobi, Kenya. I have 2 years of experience in IT, Systems design and programming specializing majorly in Embedded Systems.</p>
             
@@ -45,42 +49,50 @@
         </div>
     </section>
     
-    <section class="timeline">
+    <section class="content-box">
         <h2>Professional Journey</h2>
         
-        <div class="timeline-item">
-            <div class="year">2024 - Present</div>
-            <h3>Active Student</h3>
-            <p>Africa NAzarene University</p>
-            <p>I have been an enrolled student at ANU where I currently study Computer Science and currenly on my way to becoming a certified systems engineer.</p>
+        <div class="item">
+            <div class="meta">2024 - Present</div>
+            <div class="body">
+                <h3>Active Student</h3>
+                <p>Africa NAzarene University</p>
+                <p>I have been an enrolled student at ANU where I currently study Computer Science and currenly on my way to becoming a certified systems engineer.</p>
+            </div>
         </div>
         
-        <div class="timeline-item">
-            <div class="year">2020 - 2023</div>
-            <h3>Freelance Designer</h3>
-            <p>Various startups and emerging companies</p>
-            <p>I have been engaged with several companies designing various templates and works for their needs, ranging from logos, to posters and even websites that definitely leave an impression in their customers' minds.</p>
+        <div class="item">
+            <div class="meta">2020 - 2023</div>
+            <div class="body">
+                <h3>Freelance Designer</h3>
+                <p>Various startups and emerging companies</p>
+                <p>I have been engaged with several companies designing various templates and works for their needs, ranging from logos, to posters and even websites that definitely leave an impression in their customers' minds.</p>
+            </div>
         </div>
         
-        <div class="timeline-item">
-            <div class="year">2016 - 2019</div>
-            <h3>Completion of high school studies and Exploration of range of skills adn abilities.</h3>
-            <p>Sacho High School</p>
-            <p>Actively tried out ways to improve on my passions and interests and found ways to turn them into profitable skills.</p>
+        <div class="item">
+            <div class="meta">2016 - 2019</div>
+            <div class="body">
+                <h3>Completion of high school studies and Exploration of range of skills adn abilities.</h3>
+                <p>Sacho High School</p>
+                <p>Actively tried out ways to improve on my passions and interests and found ways to turn them into profitable skills.</p>
+            </div>
         </div>
         
-        <div class="timeline-item">
-            <div class="year">2001- Present</div>
-            <h3>Education</h3>
-            <p>School of Life</p>
-            <p>Honorable mention, I have been a constant and dedicated learner in  life, getting to understand the experience that comes with living and reaping the lessons from mistakes made and focusing on constant improvement.</p>
+        <div class="item">
+            <div class="meta">2001- Present</div>
+            <div class="body">
+                <h3>Education</h3>
+                <p>School of Life</p>
+                <p>Honorable mention, I have been a constant and dedicated learner in  life, getting to understand the experience that comes with living and reaping the lessons from mistakes made and focusing on constant improvement.</p>
+            </div>
         </div>
     </section>
     
-    <footer>
+    <footer role="contentinfo">
         <p>&copy; 2025 JESSE JACOB. All rights reserved.</p>
-        <p>Contact: <a href="mailto:jacobjesse78@gmail.com">jacobjesse78@gmail.com</a></p>
+        <p>Contact: <a href="mailto:jacobjesse78@gmail.com" aria-label="Email Jesse Jacob">jacobjesse78@gmail.com</a></p>
     </footer>
-    <script src="JESSE.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

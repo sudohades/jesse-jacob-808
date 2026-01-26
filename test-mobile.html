@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mobile & Navbar Test - Jesse Jacob Portfolio">
+    <meta name="theme-color" content="#050210">
+    <title>Mobile & Navbar Test</title>
+    <link rel="stylesheet" href="styles2.css">
+    <style>
+        /* Debug overlay */
+        .debug-panel {
+            position: fixed;
+            top: 70px;
+            right: 10px;
+            background: rgba(0,0,0,0.9);
+            color: #0f0;
+            padding: 15px;
+            border-radius: 4px;
+            z-index: 10001;
+            font-size: 12px;
+            font-family: monospace;
+            border: 1px solid #0f0;
+        }
+    </style>
+</head>
+<body class="circuit-alt">
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    <header class="header" role="banner">
+        <div class="logo" aria-label="Jesse Jacob Portfolio">JESSE</div>
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/index.html" class="active">Home</a></li>
+                <li class="nav-item"><a href="/about.html">About</a></li>
+                <li class="nav-item"><a href="/skills.html">Skills</a></li>
+                <li class="nav-item"><a href="/projects.html">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="main-content" role="main" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+        <div>
+            <h1>Navbar & Mobile Test</h1>
+            <p>Resize your browser to test responsive behavior.</p>
+            <p><strong>Hamburger menu:</strong> appears when width ≤ 768px (top-right)</p>
+            <p><strong>Header shrink:</strong> triggered when scrolling past 100px</p>
+            <p style="margin-top: 30px; font-size: 0.9rem; color: var(--text-secondary);">Scroll down to test header shrink with hamburger</p>
+        </div>
+    </section>
+
+    <section style="padding: 80px 40px; background: rgba(var(--secondary-bg-rgb), 0.5);">
+        <h2>Test Content Area</h2>
+        <p>Scroll down to trigger header shrink. Hamburger button size adapts when header shrinks.</p>
+        <div style="height: 400px; margin-top: 20px; padding: 20px; background: rgba(138,43,226,0.1); border: 1px solid var(--accent-blue); border-radius: 8px;">
+            <p>Keep scrolling to see the header shrink...</p>
+        </div>
+    </section>
+
+    <section style="padding: 80px 40px;">
+        <h2>More Content</h2>
+        <p>The hamburger menu should:</p>
+        <ul style="margin-left: 20px; margin-top: 15px;">
+            <li>Appear when viewport ≤ 768px</li>
+            <li>Collapse when clicking nav links</li>
+            <li>Hide nav underlines on mobile</li>
+            <li>Shrink proportionally with header</li>
+        </ul>
+    </section>
+
+    <div class="debug-panel">
+        <div id="debug-info">
+            <p>Viewport: <span id="width">0</span>px</p>
+            <p>Hamburger: <span id="hamburger-status">Loading...</span></p>
+            <p>Header shrink: <span id="shrink-status">No</span></p>
+            <p>Scroll Y: <span id="scroll-y">0</span>px</p>
+        </div>
+    </div>
+
+    <footer role="contentinfo">
+        <p>&copy; 2025 Jesse Jacob. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Debug script
+        function updateDebug() {
+            const width = window.innerWidth;
+            document.getElementById('width').textContent = width;
+            const hamburger = document.querySelector('.hamburger');
+            const status = hamburger ? (hamburger.offsetParent !== null ? 'Visible' : 'Hidden') : 'Not created';
+            document.getElementById('hamburger-status').textContent = status + ' (should be visible < 768px)';
+            
+            const header = document.querySelector('.header');
+            const isShrunk = header?.classList.contains('shrink') ? 'Yes' : 'No';
+            document.getElementById('shrink-status').textContent = isShrunk;
+            document.getElementById('scroll-y').textContent = Math.round(window.scrollY);
+        }
+
+        window.addEventListener('resize', updateDebug);
+        window.addEventListener('scroll', updateDebug);
+        window.addEventListener('DOMContentLoaded', updateDebug);
+        setInterval(updateDebug, 100);
+    </script>
+
+    <script type="module">
+        import { initHeaderShrink } from './js/modules/headerShrink.js';
+        import { initHamburger } from './js/modules/navHamburger.js';
+        import { initThemeSelector } from './js/modules/theme.js';
+        import { initScrollIndicator } from './js/modules/scrollIndicator.js';
+        import { initCircuitCanvas } from './js/modules/circuit.js';
+        import { highlightCurrentPageLink } from './js/modules/router.js';
+        import { animateLogo } from './js/modules/logoAnim.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Initializing modules...');
+            initHeaderShrink();
+            console.log('✓ Header shrink initialized');
+            initHamburger();
+            console.log('✓ Hamburger initialized');
+            const hamburger = document.querySelector('.hamburger');
+            console.log('✓ Hamburger element:', hamburger ? 'Created' : 'Not created');
+            initThemeSelector();
+            initScrollIndicator();
+            initCircuitCanvas();
+            highlightCurrentPageLink();
+            animateLogo();
+        });
+    </script>
+</body>
+</html>
+

@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JESSE JACOB | Skills</title>
-    <link rel="stylesheet" href="styles2.css">
+    <meta name="description" content="Skills and Certifications - Jesse Jacob. Web Design, Systems Architecture, Assembly Language, and more.">
+    <meta name="theme-color" content="#050210">
+    <title>JESSE JACOB | What I Can Do</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="jj-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body>
+<body class="circuit-alt">
     <header class="header">
-        <div class="logo"></div>
-        <nav>
-            <ul>
-                <li><a href="/welcome">Home</a></li>
-                <li><a href="/whoIam">About</a></li>
-                <li><a href="/whatCanIdo">Skills</a></li>
-                <li><a href="/whatIveDone">Projects</a></li>
+        <div class="logo" aria-label="Jesse Jacob Portfolio"></div>
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/index.html">Home</a></li>
+                <li class="nav-item"><a href="/about.html">About</a></li>
+                <li class="nav-item"><a href="/skills.html">Skills</a></li>
+                <li class="nav-item"><a href="/projects.html">Projects</a></li>
             </ul>
         </nav>
     </header>
@@ -25,106 +29,127 @@
         <p>Here's an overview of my professional skills and competencies.</p>
     </section>
     
-    <section class="skills-container">
-        <div class="skills-category">
+    <section class="container">
+        <div class="category">
             <h2>Technical Skills</h2>
             
-            <h3>Web design</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 90%"></div>
+            <div class="item" data-skill-level="90">
+                <h3 class="label">Web design</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Backend System design</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 65%"></div>
+            <div class="item" data-skill-level="65">
+                <h3 class="label">Backend System design</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Assembly Language Programming</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 80%"></div>
+            <div class="item" data-skill-level="80">
+                <h3 class="label">Assembly Language Programming</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>App development</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 40%"></div>
+            <div class="item" data-skill-level="40">
+                <h3 class="label">App development</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
         </div>
         
-        <div class="skills-category">
+        <div class="category">
             <h2>Tools & Software</h2>
             
-            <h3>Arduino</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 60%"></div>
+            <div class="item" data-skill-level="60">
+                <h3 class="label">Arduino</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>PCB Design (KiCad)</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 80%"></div>
+            <div class="item" data-skill-level="80">
+                <h3 class="label">PCB Design (KiCad)</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Auto-Cad</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 50%"></div>
+            <div class="item" data-skill-level="50">
+                <h3 class="label">Auto-Cad</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Terminal bash scripting</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 85%"></div>
+            <div class="item" data-skill-level="85">
+                <h3 class="label">Terminal bash scripting</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
         </div>
         
-        <div class="skills-category">
+        <div class="category">
             <h2>Soft Skills</h2>
             
-            <h3>Critical Thinking</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 90%"></div>
+            <div class="item" data-skill-level="90">
+                <h3 class="label">Critical Thinking</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Adaptability</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 40%"></div>
+            <div class="item" data-skill-level="40">
+                <h3 class="label">Adaptability</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Teamwork</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 85%"></div>
+            <div class="item" data-skill-level="85">
+                <h3 class="label">Teamwork</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
             
-            <h3>Creativity</h3>
-            <div class="skill-bar-container">
-                <div class="skill-bar" style="width: 80%"></div>
+            <div class="item" data-skill-level="80">
+                <h3 class="label">Creativity</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-progress"></div>
+                </div>
             </div>
         </div>
     </section>
     
-    <section class="certifications">
+    <section class="content-box certifications-section">
         <h2>Certifications & Education</h2>
         
-        <div class="cert-item">
-            <h3>Kenya Certificate of Secondary Education</h3>
-            <p>Sacho High School</p>
-            
+        <div class="item">
+            <h3 class="title">Kenya Certificate of Secondary Education</h3>
+            <p class="meta">Sacho High School</p>
         </div>
         
-        <div class="cert-item">
-            <h3>Digital Marketing</h3>
-            <p>Google Digital Labs</p>
-            
+        <div class="item">
+            <h3 class="title">Digital Marketing</h3>
+            <p class="meta">Google Digital Labs</p>
         </div>
         
-        <div class="cert-item">
-            <h3>BSc. Comp. Sci</h3>
-            <p>Africa Nazarene University</p>
-            
+        <div class="item">
+            <h3 class="title">BSc. Comp. Sci</h3>
+            <p class="meta">Africa Nazarene University</p>
         </div>
     </section>
     
-    <footer>
+    <footer role="contentinfo">
         <p>&copy; 2025 JESSE JACOB. All rights reserved.</p>
-        <p>Contact: <a href="mailto:jacobjesse78@gmail.com">jacobjesse78@gmail.com</a></p>
+        <p>Contact: <a href="mailto:jacobjesse78@gmail.com" aria-label="Email Jesse Jacob">jacobjesse78@gmail.com</a></p>
     </footer>
-    <script src="JESSE.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

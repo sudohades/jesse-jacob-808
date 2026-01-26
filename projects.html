@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JESSE JACOB | Projects</title>
-    <link rel="stylesheet" href="styles2.css">
+    <meta name="description" content="Projects Portfolio - Jesse Jacob. Featured work includes WAVES, Vintrix, Gallery.11, Autosense, Kasive's, The Companion Project, and Pi-Pals.">
+    <meta name="theme-color" content="#050210">
+    <title>JESSE JACOB | What I've Done</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="jj-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body>
+<body class="circuit-alt">
     <header class="header">
-        <div class="logo"></div>
-        <nav>
-            <ul>
-                <li><a href="/welcome">Home</a></li>
-                <li><a href="/whoIam">About</a></li>
-                <li><a href="/whatCanIdo">Skills</a></li>
-                <li><a href="/whatIveDone">Projects</a></li>
+        <div class="logo" aria-label="Jesse Jacob Portfolio"></div>
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/index.html">Home</a></li>
+                <li class="nav-item"><a href="/about.html">About</a></li>
+                <li class="nav-item"><a href="/skills.html">Skills</a></li>
+                <li class="nav-item"><a href="/projects.html">Projects</a></li>
             </ul>
         </nav>
     </header>
@@ -25,58 +29,56 @@
         <p>A showcase of my work and professional projects.</p>
     </section>
     
-    <section class="featured-project">
-        <div class="featured-image">
-            <img src="waves-logo.png" alt="waves logo">
-        </div>
-        <div class="featured-details">
-            <h2>WAVES</h2>
-            <p>As the helm of Waves I could say I'm a strategist who believes in the power of quiet influence. With a background in brand storytelling and a deep understanding of evolving markets, as the CEO I guide the agency with a clear vision: help brands grow by staying true to who they are. Focused, thoughtful, and future-facing, their leadership shapes every ripple we make.</p>
-            
-            <div class="project-tags">
-                <span class="tag">Digital Marketing</span>
-                <span class="tag">Brand Storytelling</span>
-                <span class="tag">Authentic Evolution</span>
+    <section class="grid">
+        <div class="featured-item">
+            <div class="column image">
+                <img src="waves-logo.png" alt="WAVES - Digital Marketing Agency" loading="lazy" width="300" height="300">
             </div>
-            
-            <div class="project-links">
-                <a href="/Waves/waves-home.html" target="_blank">View Project</a>
-                <a href="#" target="_blank">Source Code</a>
-                <a href="#" target="_blank">Case Study</a>
+            <div class="column text">
+                <h2>WAVES</h2>
+                <p>As the helm of Waves I could say I'm a strategist who believes in the power of quiet influence. With a background in brand storytelling and a deep understanding of evolving markets, as the CEO I guide the agency with a clear vision: help brands grow by staying true to who they are. Focused, thoughtful, and future-facing, their leadership shapes every ripple we make.</p>
+                
+                <div class="tags">
+                    <span class="tag">Digital Marketing</span>
+                    <span class="tag">Brand Storytelling</span>
+                    <span class="tag">Authentic Evolution</span>
+                </div>
+                
+                <div class="actions">
+                    <a href="/Waves/waves-home.html" target="_blank" class="link">View Project</a>
+                    <a href="#" target="_blank" class="link">Source Code</a>
+                    <a href="#" target="_blank" class="link">Case Study</a>
+                </div>
             </div>
         </div>
-    </section>
-    
-    <section class="projects-grid">
         <!-- Project 1 -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="Vintrix-logo.png" alt="Vintrix logo">
+        <div class="card">
+            <div class="header">
+                <img src="Vintrix-logo.png" alt="Vintrix - Vintage Music Curation Platform" loading="lazy" width="150" height="150">
             </div>
-            <div class="project-details">
+            <div class="body">
                 <h3>Vintrix</h3>
                 <p>Vintrix is your gateway to music that made history—and the deeper stories behind it. Built for curious listeners and culture lovers, Vintrix curates iconic tracks that defined moments, movements, and moods across eras. But we don’t stop at nostalgia—we guide you forward, connecting each song to the genres it birthed, the artists it inspired, and the worlds it shaped.
 
                     Think of it as your personal audio archive, time capsule, and compass—bringing past and future together through the pulse of sound..</p>
                 
-                <div class="project-tags">
+                <div class="tags">
                     <span class="tag">Audiophile curation</span>
                     <span class="tag">Inspired by legends</span>
                 </div>
-                
-                <div class="project-links">
-                    <a href="#" target="_blank">View Project</a>
-                    <a href="#" target="_blank">Details</a>
-                </div>
+            </div>
+            <div class="footer">
+                <a href="#" target="_blank" class="link">View Project</a>
+                <a href="#" target="_blank" class="link">Details</a>
             </div>
         </div>
         
         <!-- Project 2 -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="Gallery11-logo.png" alt="Gallery11 logo">
+        <div class="card">
+            <div class="header">
+                <img src="Gallery11-logo.png" alt="Gallery.11 - Artist Portfolio Platform" loading="lazy" width="150" height="150">
             </div>
-            <div class="project-details">
+            <div class="body">
                 <h3>Gallery.11</h3>
                 <p>Gallery.11 is not just a portfolio—it's an unfolding experience. Built for artists who speak through symbolism, subtlety, and strength, the platform showcases personal projects and collaborations in a curated digital space. Each project is a room, each detail a clue, inviting the viewer to explore deeper layers of meaning.
 
@@ -84,24 +86,23 @@
                     
                     </p>
                 
-                <div class="project-tags">
+                <div class="tags">
                     <span class="tag">Visual journaling</span>
                     <span class="tag">Conceptual storytelling</span>
                 </div>
-                
-                <div class="project-links">
-                    <a href="#" target="_blank">View Project</a>
-                    <a href="#" target="_blank">Details</a>
-                </div>
+            </div>
+            <div class="footer">
+                <a href="#" target="_blank" class="link">View Project</a>
+                <a href="#" target="_blank" class="link">Details</a>
             </div>
         </div>
         
         <!-- Project 3 -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="Autosense-logo.png" alt="Autosense logo">
+        <div class="card">
+            <div class="header">
+                <img src="Autosense-logo.png" alt="Autosense - Smart Car Diagnostics" loading="lazy" width="150" height="150">
             </div>
-            <div class="project-details">
+            <div class="body">
                 <h3>Autosense</h3>
                 <p>AutoSense is your smart car companion—designed to take the guesswork out of car trouble. With intuitive diagnostics and real-time symptom scanning, AutoSense helps drivers understand their vehicle issues and connects them to trusted mechanics nearby. Whether it’s a weird sound, a warning light, or something just feels off—AutoSense gives you quick answers, estimated repair costs, and a direct path to a solution.
 
@@ -109,24 +110,23 @@
                     
                     </p>
                 
-                <div class="project-tags">
+                <div class="tags">
                     <span class="tag">Real-time vehicle analysis</span>
                     <span class="tag">Car diagnostics</span>
                 </div>
-                
-                <div class="project-links">
-                    <a href="#" target="_blank">View Project</a>
-                    <a href="#" target="_blank">Details</a>
-                </div>
+            </div>
+            <div class="footer">
+                <a href="#" target="_blank" class="link">View Project</a>
+                <a href="#" target="_blank" class="link">Details</a>
             </div>
         </div>
         
         <!-- Project 4 -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="Kasives-logo.png" alt="Kasive’s logo">
+        <div class="card">
+            <div class="header">
+                <img src="Kasives-logo.png" alt="Kasive's - Artisan Jewelry" loading="lazy" width="150" height="150">
             </div>
-            <div class="project-details">
+            <div class="body">
                 <h3>Kasive's</h3>
                 <p>At Kasive’s, every piece of jewelry is more than adornment—it’s a declaration. Handcrafted with purpose and passion, each creation is designed to reflect the wearer’s inner fire, quiet strength, or bold presence. From striking silhouettes to delicate intricacies, Kasive’s is where form meets feeling.
 
@@ -136,47 +136,45 @@
                     
                     </p>
                 
-                <div class="project-tags">
+                <div class="tags">
                     <span class="tag">Bold elegance</span>
                     <span class="tag">Artisan design</span>
                 </div>
-                
-                <div class="project-links">
-                    <a href="#" target="_blank">View Project</a>
-                    <a href="#" target="_blank">Details</a>
-                </div>
+            </div>
+            <div class="footer">
+                <a href="#" target="_blank" class="link">View Project</a>
+                <a href="#" target="_blank" class="link">Details</a>
             </div>
         </div>
         
         <!-- Project 5 -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="TCP-logo.png" alt="The Companion Project logo">
+        <div class="card">
+            <div class="header">
+                <img src="TCP-logo.png" alt="The Companion Project - Animal Rescue" loading="lazy" width="150" height="150">
             </div>
-            <div class="project-details">
+            <div class="body">
                 <h3>The Companion Project</h3>
                 <p>The Companion Project is a community-driven sanctuary dedicated to rescuing, rehabilitating, and rehoming stray cats and dogs. But we’re more than a shelter—we’re a bridge. A place where animals rediscover trust, and people rediscover peace. Whether you're seeking a lifelong companion or simply a moment of connection, The Companion Project is where healing begins—on both ends of the leash.
 
                     Our mission is to reduce stray populations, educate communities, and foster meaningful relationships between animals and humans—especially those who need emotional support, empathy, and a sense of belonging.</p>
                 
-                <div class="project-tags">
+                <div class="tags">
                     <span class="tag">Animal rescue</span>
                     <span class="tag">Humane outreach</span>
                 </div>
-                
-                <div class="project-links">
-                    <a href="#" target="_blank">View Project</a>
-                    <a href="#" target="_blank">Details</a>
-                </div>
+            </div>
+            <div class="footer">
+                <a href="#" target="_blank" class="link">View Project</a>
+                <a href="#" target="_blank" class="link">Details</a>
             </div>
         </div>
         
         <!-- Project 6 -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="pi-pals-logo.png" alt="Pi-Pals-logo">
+        <div class="card">
+            <div class="header">
+                <img src="pi-pals-logo.png" alt="Pi-Pals - Peer-to-Peer Crypto Marketplace" loading="lazy" width="150" height="150">
             </div>
-            <div class="project-details">
+            <div class="body">
                 <h3>Pi-Pals</h3>
                 <p>Pi-Pals is a community-first crypto marketplace where users can buy and sell goods using decentralized currencies—all while building real connections. With a soft, welcoming design and a chat-friendly interface, Pi-Pals makes digital trading feel like a neighborhood swap meet, not a finance forum.
 
@@ -184,23 +182,22 @@
                     
                     It’s more than a store. It’s a space to connect, collaborate, and grow together.</p>
                 
-                <div class="project-tags">
+                <div class="tags">
                     <span class="tag">Peer-to-peer marketplace</span>
                     <span class="tag">Decentralized and social</span>
                 </div>
-                
-                <div class="project-links">
-                    <a href="#" target="_blank">View Project</a>
-                    <a href="#" target="_blank">Details</a>
-                </div>
+            </div>
+            <div class="footer">
+                <a href="#" target="_blank" class="link">View Project</a>
+                <a href="#" target="_blank" class="link">Details</a>
             </div>
         </div>
     </section>
     
-    <footer>
+    <footer role="contentinfo">
         <p>&copy; 2025 JESSE JACOB. All rights reserved.</p>
-        <p>Contact: <a href="mailto:jacobjesse78@gmail.com">jacobjesse78@gmail.com</a></p>
+        <p>Contact: <a href="mailto:jacobjesse78@gmail.com" aria-label="Email Jesse Jacob">jacobjesse78@gmail.com</a></p>
     </footer>
-    <script src="JESSE.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
