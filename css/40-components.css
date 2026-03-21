@@ -1,4 +1,51 @@
 /* Theme selector controls */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  background: var(--primary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+html.is-preloading .preloader,
+.preloader.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.preloader.done {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.26s ease;
+}
+
+.preloader-track {
+  width: min(180px, 40vw);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(var(--accent-blue-rgb), 0.22);
+  overflow: hidden;
+}
+
+.preloader-bar {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent-blue);
+  box-shadow: var(--glow-blue);
+  transition: width 0.18s linear;
+}
+
+html.is-preloading body {
+  overflow: hidden;
+}
+
 .theme-selector-container {
   position: fixed;
   bottom: 50px;
