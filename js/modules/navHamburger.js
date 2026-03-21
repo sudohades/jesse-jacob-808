@@ -19,6 +19,8 @@ function openMenu(nav) {
   updateNavPosition(nav);
 
   const bd = createBackdrop();
+  const headerHeight = header ? header.getBoundingClientRect().height : 60;
+  bd.style.top = `${headerHeight}px`;
   bd.style.opacity = '1';
   bd.style.pointerEvents = 'auto';
 }
@@ -120,7 +122,7 @@ function createBackdrop() {
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.3);
-      z-index: 10001;
+      z-index: 9999;
       opacity: 0;
       transition: opacity 0.25s ease;
       pointer-events: none;
