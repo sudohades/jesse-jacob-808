@@ -4,6 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>document.documentElement.classList.add('is-preloading');</script>
+    <style>
+        html.is-preloading body { opacity: 0; overflow: hidden; }
+        html.is-preloading::before {
+            content: '';
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            width: min(180px, 40vw);
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(0, 234, 255, 0.22);
+            z-index: 12000;
+        }
+        html.is-preloading::after {
+            content: '';
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            width: min(180px, 40vw);
+            height: 3px;
+            border-radius: 999px;
+            background: #00eaff;
+            box-shadow: 0 0 10px #00eaff;
+            transform-origin: left center;
+            animation: preload-bar 1s ease-in-out infinite;
+            z-index: 12001;
+        }
+        @keyframes preload-bar {
+            0% { transform: translateX(-50%) scaleX(0.15); }
+            50% { transform: translateX(-50%) scaleX(0.85); }
+            100% { transform: translateX(-50%) scaleX(0.25); }
+        }
+    </style>
     <meta name="description" content="Skills and Certifications - Jesse Jacob. Web Design, Systems Architecture, Assembly Language, and more.">
     <meta name="theme-color" content="#050210">
     <title>JESSE JACOB | What I Can Do</title>
