@@ -89,6 +89,25 @@ html.is-preloading body {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+@media screen and (max-width: 768px) {
+  .theme-selector-container {
+    right: 10px;
+    bottom: 40px;
+  }
+
+  .theme-options {
+    right: 35px;
+    bottom: 65px;
+  }
+
+  html.nav-menu-open .theme-selector-container {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+}
+
 .theme-options.active {
   opacity: 1;
   visibility: visible;

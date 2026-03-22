@@ -14,6 +14,7 @@ function openMenu(nav) {
   hamburger.classList.add('active');
   nav.classList.remove('closing');
   nav.classList.add('active');
+  document.documentElement.classList.add('nav-menu-open');
   const header = document.querySelector('header');
   header && header.classList.add('nav-open');
   updateNavPosition(nav);
@@ -29,6 +30,7 @@ function closeMenu(nav) {
   isMenuOpen = false;
   nav.classList.add('closing');
   hamburger.classList.remove('active');
+  document.documentElement.classList.remove('nav-menu-open');
   const header = document.querySelector('header');
   header && header.classList.remove('nav-open');
 
