@@ -15,17 +15,46 @@ export function initCircuitCanvas() {
   const glowCanvas = document.createElement('canvas');
   const glowCtx = glowCanvas.getContext('2d');
   const particles = [];
-  // Reduce particle count on mobile for better performance
-  const particleCount = window.innerWidth <= 768 ? 320 : 640;
+  const PRESETS = {
+    conservative: {
+      particleCountMobile: 170,
+      particleCountDesktop: 320,
+      influenceRadius: 48,
+      drag: 0.86,
+      kickScale: 0.72,
+      blurPx: 3,
+    },
+    balanced: {
+      particleCountMobile: 220,
+      particleCountDesktop: 420,
+      influenceRadius: 56,
+      drag: 0.9,
+      kickScale: 0.9,
+      blurPx: 4,
+    },
+    aggressive: {
+      particleCountMobile: 280,
+      particleCountDesktop: 520,
+      influenceRadius: 68,
+      drag: 0.93,
+      kickScale: 1.15,
+      blurPx: 5,
+    },
+  };
+  // Change this single value to: 'conservative' | 'balanced' | 'aggressive'
+  const PRESET_NAME = 'conservative';
+  const preset = PRESETS[PRESET_NAME] || PRESETS.conservative;
+  const getParticleCount = () => (window.innerWidth <= 768 ? preset.particleCountMobile : preset.particleCountDesktop);
+  let particleCount = getParticleCount();
   let width = window.innerWidth;
   let height = window.innerHeight;
   let palette = [];
   const mouse = { x: width / 2, y: height / 2, active: false };
   let allowInteraction = true;
-  const influenceRadius = 32;
+  const influenceRadius = preset.influenceRadius;
   const alphaBase = 0.65;
   const alphaAmp = 0.28;
-  const drag = 0.96;
+  const drag = preset.drag;
 
   const resize = () => {
     width = window.innerWidth;
@@ -103,7 +132,7 @@ export function initCircuitCanvas() {
         hoverDist = Math.hypot(dx, dy);
         if (hoverDist < influenceRadius && hoverDist > 0.0001) {
           const pull = (influenceRadius - hoverDist) / influenceRadius;
-          const kick = pull * 1.55 * p.depth;
+          const kick = pull * preset.kickScale * p.depth;
           p.vx += (dx / hoverDist) * kick;
           p.vy += (dy / hoverDist) * kick;
         }
@@ -127,7 +156,7 @@ export function initCircuitCanvas() {
     glowCtx.globalAlpha = 1;
 
     ctx.clearRect(0, 0, width, height);
-    ctx.filter = 'blur(6px)';
+    ctx.filter = `blur(${preset.blurPx}px)`;
     ctx.globalAlpha = 0.85;
     ctx.drawImage(glowCanvas, 0, 0);
     ctx.filter = 'none';
@@ -142,6 +171,7 @@ export function initCircuitCanvas() {
 
   window.addEventListener('resize', () => {
     resize();
+    particleCount = getParticleCount();
     particles.splice(0, particles.length);
     for (let i = 0; i < particleCount; i++) particles.push(makeParticle());
     repaintColors();
@@ -150,12 +180,7 @@ export function initCircuitCanvas() {
   window.addEventListener('pointermove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-    const topEl = document.elementFromPoint(e.clientX, e.clientY);
-    const allowZones = '.hero, .intro, .banner, .page-title, footer, .projects-grid, .grid';
-    const blockZones = 'header, nav, .about-content, .timeline, .skills-container, .skills-category, .certifications, .featured-item, .section-featured, .content-box, .card, .card-body, .card-header, .card-footer';
-    const inAllowZone = topEl && (topEl === document.body || topEl === document.documentElement || topEl.closest(allowZones));
-    const inBlockZone = topEl && topEl.closest(blockZones);
-    mouse.active = allowInteraction && (inAllowZone || !inBlockZone);
+    mouse.active = allowInteraction;
   });
 
   const themeObserver = new MutationObserver(repaintColors);

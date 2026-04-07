@@ -1,0 +1,32 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Node dependency/build artifacts
+node_modules/
+dist/
+build/
+
+# Redundant local notes and legacy files
+update-Projects.txt
+JESSE.js
+styles2.css
+
+# Unused legacy project logos
+Vintrix-logo.png
+Gallery11-logo.png
+Autosense-logo.png
+Kasives-logo.png
+TCP-logo.png
+pi-pals-logo.png
+waves-logo.png
+
+# Local resume/document export workspace
+jesse-portfolio/

@@ -8,6 +8,7 @@ import { highlightCurrentPageLink } from './js/modules/router.js';
 import { animateLogo } from './js/modules/logoAnim.js';
 import { initializeSkillBars } from './js/modules/skills.js';
 import { initPreloader, completePreloader } from './js/modules/preloader.js';
+import { initAboutImageEasterEgg } from './js/modules/aboutImageEasterEgg.js';
 
 function safeInit(fn, name) {
   try {
@@ -15,6 +16,16 @@ function safeInit(fn, name) {
   } catch (err) {
     console.error(`[main] Failed to init ${name}:`, err);
   }
+}
+
+function updateCopyrightYear() {
+  const currentYear = new Date().getFullYear();
+  const footerParagraphs = document.querySelectorAll('footer p');
+
+  footerParagraphs.forEach((paragraph) => {
+    if (!/all rights reserved\./i.test(paragraph.textContent || '')) return;
+    paragraph.innerHTML = paragraph.innerHTML.replace(/(?:&copy;|©)\s*\d{4}/i, `&copy; ${currentYear}`);
+  });
 }
 
 function boot() {
@@ -27,6 +38,8 @@ function boot() {
     safeInit(initCircuitCanvas, 'circuitCanvas');
     safeInit(highlightCurrentPageLink, 'routerHighlight');
     safeInit(animateLogo, 'logoAnim');
+    safeInit(initAboutImageEasterEgg, 'aboutImageEasterEgg');
+    safeInit(updateCopyrightYear, 'copyrightYear');
     if (document.querySelector('.skill-bar-container')) {
       safeInit(initializeSkillBars, 'skills');
     }
