@@ -6,6 +6,11 @@ export function initAboutImageEasterEgg() {
   const canvas = scratchWrap.querySelector('.about-scratch-canvas');
   if (!coverSrc || !canvas) return;
 
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+    scratchWrap.classList.add('scratch-disabled');
+    return;
+  }
+
   const context = canvas.getContext('2d');
   if (!context) return;
 

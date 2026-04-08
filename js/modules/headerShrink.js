@@ -12,7 +12,6 @@ export function initHeaderShrink() {
   const header = document.querySelector('header');
   if (!header) return;
 
-  // Initial offset
   setHeaderOffset(header);
 
   function checkHeaderShrinkState() {

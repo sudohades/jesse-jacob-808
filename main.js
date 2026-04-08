@@ -1,4 +1,3 @@
-// Central app bootstrap to coordinate all UI modules
 import { initHeaderShrink } from './js/modules/headerShrink.js';
 import { initHamburger } from './js/modules/navHamburger.js';
 import { initThemeSelector } from './js/modules/theme.js';
@@ -6,7 +5,6 @@ import { initScrollIndicator } from './js/modules/scrollIndicator.js';
 import { initCircuitCanvas } from './js/modules/circuit.js';
 import { highlightCurrentPageLink } from './js/modules/router.js';
 import { animateLogo } from './js/modules/logoAnim.js';
-import { initializeSkillBars } from './js/modules/skills.js';
 import { initPreloader, completePreloader } from './js/modules/preloader.js';
 import { initAboutImageEasterEgg } from './js/modules/aboutImageEasterEgg.js';
 
@@ -28,21 +26,25 @@ function updateCopyrightYear() {
   });
 }
 
+function isMobilePerformanceMode() {
+  return window.matchMedia('(max-width: 768px), (hover: none), (pointer: coarse)').matches;
+}
+
 function boot() {
   safeInit(initPreloader, 'preloader');
   try {
+    const mobilePerformanceMode = isMobilePerformanceMode();
     safeInit(initHeaderShrink, 'headerShrink');
     safeInit(initHamburger, 'hamburger');
     safeInit(initThemeSelector, 'themeSelector');
-    safeInit(initScrollIndicator, 'scrollIndicator');
-    safeInit(initCircuitCanvas, 'circuitCanvas');
+    if (!mobilePerformanceMode) {
+      safeInit(initScrollIndicator, 'scrollIndicator');
+      safeInit(initCircuitCanvas, 'circuitCanvas');
+    }
     safeInit(highlightCurrentPageLink, 'routerHighlight');
     safeInit(animateLogo, 'logoAnim');
     safeInit(initAboutImageEasterEgg, 'aboutImageEasterEgg');
     safeInit(updateCopyrightYear, 'copyrightYear');
-    if (document.querySelector('.skill-bar-container')) {
-      safeInit(initializeSkillBars, 'skills');
-    }
   } finally {
     completePreloader();
   }

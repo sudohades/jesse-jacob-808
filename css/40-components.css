@@ -1,4 +1,3 @@
-/* Theme selector controls */
 .preloader {
   position: fixed;
   inset: 0;
@@ -187,7 +186,6 @@ html.is-preloading body {
   transform: translateX(-40px) translateY(40px) scale(1);
 }
 
-/* Content containers */
 .content-box {
   padding: 40px;
   border-radius: 10px;
@@ -207,7 +205,6 @@ html.is-preloading body {
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Cards */
 .card {
   border: 1px solid var(--accent-blue);
   border-radius: 8px;

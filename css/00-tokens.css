@@ -1,6 +1,4 @@
-/* Design tokens and theme palettes */
 :root {
-  /* Dark mode (default) */
   --primary-bg: #050210;
   --secondary-bg: #0a0418;
   --secondary-bg-rgb: 10, 4, 24;
@@ -50,8 +48,6 @@
   --overlay-line-1: rgba(0, 210, 255, 0.4);
   --overlay-line-2: rgba(255, 196, 0, 0.4);
 }
-
-/* Remove mobile-wide palette overrides to keep the core purple theme consistent on all breakpoints. */
 
 [data-theme="green"] {
   --primary-bg: #010502;

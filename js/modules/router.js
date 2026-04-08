@@ -1,4 +1,3 @@
-// Router and nav highlighting for static pages
 const fileToRoute = {
   'index.html': '/welcome',
   'about.html': '/whoIam',
@@ -60,7 +59,6 @@ export function initializeRouting() {
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
-      // Do not intercept absolute-path links like "/index.html"; let browser navigate
       if (href && !href.startsWith('mailto:') && !href.startsWith('http') && !href.startsWith('/')) {
         e.preventDefault();
         handleRouting(href);

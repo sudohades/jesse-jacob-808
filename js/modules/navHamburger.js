@@ -39,7 +39,6 @@ function closeMenu(nav) {
     backdrop.style.pointerEvents = 'none';
   }
 
-  // Wait for the closing transition to finish before removing 'active'
   const onTransitionEnd = () => {
     nav.classList.remove('active');
     nav.classList.remove('closing');
@@ -105,12 +104,6 @@ export function initHamburger() {
     updateNavPosition(nav);
   }, { passive: true });
 
-  // On mobile, let link navigation proceed naturally
-  document.querySelectorAll('.nav-item a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      // Let the default navigation proceed
-    });
-  });
 }
 
 function createBackdrop() {

@@ -1,11 +1,9 @@
-/* Base resets and body styling */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Hide default scrollbar (customized later) */
 ::-webkit-scrollbar {
   display: none;
 }
@@ -15,7 +13,6 @@ html {
   scrollbar-width: none;
 }
 
-/* Skip to content link */
 .skip-to-content {
   position: absolute;
   top: -40px;
@@ -44,7 +41,6 @@ body {
   padding: 0 20px;
 }
 
-/* Background overlays */
 body::before {
   display: none;
 }

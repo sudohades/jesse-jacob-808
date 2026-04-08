@@ -30,7 +30,7 @@ export function initThemeSelector() {
 
   let currentThemeIndex = 0;
   let savedTheme = localStorage.getItem('theme') || 'dark';
-  if (savedTheme === 'light') savedTheme = 'red'; // migrate old light slot to red theme
+  if (savedTheme === 'light') savedTheme = 'red';
   currentThemeIndex = themes.findIndex(t => t.name === savedTheme);
   if (currentThemeIndex === -1) currentThemeIndex = 0;
   if (savedTheme !== 'dark') {

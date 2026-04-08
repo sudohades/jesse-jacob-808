@@ -15,6 +15,7 @@ export function initScrollIndicator() {
   
   let lineCount = getLineCount();
   let lineHeights = Array.from({ length: lineCount }, () => 0.3 + Math.random() * 0.7);
+  let isRenderScheduled = false;
 
   function setCanvasSize() {
     const newLineCount = getLineCount();
@@ -68,9 +69,25 @@ export function initScrollIndicator() {
     }
   }
 
-  function animate() { drawScrollIndicator(); requestAnimationFrame(animate); }
+  function requestRender() {
+    if (isRenderScheduled) return;
+    isRenderScheduled = true;
+    requestAnimationFrame(() => {
+      isRenderScheduled = false;
+      drawScrollIndicator();
+    });
+  }
 
   setCanvasSize();
-  animate();
-  window.addEventListener('resize', setCanvasSize);
+  requestRender();
+
+  window.addEventListener('resize', () => {
+    setCanvasSize();
+    requestRender();
+  }, { passive: true });
+
+  window.addEventListener('scroll', requestRender, { passive: true });
+
+  const themeObserver = new MutationObserver(requestRender);
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 }

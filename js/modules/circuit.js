@@ -2,7 +2,6 @@ export function initCircuitCanvas() {
   const body = document.body;
   if (!body.classList.contains('circuit-alt')) return;
 
-  // Respect user's motion preference
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return;
   }
@@ -41,7 +40,6 @@ export function initCircuitCanvas() {
       blurPx: 5,
     },
   };
-  // Change this single value to: 'conservative' | 'balanced' | 'aggressive'
   const PRESET_NAME = 'conservative';
   const preset = PRESETS[PRESET_NAME] || PRESETS.conservative;
   const getParticleCount = () => (window.innerWidth <= 768 ? preset.particleCountMobile : preset.particleCountDesktop);
@@ -51,6 +49,8 @@ export function initCircuitCanvas() {
   let palette = [];
   const mouse = { x: width / 2, y: height / 2, active: false };
   let allowInteraction = true;
+  let rafId = null;
+  let isRunning = true;
   const influenceRadius = preset.influenceRadius;
   const alphaBase = 0.65;
   const alphaAmp = 0.28;
@@ -162,7 +162,9 @@ export function initCircuitCanvas() {
     ctx.filter = 'none';
     ctx.globalAlpha = 1;
     ctx.drawImage(glowCanvas, 0, 0);
-    requestAnimationFrame(tick);
+    if (isRunning) {
+      rafId = requestAnimationFrame(tick);
+    }
   };
 
   resize();
@@ -185,5 +187,23 @@ export function initCircuitCanvas() {
 
   const themeObserver = new MutationObserver(repaintColors);
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const onVisibilityChange = () => {
+    const shouldRun = document.visibilityState === 'visible';
+    if (shouldRun && !isRunning) {
+      isRunning = true;
+      tick();
+      return;
+    }
+    if (!shouldRun && isRunning) {
+      isRunning = false;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+  };
+
+  document.addEventListener('visibilitychange', onVisibilityChange);
   tick();
 }
