@@ -4,10 +4,16 @@ export function initAboutImageEasterEgg() {
 
   const coverSrc = scratchWrap.dataset.coverSrc;
   const canvas = scratchWrap.querySelector('.about-scratch-canvas');
+  const revealImage = scratchWrap.querySelector('.about-reveal-image');
   if (!coverSrc || !canvas) return;
 
-  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+  const applyStaticCoverFallback = () => {
+    if (revealImage) revealImage.src = coverSrc;
     scratchWrap.classList.add('scratch-disabled');
+  };
+
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+    applyStaticCoverFallback();
     return;
   }
 
@@ -139,6 +145,10 @@ export function initAboutImageEasterEgg() {
       scratchWrap.classList.add('is-scratch-ready');
       scratchWrap.classList.add('is-awaiting');
     }, 2800);
+  };
+
+  coverImage.onerror = () => {
+    applyStaticCoverFallback();
   };
 
   coverImage.src = coverSrc;
