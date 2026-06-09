@@ -1,0 +1,246 @@
+---
+title: "Infrastructure Lab"
+summary: "A continuously evolving collection of Linux servers, automation tooling, deployment pipelines, monitoring systems, and self-hosted services."
+description: "My personal infrastructure laboratory where I experiment with Linux system administration, DevOps practices, and self-hosted solutions."
+date: "2024-01-10"
+status: "ongoing"
+tags: ["DevOps", "Linux", "Infrastructure"]
+technologies: ["Linux", "Docker", "Nginx", "Ansible", "Prometheus", "Grafana"]
+featuredImage: "/projects/infrastructure-lab.jpg"
+repositoryUrl: "https://github.com/sudo-hades/infrastructure-lab"
+liveDemoUrl: ""
+sortOrder: 2
+---
+
+## Overview
+
+The Infrastructure Lab is my personal playground for learning and experimenting with production-grade infrastructure. It consists of multiple Linux servers hosting various services, automation tooling, and monitoring systems. This project serves as both a learning environment and a demonstration of practical DevOps skills.
+
+## Infrastructure Components
+
+### Server Fleet
+
+**Hardware:**
+- 3x Dell PowerEdge R210 II (16GB RAM, 2x Xeon X3460)
+- 1x HP ProLiant MicroServer (8GB RAM, AMD Opteron)
+- 1x Raspberry Pi 4 (4GB RAM) for edge services
+
+**Operating Systems:**
+- Ubuntu 22.04 LTS (primary servers)
+- Debian 12 (specialized services)
+- Alpine Linux (containers and minimal services)
+
+### Core Services
+
+1. **Reverse Proxy Layer**
+   - Nginx with TLS termination
+   - Automatic certificate management via Let's Encrypt
+   - Rate limiting and basic DDoS protection
+   - WebSocket proxy support for real-time applications
+
+2. **Container Orchestration**
+   - Docker Compose for service management
+   - Custom health check scripts
+   - Automatic container restart policies
+   - Volume management with automated backups
+
+3. **Monitoring Stack**
+   - Prometheus for metrics collection
+   - Grafana for visualization
+   - Alertmanager for notification routing
+   - Node Exporter for system metrics
+
+4. **Automation Tooling**
+   - Ansible playbooks for configuration management
+   - Bash scripts for routine maintenance
+   - Cron jobs for automated tasks
+   - Custom deployment pipelines
+
+## Architecture Decisions
+
+### Why Docker Compose Over Kubernetes?
+
+For a personal lab, Kubernetes would be overkill. Docker Compose provides:
+- Simpler learning curve
+- Adequate for the scale (10-15 services)
+- Easier debugging and troubleshooting
+- Lower resource overhead
+- Sufficient for high availability with proper design
+
+### Monitoring Strategy
+
+I've implemented a three-tier monitoring approach:
+
+1. **System Level**: Node Exporter collects CPU, memory, disk, and network metrics every 15 seconds
+2. **Application Level**: Custom exporters for application-specific metrics
+3. **Log Aggregation**: Centralized logging with Loki for log analysis
+
+Alerts are routed through Alertmanager to multiple channels:
+- Email for critical alerts
+- Telegram for warnings
+- Pushover for immediate notifications
+
+### Security Hardening
+
+Each server undergoes a baseline hardening process:
+
+```bash
+# SSH configuration
+- Disable password authentication
+- Limit allowed users
+- Implement fail2ban
+- Use key-based authentication only
+
+# Firewall rules
+- Default deny policy
+- Only allow necessary ports
+- Rate limit SSH connections
+- Implement geo-blocking for sensitive services
+
+# System hardening
+- Disable unused services
+- Implement automatic security updates
+- Configure audit logging
+- Set up intrusion detection
+```
+
+## Automation Examples
+
+### Automated Backup System
+
+A comprehensive backup system protects all critical data:
+
+```bash
+#!/bin/bash
+# Daily backup script
+
+# Database backups
+pg_dump -U postgres app_db | gzip > /backups/db_$(date +%Y%m%d).sql.gz
+
+# Volume backups
+docker run --rm -v app_data:/data -v /backups:/backup alpine tar czf /backup/app_data_$(date +%Y%m%d).tar.gz /data
+
+# Configuration backups
+tar czf /backups/config_$(date +%Y%m%d).tar.gz /etc/nginx /etc/ansible
+
+# Cleanup old backups (keep 30 days)
+find /backups -name "*.gz" -mtime +30 -delete
+```
+
+### Deployment Pipeline
+
+Custom deployment scripts handle service updates:
+
+```bash
+#!/bin/bash
+# Deploy application update
+
+# Pull latest code
+git pull origin main
+
+# Build new container
+docker-compose build
+
+# Run database migrations
+docker-compose run app npm run migrate
+
+# Zero-downtime deployment
+docker-compose up -d --no-deps app
+docker-compose up -d app
+
+# Health check
+curl -f http://localhost:3000/health || exit 1
+```
+
+## Challenges and Solutions
+
+### Challenge 1: Resource Constraints
+
+**Problem**: Older servers have limited RAM and CPU, making it difficult to run multiple services.
+
+**Solution:**
+- Implemented resource limits on all containers
+- Used Alpine-based images where possible
+- Optimized database configurations
+- Offloaded heavy processing to more powerful servers
+
+### Challenge 2: Certificate Management
+
+**Problem**: Managing TLS certificates across multiple domains and services became complex.
+
+**Solution:**
+- Centralized certificate management with certbot
+- Automated renewal via cron jobs
+- Shared certificate storage with proper permissions
+- Monitoring for certificate expiration
+
+### Challenge 3: Service Discovery
+
+**Problem**: As services grew, keeping track of internal URLs and ports became error-prone.
+
+**Solution:**
+- Implemented Docker networks for service isolation
+- Used environment variables for configuration
+- Created a service registry document
+- Implemented health checks for dependency management
+
+## Performance Optimizations
+
+### Nginx Tuning
+
+```nginx
+# Worker processes
+worker_processes auto;
+
+# Connection handling
+events {
+    worker_connections 1024;
+    use epoll;
+}
+
+# Caching
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=60m;
+
+# Compression
+gzip on;
+gzip_comp_level 6;
+gzip_types text/plain text/css application/json application/javascript;
+```
+
+### Database Optimization
+
+- Configured connection pooling
+- Implemented query caching
+- Regular vacuum and analyze operations
+- Index optimization based on query patterns
+
+## Monitoring Dashboards
+
+I've created several Grafana dashboards for visibility:
+
+1. **System Overview**: CPU, memory, disk, and network metrics across all servers
+2. **Application Performance**: Response times, error rates, and throughput
+3. **Container Health**: Container status, resource usage, and restart counts
+4. **Backup Status**: Backup job success rates and storage utilization
+
+## Future Plans
+
+1. **Infrastructure as Code**: Migrate to Terraform for reproducible deployments
+2. **CI/CD Pipeline**: Implement GitHub Actions for automated testing and deployment
+3. **Service Mesh**: Add Istio or Linkerd for advanced service-to-service communication
+4. **Secret Management**: Implement Vault for secure secret storage
+5. **Disaster Recovery**: Build a secondary site for failover capability
+
+## Lessons Learned
+
+Building and maintaining this infrastructure has taught me:
+
+- **Documentation is crucial**: Without proper documentation, troubleshooting becomes exponentially harder
+- **Automation pays off**: Initial investment in automation saves countless hours later
+- **Monitoring is non-negotiable**: You can't fix what you can't see
+- **Security is a process, not a product**: Continuous vigilance is required
+- **Simplicity wins**: Complex solutions introduce more problems than they solve
+
+## Conclusion
+
+The Infrastructure Lab represents a practical application of DevOps principles in a real-world setting. It provides hands-on experience with the tools and techniques used in production environments while serving useful purposes. The continuous evolution of this lab reflects the ever-changing landscape of infrastructure and operations.

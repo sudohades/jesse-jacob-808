@@ -1,0 +1,48 @@
+import type { Metadata } from "next";
+import { siteConfig } from "@/lib/site-config";
+
+interface PageMetaOptions {
+  title?:       string;
+  description?: string;
+  path?:        string;
+  ogImage?:     string;
+  noIndex?:     boolean;
+}
+
+export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
+  const title       = opts.title
+    ? `${opts.title} — ${siteConfig.brand}`
+    : `${siteConfig.name} — ${siteConfig.tagline}`;
+  const description = opts.description ?? siteConfig.description;
+  const url         = `${siteConfig.baseUrl}${opts.path ?? ""}`;
+  const ogImage     = opts.ogImage ?? siteConfig.ogImage;
+
+  return {
+    title,
+    description,
+    keywords: [...siteConfig.keywords],
+    authors: [{ name: siteConfig.name, url: siteConfig.baseUrl }],
+    creator: siteConfig.name,
+    metadataBase: new URL(siteConfig.baseUrl),
+    alternates: { canonical: url },
+    openGraph: {
+      type:        "website",
+      locale:      "en_US",
+      url,
+      title,
+      description,
+      siteName:    siteConfig.brand,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card:        "summary_large_image",
+      title,
+      description,
+      images:      [ogImage],
+      creator:     "@sudo_hades",
+    },
+    robots: opts.noIndex
+      ? { index: false, follow: false }
+      : { index: true, follow: true, googleBot: { index: true, follow: true } },
+  };
+}

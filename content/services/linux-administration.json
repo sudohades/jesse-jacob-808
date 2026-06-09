@@ -1,0 +1,30 @@
+{
+  "id": "svc-001",
+  "slug": "linux-administration",
+  "type": "service",
+  "title": "Linux Administration",
+  "description": "Server audits, hardening, kernel/systemd tuning, and operational cleanups for stable uptime.",
+  "category": "linux-administration",
+  "pricing": "Starting at $250",
+  "deliveryEstimate": "3-5 business days",
+  "featured": true,
+  "customOrderSupported": true,
+  "marketplaceLinks": {
+    "fiverr": "",
+    "sproutGigs": ""
+  },
+  "deliverables": [
+    "Access + exposure review",
+    "Hardening checklist + fixes",
+    "systemd service hardening guidance",
+    "Runbook draft for ops handoff"
+  ],
+  "requirements": [
+    "SSH access or server credentials",
+    "Current server configuration details",
+    "Specific security requirements or compliance standards"
+  ],
+  "createdAt": "2026-01-01T00:00:00Z",
+  "updatedAt": "2026-01-01T00:00:00Z",
+  "status": "published"
+}

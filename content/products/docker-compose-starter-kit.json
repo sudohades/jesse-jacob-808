@@ -1,0 +1,39 @@
+{
+  "id": "prod-003",
+  "slug": "docker-compose-starter-kit",
+  "title": "Docker Compose Starter Kit",
+  "shortDescription": "Pre-configured Docker Compose setups for common development and production stacks.",
+  "longDescription": "Jump-start your containerized applications with this comprehensive Docker Compose starter kit. Each stack includes optimized configurations, health checks, volume management, and networking setup.\n\nStacks included:\n- Node.js + PostgreSQL + Redis\n- Python + PostgreSQL + Celery\n- WordPress + MySQL + Nginx\n- Next.js + PostgreSQL + Redis\n- Go + PostgreSQL + Redis\n- Monitoring stack (Prometheus + Grafana)\n\nEach stack includes:\n- Docker Compose configuration\n- Environment variable templates\n- Health check configurations\n- Volume management setup\n- Network isolation\n- Development and production variants",
+  "type": "digital",
+  "price": 24,
+  "currency": "USD",
+  "category": "templates",
+  "tags": ["docker", "containers", "devops", "automation", "development"],
+  "features": [
+    "6+ complete stack configurations",
+    "Development and production modes",
+    "Health check configurations",
+    "Volume management",
+    "Network isolation",
+    "Environment templates",
+    "Monitoring integration",
+    "Well-documented"
+  ],
+  "images": [
+    {
+      "url": "/images/products/docker-compose-cover.png",
+      "alt": "Docker Compose Starter Kit Cover"
+    }
+  ],
+  "downloadUrl": "#",
+  "licenseType": "commercial",
+  "marketplaceLinks": {
+    "gumroad": "",
+    "payhip": ""
+  },
+  "customOrderSupported": false,
+  "createdAt": "2026-01-05T00:00:00Z",
+  "updatedAt": "2026-01-05T00:00:00Z",
+  "featured": false,
+  "status": "published"
+}

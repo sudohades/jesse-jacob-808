@@ -1,0 +1,30 @@
+{
+  "id": "svc-004",
+  "slug": "automation-scripting",
+  "type": "service",
+  "title": "Bash Automation & Infrastructure Glue",
+  "description": "Scripts and small tools that reduce toil — backups, health checks, deploy helpers, and infra tooling.",
+  "category": "automation",
+  "pricing": "Starting at $200",
+  "deliveryEstimate": "3-5 business days",
+  "featured": false,
+  "customOrderSupported": true,
+  "marketplaceLinks": {
+    "fiverr": "",
+    "sproutGigs": ""
+  },
+  "deliverables": [
+    "Automation spec + safety checks",
+    "Bash tooling with idempotency",
+    "Dry-run + logging",
+    "Usage docs + examples"
+  ],
+  "requirements": [
+    "Current manual processes to automate",
+    "Target environment details",
+    "Error handling requirements"
+  ],
+  "createdAt": "2026-01-01T00:00:00Z",
+  "updatedAt": "2026-01-01T00:00:00Z",
+  "status": "published"
+}

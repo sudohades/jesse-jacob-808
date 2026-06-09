@@ -1,0 +1,145 @@
+---
+title: "ESP32 Mesh Alert System"
+summary: "Distributed alerting infrastructure using ESP-NOW mesh networking, FreeRTOS task orchestration, cloud relays, and WebSocket dashboards."
+description: "A comprehensive distributed alerting system built on ESP32 microcontrollers using ESP-NOW mesh networking protocol for peer-to-peer communication without requiring WiFi infrastructure."
+date: "2024-03-15"
+status: "active"
+tags: ["IoT", "Embedded Systems", "Networking"]
+technologies: ["ESP32", "FreeRTOS", "ESP-NOW", "WebSocket", "Python"]
+featuredImage: "/projects/esp32-mesh-alert.jpg"
+repositoryUrl: "https://github.com/sudo-hades/esp32-mesh-alert"
+liveDemoUrl: ""
+sortOrder: 1
+---
+
+## Overview
+
+The ESP32 Mesh Alert System is a distributed alerting infrastructure designed to operate in environments where traditional WiFi or cellular connectivity may be unreliable or unavailable. By leveraging ESP-NOW protocol, the system creates a self-healing mesh network where each node can relay messages to others, ensuring critical alerts reach their destination through multiple paths.
+
+## Architecture
+
+### Mesh Network Topology
+
+The system uses a multi-hop mesh topology where each ESP32 node acts as both a sensor and a relay. Messages propagate through the network using a simple flooding algorithm with duplicate detection to prevent infinite loops.
+
+**Key architectural decisions:**
+- **Peer discovery**: Nodes continuously scan for nearby ESP-NOW peers and maintain a dynamic routing table
+- **Message queuing**: FreeRTOS queues manage message buffering during network congestion
+- **Power management**: Deep sleep modes with periodic wake cycles for battery-operated nodes
+- **Failover handling**: Automatic route recalculation when nodes become unavailable
+
+### FreeRTOS Task Structure
+
+The firmware is organized into several FreeRTOS tasks with well-defined priorities:
+
+1. **Sensor Task** (Priority 5): Reads environmental sensors at configurable intervals
+2. **Mesh Task** (Priority 4): Handles ESP-NOW message transmission and reception
+3. **Cloud Relay Task** (Priority 3): Forwards critical alerts to cloud services when gateway node
+4. **Watchdog Task** (Priority 6): Monitors system health and triggers recovery actions
+5. **LED Indicator Task** (Priority 2): Provides visual feedback for system state
+
+### Cloud Integration
+
+Gateway nodes (those with WiFi connectivity) relay alerts to a cloud backend via MQTT. The cloud service:
+- Maintains real-time dashboards using WebSocket connections
+- Stores alert history in a time-series database
+- Sends push notifications to mobile devices
+- Provides REST API for third-party integrations
+
+## Technical Implementation
+
+### ESP-NOW Configuration
+
+```c
+// ESP-NOW initialization
+void init_esp_now() {
+    if (esp_now_init() != ESP_OK) {
+        ESP_LOGE(TAG, "ESP-NOW init failed");
+        return;
+    }
+    
+    esp_now_register_send_cb(on_data_sent);
+    esp_now_register_recv_cb(on_data_recv);
+    
+    // Set peer role
+    esp_now_set_pmk((uint8_t *)PMK_KEY);
+}
+```
+
+### Message Protocol
+
+Alert messages follow a structured JSON format:
+
+```json
+{
+  "id": "uuid",
+  "type": "alert|heartbeat|discovery",
+  "source": "node_id",
+  "timestamp": "iso8601",
+  "payload": {
+    "sensor_type": "temperature|motion|gas",
+    "value": 42.5,
+    "threshold": 40.0,
+    "severity": "warning|critical"
+  },
+  "hop_count": 3,
+  "route": ["node1", "node2", "node3"]
+}
+```
+
+## Challenges and Solutions
+
+### Challenge 1: Message Duplication
+
+**Problem**: In a flooding mesh network, messages can arrive multiple times via different paths.
+
+**Solution**: Implemented a message deduplication cache using a circular buffer with TTL-based expiration. Each message ID is tracked for 30 seconds, and duplicates are silently dropped.
+
+### Challenge 2: Network Partitioning
+
+**Problem**: Physical obstacles or node failures can partition the network, isolating groups of nodes.
+
+**Solution**: Added network health monitoring that detects partitions and attempts to heal them by:
+- Increasing transmission power temporarily
+- Activating backup relay nodes
+- Logging partition events for manual intervention
+
+### Challenge 3: Power Consumption
+
+**Problem**: Continuous radio operation drains batteries quickly.
+
+**Solution**: Implemented adaptive duty cycling:
+- Nodes enter deep sleep between sensor readings
+- Wake on interrupt for critical alerts
+- Dynamic sleep interval based on battery level
+- Solar charging support with MPPT tracking
+
+## Performance Metrics
+
+- **Network latency**: < 500ms for 5-hop message propagation
+- **Packet delivery rate**: 99.2% in typical indoor environments
+- **Battery life**: 6-12 months on 18650 cells with solar assist
+- **Node capacity**: Up to 20 nodes per mesh segment
+- **Scalability**: Tested with 50+ nodes in laboratory conditions
+
+## Future Improvements
+
+1. **LoRa integration**: Add LoRa modules for long-range backhaul
+2. **Edge computing**: Run anomaly detection directly on ESP32
+3. **Over-the-air updates**: Secure firmware update mechanism
+4. **Machine learning**: Train models on historical alert patterns
+5. **Mobile app**: Native iOS/Android applications for alert management
+
+## Lessons Learned
+
+Building this system taught me several valuable lessons about embedded systems development:
+
+- **Hardware matters**: ESP32 variants have different radio performance characteristics
+- **Testing is critical**: Mesh networks are notoriously difficult to debug without proper logging
+- **Simplicity wins**: Over-engineering the routing protocol led to instability; simple flooding worked better
+- **Power is precious**: Every millisecond of radio operation costs battery life
+- **Documentation saves time**: Well-documented message protocols made integration much easier
+
+## Conclusion
+
+The ESP32 Mesh Alert System demonstrates how modern microcontrollers can create robust, distributed sensing networks without relying on traditional infrastructure. The combination of ESP-NOW for local mesh and MQTT for cloud connectivity provides a flexible architecture that can adapt to various deployment scenarios.

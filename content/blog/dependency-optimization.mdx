@@ -1,0 +1,69 @@
+---
+title: "Reducing Dependency Complexity in Large JavaScript Projects"
+description: "Techniques for controlling dependency growth and maintaining long-term project stability."
+date: "2026-06-07"
+tags: ["javascript", "nextjs", "nodejs", "architecture"]
+---
+
+Modern JavaScript ecosystems provide solutions for nearly every problem.
+
+The real challenge is deciding what NOT to include.
+
+## Dependency Cost
+
+Each dependency introduces:
+
+- Maintenance overhead
+- Security risk
+- Upgrade constraints
+- Build complexity
+- Documentation burden
+
+## Dependency Categories
+
+### Core Dependencies
+
+- React
+- Next.js
+- TypeScript
+
+### Supporting Dependencies
+
+- Validation libraries
+- Auth clients
+- Utility frameworks
+
+### Convenience Dependencies
+
+- Formatting helpers
+- Small utilities
+- UI abstractions
+
+## Audit Checklist
+
+- Is it maintained?
+- Is it necessary?
+- Can native APIs replace it?
+- Is removal costly later?
+
+## Framework Evolution
+
+Modern frameworks increasingly absorb functionality:
+
+- Routing
+- Metadata handling
+- Image optimization
+- Data fetching
+
+## Decision Framework
+
+| Question | Importance |
+|----------|-----------|
+| Maintained? | High |
+| Widely adopted? | Medium |
+| Hard to remove later? | High |
+| Reduces complexity? | High |
+
+## Conclusion
+
+Dependency management is risk management.

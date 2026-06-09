@@ -1,0 +1,119 @@
+---
+title: "Building Reproducible Machine Learning Environments"
+description: "Notes on creating predictable, portable, and maintainable ML development workflows."
+date: "2026-06-07"
+tags: ["machine-learning", "python", "docker", "mlops"]
+---
+
+One of the most common causes of friction in machine learning projects is not model performance, but environment drift. A notebook that executes perfectly on one machine may fail entirely on another due to differences in Python versions, package dependencies, CUDA libraries, or system tooling.
+
+Over time I have found that treating the environment as a first-class component of the project dramatically reduces debugging time.
+
+## Start With Isolation
+
+Every project should begin inside an isolated environment. While Python virtual environments are sufficient for many projects, I generally prefer combining them with a dependency manager such as Poetry or uv.
+
+A typical structure might look like:
+
+```text
+project/
+├── data/
+├── notebooks/
+├── src/
+├── tests/
+├── pyproject.toml
+├── README.md
+└── .venv/
+```
+
+The goal is to ensure that anyone cloning the repository can recreate the exact environment with a minimal number of commands.
+
+## Separate Development and Production
+
+The environment used for experimentation is rarely identical to the environment used for deployment.
+
+Development environments typically contain:
+
+- Jupyter
+- Visualization libraries
+- Debugging tools
+- Testing frameworks
+
+Production environments generally contain only:
+
+- Runtime dependencies
+- Model serving components
+- Monitoring tools
+
+Maintaining this separation reduces image size, startup time, and security exposure.
+
+## Containerize Early
+
+Even when deployment is months away, creating a Docker image early provides a reproducible execution target.
+
+A container becomes a shared contract:
+
+- Data scientists can train locally.
+- CI pipelines can run tests consistently.
+- Deployment systems can reuse the same image.
+
+The container should define:
+
+- Python version
+- System packages
+- Runtime dependencies
+- Startup commands
+
+This eliminates many of the "works on my machine" problems that plague collaborative projects.
+
+## Treat Data as a Dependency
+
+Many ML workflows focus heavily on package management while neglecting dataset management.
+
+Datasets should be:
+
+- Versioned.
+- Documented.
+- Stored separately from source code.
+- Reproducible through scripts.
+
+Rather than committing datasets directly into repositories, I prefer maintaining ingestion pipelines that can recreate datasets from source systems.
+
+This makes experiments repeatable and significantly improves auditability.
+
+## Automate Common Tasks
+
+Machine learning repositories often accumulate repetitive commands.
+
+Instead of documenting long command sequences, I prefer exposing standardized tasks:
+
+```bash
+make train
+make test
+make lint
+make evaluate
+```
+
+This creates a consistent developer experience and lowers onboarding friction for contributors.
+
+## Logging and Experiment Tracking
+
+Training a model without tracking metadata is effectively throwing away valuable information.
+
+At minimum, experiments should record:
+
+- Dataset version
+- Hyperparameters
+- Git commit hash
+- Evaluation metrics
+- Training duration
+
+Whether using MLflow, Weights & Biases, or a custom solution, reproducibility depends on being able to answer a simple question:
+
+> "What exact conditions produced this model?"
+
+## Final Thoughts
+
+Machine learning projects become significantly easier to maintain when environments are designed intentionally. Dependency isolation, containerization, dataset versioning, and automated workflows may seem like overhead at the beginning of a project, but they compound into substantial productivity gains as complexity increases.
+
+A reliable environment is often more valuable than a slightly better model.

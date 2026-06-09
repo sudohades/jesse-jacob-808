@@ -1,0 +1,80 @@
+---
+title: "Why Reproducibility Becomes the Hardest Problem in Machine Learning"
+description: "Examining the operational challenges of reproducing machine learning experiments across development and production environments."
+date: "2026-06-07"
+tags: ["machine-learning", "mlops", "python", "docker"]
+---
+
+Most discussions surrounding machine learning focus on model architecture, training performance, and dataset quality. In practice, however, one of the most expensive challenges emerges after the model has already been developed: reproducibility.
+
+A model that achieves strong results in a local notebook environment may be impossible to reproduce weeks later, even by the original developer.
+
+## The Sources of Drift
+
+Reproducibility issues rarely originate from a single component. Instead, they emerge from multiple interacting layers:
+
+- Python package versions
+- GPU drivers
+- CUDA toolkits
+- Operating system libraries
+- Training datasets
+- Random seed management
+- Configuration parameters
+
+Even minor differences between environments can introduce measurable changes in output.
+
+```bash
+python train.py
+```
+
+## Environment Reproducibility
+
+Containerization reduces variability:
+
+```dockerfile
+FROM python:3.12-slim
+
+COPY pyproject.toml .
+RUN pip install .
+
+COPY . .
+```
+
+Benefits:
+
+- Consistent runtime environments
+- Predictable dependency resolution
+- Simplified deployment pipelines
+- Reduced onboarding friction
+
+## Dataset Versioning
+
+Without dataset versioning:
+
+```
+Model Version: 1.2.0
+Dataset Version: Unknown
+```
+
+Common tools:
+
+- DVC
+- LakeFS
+- Object storage snapshots
+- Immutable dataset archives
+
+## Experiment Tracking
+
+Minimum required metadata:
+
+| Attribute | Example |
+|----------|--------|
+| Git Commit | a4c91d |
+| Dataset Version | v3.4 |
+| Learning Rate | 0.001 |
+| Epochs | 50 |
+| Accuracy | 94.8% |
+
+## Conclusion
+
+Reproducibility is not a modeling problem — it is a systems problem.

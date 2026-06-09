@@ -1,0 +1,30 @@
+{
+  "id": "svc-002",
+  "slug": "vps-setup",
+  "type": "service",
+  "title": "VPS Setup & Migration",
+  "description": "From provisioning to DNS/TLS/reverse proxy wiring — with minimal downtime and real rollback steps.",
+  "category": "vps-setup",
+  "pricing": "Starting at $300",
+  "deliveryEstimate": "5-7 business days",
+  "featured": true,
+  "customOrderSupported": true,
+  "marketplaceLinks": {
+    "fiverr": "",
+    "sproutGigs": ""
+  },
+  "deliverables": [
+    "Provisioning + baseline security",
+    "Nginx reverse proxy + TLS plan",
+    "Deployment checklist",
+    "Rollback / recovery notes"
+  ],
+  "requirements": [
+    "Domain access for DNS configuration",
+    "Target VPS provider details",
+    "Current application requirements"
+  ],
+  "createdAt": "2026-01-01T00:00:00Z",
+  "updatedAt": "2026-01-01T00:00:00Z",
+  "status": "published"
+}

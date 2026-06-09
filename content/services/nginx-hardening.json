@@ -1,0 +1,30 @@
+{
+  "id": "svc-003",
+  "slug": "nginx-hardening",
+  "type": "service",
+  "title": "Nginx Configuration & Hardening",
+  "description": "Server block patterns for websockets, TLS termination, caching, rate limiting, and observability.",
+  "category": "nginx-configuration",
+  "pricing": "Starting at $220",
+  "deliveryEstimate": "2-4 business days",
+  "featured": false,
+  "customOrderSupported": true,
+  "marketplaceLinks": {
+    "fiverr": "",
+    "sproutGigs": ""
+  },
+  "deliverables": [
+    "Server block architecture",
+    "TLS + redirect rules",
+    "Websocket proxy + headers",
+    "Rate limiting + basic defenses"
+  ],
+  "requirements": [
+    "Current Nginx configuration files",
+    "Traffic patterns and requirements",
+    "Performance targets"
+  ],
+  "createdAt": "2026-01-01T00:00:00Z",
+  "updatedAt": "2026-01-01T00:00:00Z",
+  "status": "published"
+}

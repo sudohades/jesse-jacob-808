@@ -1,0 +1,131 @@
+---
+title: "Build Log: Designing a Low-Power Environmental Monitoring Node"
+description: "A systems-focused breakdown of constraints, design decisions, and lessons learned while building a low-power embedded monitoring device."
+date: "2026-06-07"
+tags: ["embedded-systems", "iot", "systems-design", "hardware", "engineering"]
+---
+
+## Overview
+
+This project focused on designing a small environmental monitoring system capable of collecting sensor data and transmitting it periodically over a wireless connection while running on battery power.
+
+The primary constraint was not functionality, but energy efficiency over extended periods of time.
+
+---
+
+## Core Engineering Objective
+
+The system needed to operate under a strict power budget while maintaining:
+
+- Reliable environmental sensing
+- Periodic data transmission
+- Stable long-term battery operation
+- Minimal maintenance requirements
+
+The challenge was not implementing features, but balancing energy consumption against system responsiveness.
+
+---
+
+## Initial System Behavior
+
+Early versions of the system prioritized continuous operation. Sensors were sampled frequently, and wireless communication remained active for long periods.
+
+While this produced accurate and timely data, it introduced a critical flaw: the power consumption profile was unsustainable for battery operation.
+
+This phase highlighted an important engineering lesson:
+
+> Functional correctness does not imply operational viability.
+
+---
+
+## Power Profile Analysis
+
+A breakdown of system energy usage revealed three dominant contributors:
+
+- Wireless communication overhead
+- Sensor activation cycles
+- Continuous processor activity
+
+Among these, wireless communication was the most significant contributor to energy drain.
+
+This shifted the design focus from optimizing computation to minimizing active communication time.
+
+---
+
+## Design Transition: Event-Based Operation
+
+The system was restructured from a continuous execution model to an event-driven model.
+
+Instead of remaining active at all times, the system now follows a repeating cycle:
+
+- Wake from low-power state
+- Collect sensor readings
+- Establish temporary connectivity
+- Transmit data payload
+- Return to low-power state
+
+This change fundamentally reduced unnecessary energy consumption.
+
+---
+
+## Impact of Power State Management
+
+Introducing controlled sleep cycles produced the most significant improvement in system efficiency.
+
+The key insight was that energy savings do not come from faster execution, but from reducing active time entirely.
+
+This reinforced a broader embedded systems principle:
+
+> In constrained environments, inactivity is a feature, not a failure.
+
+---
+
+## Data Transmission Strategy
+
+Rather than maintaining a constant connection, communication was redesigned to occur in short bursts.
+
+Data is now packaged and transmitted in minimal sessions before the system returns to a dormant state.
+
+This reduced both network overhead and energy variability.
+
+---
+
+## Reliability Challenges
+
+During early testing, occasional inconsistencies were observed in sensor initialization during system startup.
+
+These issues were not caused by hardware failure, but by timing mismatches between initialization and data collection cycles.
+
+The resolution required introducing a more deliberate startup sequence, ensuring all components reached a stable state before data acquisition began.
+
+---
+
+## System-Level Improvements
+
+After redesigning the execution model, the system achieved:
+
+- Substantially lower average power consumption
+- More predictable battery behavior
+- Improved long-term stability
+- Reduced thermal load during operation
+
+Most importantly, the system transitioned from a prototype mindset to a deployable architecture.
+
+---
+
+## Key Engineering Lessons
+
+This project reinforced several important principles in embedded system design:
+
+- Power efficiency is primarily determined by system architecture, not micro-optimizations
+- Communication is often more expensive than computation
+- Long-term stability requires explicit control over system state transitions
+- Real-world constraints dominate theoretical performance assumptions
+
+---
+
+## Final Status
+
+The system now operates within expected power constraints and demonstrates stable long-term behavior under periodic sensor and communication cycles.
+
+The design is suitable for further extension into larger distributed monitoring systems.

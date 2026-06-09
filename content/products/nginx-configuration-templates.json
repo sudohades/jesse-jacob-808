@@ -1,0 +1,39 @@
+{
+  "id": "prod-002",
+  "slug": "nginx-configuration-templates",
+  "title": "Nginx Configuration Templates",
+  "shortDescription": "Production-ready Nginx server blocks, reverse proxy configs, and security hardening templates.",
+  "longDescription": "A collection of battle-tested Nginx configuration templates for common web server scenarios. Each template includes detailed comments explaining every directive and the security implications.\n\nTemplates included:\n- Basic static site server block\n- Reverse proxy for Node.js/Python applications\n- WebSocket proxy configuration\n- TLS/SSL termination with Let's Encrypt\n- Rate limiting and DDoS protection\n- Caching strategies\n- HTTP/2 and HTTP/3 support\n- Security headers and CSP\n\nAll templates are production-ready and have been tested in high-traffic environments.",
+  "type": "digital",
+  "price": 19,
+  "currency": "KES",
+  "category": "templates",
+  "tags": ["nginx", "web-server", "reverse-proxy", "security", "templates"],
+  "features": [
+    "15+ production-ready templates",
+    "Detailed inline documentation",
+    "Security-focused configurations",
+    "Performance optimized",
+    "WebSocket support",
+    "TLS/SSL best practices",
+    "Rate limiting configurations",
+    "Copy-paste ready"
+  ],
+  "images": [
+    {
+      "url": "/images/products/nginx-templates-cover.png",
+      "alt": "Nginx Configuration Templates Cover"
+    }
+  ],
+  "downloadUrl": "#",
+  "licenseType": "commercial",
+  "marketplaceLinks": {
+    "gumroad": "",
+    "payhip": ""
+  },
+  "customOrderSupported": false,
+  "createdAt": "2026-01-10T00:00:00Z",
+  "updatedAt": "2026-01-10T00:00:00Z",
+  "featured": true,
+  "status": "published"
+}

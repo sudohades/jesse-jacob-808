@@ -1,0 +1,217 @@
+---
+title: "Build Log: Configuring SSL Certificates Behind Nginx on Linux"
+description: "Deployment notes covering HTTPS enablement, reverse proxy configuration, and certificate automation."
+date: "2026-06-07"
+tags:
+  - nginx
+  - ssl
+  - linux
+  - devops
+  - letsencrypt
+
+---
+
+## Objective
+
+Deploy a web application behind Nginx with automatic HTTPS certificate management and secure reverse proxy routing.
+
+***
+
+## Environment
+
+| Component   | Version     |
+| ----------- | ----------- |
+| OS          | Arch Linux  |
+| Nginx       | 1.28.x      |
+| Certbot     | Latest      |
+| Application | Next.js     |
+| Domain      | example.dev |
+
+***
+
+## Initial Architecture
+
+```text
+Internet
+    │
+    ▼
+Nginx :80
+    │
+    ▼
+Application :3000
+```
+
+The application was accessible over HTTP but lacked TLS encryption.
+
+***
+
+## DNS Verification
+
+Before attempting certificate issuance, DNS records were verified.
+
+```bash
+dig example.dev
+dig www.example.dev
+```
+
+Confirmed that both records resolved to the correct VPS IP address.
+
+***
+
+## Nginx Configuration
+
+Initial reverse proxy configuration:
+
+```nginx
+server {
+    listen 80;
+    server_name example.dev www.example.dev;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Configuration test:
+
+```bash
+sudo nginx -t
+```
+
+Output:
+
+```text
+syntax is ok
+test is successful
+```
+
+***
+
+## Certificate Issuance
+
+Certificate request initiated:
+
+```bash
+sudo certbot --nginx
+```
+
+Initial attempt failed.
+
+Error:
+
+```text
+Unable to activate listener
+Port 80 already in use
+```
+
+Investigation revealed an additional service binding to HTTP.
+
+Verification:
+
+```bash
+sudo ss -tulpn | grep :80
+```
+
+Conflicting process was identified and stopped.
+
+***
+
+## Successful Issuance
+
+After resolving port conflicts:
+
+```bash
+sudo certbot --nginx -d example.dev -d www.example.dev
+```
+
+Certificate generated successfully.
+
+Resulting configuration included:
+
+```nginx
+listen 443 ssl;
+```
+
+along with certificate paths managed automatically by Certbot.
+
+***
+
+## Security Hardening
+
+Added security headers:
+
+```nginx
+add_header X-Frame-Options SAMEORIGIN;
+add_header X-Content-Type-Options nosniff;
+add_header Referrer-Policy strict-origin-when-cross-origin;
+```
+
+Enabled HTTP to HTTPS redirection:
+
+```nginx
+return 301 https://$host$request_uri;
+```
+
+Verified with:
+
+```bash
+curl -I http://example.dev
+```
+
+Expected output:
+
+```text
+301 Moved Permanently
+```
+
+***
+
+## Certificate Renewal Validation
+
+Tested automated renewal:
+
+```bash
+sudo certbot renew --dry-run
+```
+
+Result:
+
+```text
+Congratulations, all simulated renewals succeeded.
+```
+
+***
+
+## Final Architecture
+
+```text
+Internet
+    |
+    v
+Nginx :443
+    |
+    v
+Next.js :3000
+```
+
+***
+
+## Lessons Learned
+
+* DNS validation should occur before certificate issuance.
+* Port conflicts are a common source of Certbot failures.
+* Nginx configuration testing should be performed before every reload.
+* Automated certificate renewal must be validated immediately after deployment.
+
+## Status
+
+Deployment successful.
+
+HTTPS enforced.
+
+Automatic renewal operational.

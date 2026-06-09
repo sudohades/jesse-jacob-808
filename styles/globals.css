@@ -1,0 +1,366 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Font imports ─────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap");
+
+/* ─── CSS custom properties ─────────────────────────────────────────── */
+:root {
+  --font-inter:      "Inter", system-ui, sans-serif;
+  --font-jetbrains:  "JetBrains Mono", Menlo, monospace;
+
+  /* Backgrounds */
+
+  --bg-base:    #070707;
+
+  --bg-surface: #0f0f0f;
+  --bg-raised:  #111111;
+  --bg-overlay: #161616;
+  --bg-border:  #1e1e1e;
+  --bg-muted:   #2a2a2a;
+
+  /* Background aliases for backward compatibility */
+  --bg-primary:   #070707;
+  --bg-secondary: #0f0f0f;
+
+  /* Text */
+  --text-primary:   #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --text-muted:     #606060;
+
+  /* Accents */
+  /* Accent palette (prefer purple/pink for dynamic neon feel) */
+  --accent-primary:   #9b5cff;
+  --accent-primary-dim:   rgba(155, 92, 255, 0.7);
+  --accent-primary-glow:  rgba(155, 92, 255, 0.18);
+  --accent-primary-pulse: rgba(155, 92, 255, 0.55);
+
+  --accent-secondary:  #b400ff;
+  --accent-secondary-dim:  rgba(180, 0, 255, 0.65);
+  --accent-secondary-glow: rgba(180, 0, 255, 0.12);
+  --accent-tertiary:   #d26bff;
+  --accent-tertiary-dim:   rgba(210, 107, 255, 0.65);
+  --accent-tertiary-glow:  rgba(210, 107, 255, 0.10);
+
+  /* Legacy aliases for backward compatibility */
+  --cyan:         #9b5cff;  /* repurposed to purple */
+  --cyan-dim:     rgba(155, 92, 255, 0.7);
+  --cyan-glow:    rgba(155, 92, 255, 0.18);
+  --cyan-pulse:   rgba(155, 92, 255, 0.55);
+
+  --blue:         #b400ff;  /* reduce reliance on blue */
+  --blue-dim:     rgba(180, 0, 255, 0.65);
+  --blue-glow:    rgba(180, 0, 255, 0.12);
+  --violet:       #d26bff;
+  --violet-dim:   rgba(210, 107, 255, 0.65);
+  --violet-glow:  rgba(210, 107, 255, 0.10);
+
+  /* Mesh blob sizes */
+  --mesh-size: 55vmax;
+
+  /* Shadows */
+  --shadow-glow-primary: 0 0 16px rgba(210, 107, 255, 0.25);
+}
+
+/* ─── Base reset ────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  /* Shell-terminal vibe */
+  font-family: var(--font-jetbrains);
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+
+/* ─── Selection ────────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(210, 107, 255, 0.18);
+  color: #fff;
+}
+
+
+/* ─── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar              { width: 4px; height: 4px; }
+::-webkit-scrollbar-track        { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb        { background: var(--bg-muted); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--text-muted); }
+
+/* ─── Focus ring ────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Typography utilities ──────────────────────────────────────────── */
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-tertiary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-full {
+  background: linear-gradient(135deg, var(--accent-tertiary) 0%, var(--accent-primary) 45%, var(--accent-tertiary) 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+/* Legacy alias for backward compatibility */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-tertiary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── Mesh background ───────────────────────────────────────────────── */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.mesh-blob-1 {
+  width: var(--mesh-size);
+  height: var(--mesh-size);
+  background: radial-gradient(circle, var(--violet-glow) 0%, transparent 70%);
+  top: -20%;
+  left: -10%;
+  animation: meshDrift 28s ease-in-out infinite alternate, pulseGlow 4s ease-in-out infinite;
+}
+
+.mesh-blob-2 {
+  width: calc(var(--mesh-size) * 1.2);
+  height: calc(var(--mesh-size) * 1.2);
+  background: radial-gradient(circle, rgba(210, 107, 255, 0.06) 0%, transparent 70%);
+  bottom: -20%;
+  right: -15%;
+  animation: meshDrift2 34s ease-in-out infinite alternate, pulseGlow 5s ease-in-out infinite 1s;
+}
+
+.mesh-blob-3 {
+  width: calc(var(--mesh-size) * 0.9);
+  height: calc(var(--mesh-size) * 0.9);
+  background: radial-gradient(circle, rgba(180, 0, 255, 0.05) 0%, transparent 70%);
+  top: 40%;
+  left: 35%;
+  animation: meshDrift3 40s ease-in-out infinite alternate, pulseGlow 6s ease-in-out infinite 2s;
+}
+
+
+/* Soft vignette */
+.mesh-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(8,8,8,0.6) 100%);
+}
+
+@keyframes meshDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(8%, 6%) scale(1.06); }
+}
+@keyframes meshDrift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-10%, 8%) scale(1.09); }
+}
+@keyframes meshDrift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, -8%) scale(1.05); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.85; }
+}
+
+/* ─── Component utilities ───────────────────────────────────────────── */
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--cyan-glow) 50%, transparent 100%);
+}
+
+.card-base {
+  background: rgba(15, 15, 15, 0.35);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-base:hover {
+  border-color: rgba(210, 107, 255, 0.25);
+  box-shadow: 0 0 0 1px rgba(210, 107, 255, 0.12), 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+.mono-tag {
+  font-family: var(--font-jetbrains);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  opacity: 0.8;
+}
+
+/* Terminal cursor */
+.cursor-blink::after {
+  content: "▋";
+  animation: cursorBlink 1.1s step-end infinite;
+  color: var(--accent-primary);
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Prose (MDX) ───────────────────────────────────────────────────── */
+.prose-hades {
+  color: var(--text-secondary);
+  max-width: 70ch;
+}
+
+.prose-hades h1, .prose-hades h2, .prose-hades h3 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.prose-hades a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+.prose-hades a:hover { text-decoration: underline; }
+
+.prose-hades code {
+  font-family: var(--font-jetbrains);
+  font-size: 0.875em;
+  background: rgba(15, 15, 15, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--accent-primary);
+}
+
+.prose-hades pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.prose-hades pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+/* ─── Dynamic Neon Effects ───────────────────────────────────────────── */
+.neon-text {
+  text-shadow: 0 0 10px var(--cyan-glow), 0 0 20px var(--cyan-glow), 0 0 30px var(--cyan-glow);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+.neon-border {
+  border: 1px solid var(--cyan);
+  box-shadow: 0 0 5px var(--cyan-glow), 0 0 10px var(--cyan-glow), inset 0 0 5px var(--cyan-glow);
+  animation: neonBorderPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% { 
+    text-shadow: 0 0 10px var(--cyan-glow), 0 0 20px var(--cyan-glow), 0 0 30px var(--cyan-glow);
+  }
+  50% { 
+    text-shadow: 0 0 15px var(--cyan-pulse), 0 0 30px var(--cyan-pulse), 0 0 45px var(--cyan-pulse), 0 0 60px var(--cyan-pulse);
+  }
+}
+
+@keyframes neonBorderPulse {
+  0%, 100% { 
+    border-color: var(--cyan);
+    box-shadow: 0 0 5px var(--cyan-glow), 0 0 10px var(--cyan-glow), inset 0 0 5px var(--cyan-glow);
+  }
+  50% { 
+    border-color: var(--cyan-pulse);
+    box-shadow: 0 0 10px var(--cyan-pulse), 0 0 20px var(--cyan-pulse), inset 0 0 10px var(--cyan-pulse);
+  }
+}
+
+/* Dynamic color cycling for accent elements */
+.color-cycle {
+  animation: colorCycle 8s linear infinite;
+}
+
+@keyframes colorCycle {
+  0% { color: var(--violet); }
+  25% { color: var(--cyan); }
+  50% { color: var(--violet); }
+  75% { color: var(--cyan); }
+  100% { color: var(--violet); }
+}
+
+
+
+/* Pulsating background for interactive elements */
+.pulse-bg {
+  animation: bgPulse 3s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+  0%, 100% { background-color: var(--bg-secondary); }
+  50% { background-color: rgba(15, 15, 15, 0.35); }
+}
+
+/* Hide default Next.js loading indicator */
+#__next-build-watcher,
+#__next-progress-bar,
+[aria-label="Loading"],
+[role="progressbar"] {
+  display: none !important;
+}
+/* Hide default Next.js loading indicator */
+#__next-build-watcher,
+#__next-progress-bar,
+[aria-label="Loading"],
+[role="progressbar"] {
+  display: none !important;
+}

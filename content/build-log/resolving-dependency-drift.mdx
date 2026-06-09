@@ -1,0 +1,127 @@
+---
+title: "Build Log: Resolving Dependency Drift in a React/Vite Migration"
+description: "A condensed engineering log documenting the diagnosis and resolution of dependency conflicts during frontend development."
+date: "2026-06-07"
+tags:
+  - react
+  - vite
+  - debugging
+  - build-systems
+---
+
+## Objective
+
+Restore development environment functionality after repeated startup failures following dependency updates.
+
+## Initial Symptoms
+
+Development server failed to start:
+
+```text
+Error [ERR_MODULE_NOT_FOUND]:
+Cannot find package '@vitejs/plugin-react'
+```
+
+Additional issues included:
+
+```text
+Invalid hook call.
+Hooks can only be called inside the body of a function component.
+```
+
+## Investigation
+
+### Step 1: Dependency Verification
+
+Reviewed installed packages:
+
+```bash
+npm ls react react-dom
+npm ls @vitejs/plugin-react
+```
+
+Findings:
+
+- Missing Vite React plugin.
+- Multiple React versions detected.
+- Lockfile contained stale references.
+
+### Step 2: Package Consistency Audit
+
+Removed generated artifacts:
+
+```bash
+rm -rf node_modules
+rm package-lock.json
+```
+
+Reinstalled dependencies:
+
+```bash
+npm install
+```
+
+Issue persisted.
+
+### Step 3: React Version Validation
+
+Examined dependency graph:
+
+```bash
+npm ls react
+```
+
+Identified transitive dependency pulling an incompatible React version.
+
+Resolution:
+
+```bash
+npm dedupe
+```
+
+Updated package constraints.
+
+### Step 4: Vite Configuration Review
+
+Inspected:
+
+```text
+vite.config.ts
+```
+
+Found import:
+
+```typescript
+import react from "@vitejs/plugin-react";
+```
+
+Plugin was referenced but not installed.
+
+Installed missing dependency:
+
+```bash
+npm install -D @vitejs/plugin-react
+```
+
+## Result
+
+Development server successfully started:
+
+```text
+VITE v7.x ready in 500ms
+
+Local:
+http://localhost:5173/
+```
+
+## Lessons Learned
+
+- Lockfiles should be committed consistently.
+- React version mismatches can manifest as hook violations.
+- Rebuilding dependency trees is often faster than patching individual package conflicts.
+- Automated dependency audits should be part of CI validation.
+
+## Status
+
+Resolved.
+Build pipeline operational.

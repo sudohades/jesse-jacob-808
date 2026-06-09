@@ -1,0 +1,141 @@
+---
+title: "Managing Dependencies and Configuration Across Multiple Frameworks"
+description: "Strategies for maintaining consistency when working with heterogeneous technology stacks."
+date: "2026-06-07"
+tags: ["architecture", "dependencies", "configuration", "devops"]
+---
+
+Modern applications rarely exist within a single ecosystem.
+
+A typical project may involve:
+
+- React or Next.js on the frontend
+- Node.js services
+- Python automation
+- PostgreSQL databases
+- Docker infrastructure
+- CI/CD pipelines
+
+As the number of frameworks increases, dependency and configuration management becomes a significant engineering concern.
+
+## Standardize Versions
+
+Version drift is often responsible for difficult-to-diagnose issues.
+
+A project should explicitly define versions for:
+
+- Node.js
+- Python
+- Package managers
+- Database engines
+- Container images
+
+Examples include:
+
+```text
+.nvmrc
+.python-version
+Dockerfile
+```
+
+The objective is to remove ambiguity from the development environment.
+
+## Centralize Configuration
+
+Configuration values tend to spread rapidly.
+
+Without discipline, projects accumulate:
+
+- Environment variables
+- Framework-specific configs
+- Build settings
+- Infrastructure settings
+
+I prefer organizing configuration into clearly defined layers.
+
+```text
+config/
+├── development
+├── staging
+└── production
+```
+
+Framework-specific configuration files can then derive values from a common source rather than duplicating definitions.
+
+## Keep Secrets Out of Repositories
+
+Secrets should never be stored directly in source control.
+
+Examples include:
+
+- API keys
+- Database credentials
+- Access tokens
+- Signing certificates
+
+Instead, use:
+
+- Environment variables
+- Secret managers
+- CI/CD secret stores
+
+The repository should contain only templates and examples.
+
+## Dependency Auditing
+
+Dependencies accumulate rapidly over time.
+
+Regular audits help identify:
+
+- Unused packages
+- Deprecated libraries
+- Security vulnerabilities
+- Redundant tooling
+
+A dependency should justify its existence.
+
+Every additional package introduces maintenance overhead and expands the project's attack surface.
+
+## Document Contracts Between Services
+
+Problems often arise when different frameworks communicate with one another.
+
+For example:
+
+```text
+Frontend -> API
+API -> Database
+Worker -> Queue
+```
+
+Documenting request formats, schemas, and expected behaviors reduces integration failures and simplifies debugging.
+
+OpenAPI specifications are particularly useful because they provide both documentation and validation.
+
+## Use Containers as Boundaries
+
+Containers create consistency across heterogeneous environments.
+
+A frontend team can work independently of backend implementation details, provided both systems adhere to agreed interfaces.
+
+This reduces coupling and allows teams to evolve services independently.
+
+## Automate Validation
+
+Configuration errors should be detected automatically.
+
+CI pipelines should verify:
+
+- Linting
+- Dependency installation
+- Environment loading
+- Test execution
+- Build generation
+
+Automation transforms configuration management from a manual process into a repeatable system.
+
+## Final Thoughts
+
+Multi-framework projects introduce complexity that cannot be eliminated entirely. However, that complexity can be controlled through explicit version management, centralized configuration, dependency auditing, and automation.
+
+The goal is not to remove flexibility but to create predictable systems where engineers can focus on solving business problems rather than troubleshooting environmental inconsistencies.

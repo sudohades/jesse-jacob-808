@@ -1,0 +1,132 @@
+---
+title: "Linux Tooling I Use for Everyday Engineering"
+description: "A collection of Linux utilities that consistently improve productivity and system visibility."
+date: "2026-06-07"
+tags: ["linux", "shell", "tooling", "productivity"]
+---
+
+One of the reasons I enjoy working on Linux is the quality of its tooling ecosystem. Small, focused utilities can often replace significantly more complex software while remaining easy to script and automate.
+
+These are some of the tools I find myself reaching for repeatedly.
+
+## ripgrep
+
+Searching large codebases quickly is a daily task.
+
+```bash
+rg "useEffect"
+```
+
+Compared to traditional grep workflows, ripgrep is significantly faster and respects ignore files by default.
+
+Typical use cases include:
+
+- Finding function definitions
+- Tracking configuration values
+- Auditing imports
+- Searching logs
+
+## fd
+
+File discovery is another common operation.
+
+```bash
+fd docker
+```
+
+It offers a cleaner interface than the traditional `find` command and produces results that are easier to work with in scripts.
+
+## bat
+
+Reading files from the terminal becomes much more pleasant with syntax highlighting.
+
+```bash
+bat nginx.conf
+```
+
+While it does not replace a text editor, it provides a better viewing experience when inspecting configuration files or source code.
+
+## fzf
+
+Fuzzy searching has become a core part of my workflow.
+
+Examples include:
+
+```bash
+history | fzf
+```
+
+```bash
+git branch | fzf
+```
+
+```bash
+fd | fzf
+```
+
+The ability to locate files, commands, and branches interactively saves a surprising amount of time throughout the day.
+
+## tmux
+
+For long-running development sessions, tmux remains one of the most valuable tools available.
+
+Typical session layouts include:
+
+- Editor pane
+- Build pane
+- Log monitoring pane
+- Shell pane
+
+Because sessions persist independently of terminal windows, reconnecting after a network interruption is straightforward.
+
+## btop
+
+System visibility is critical when diagnosing performance issues.
+
+`btop` provides an intuitive interface for monitoring:
+
+- CPU usage
+- Memory usage
+- Disk activity
+- Process behavior
+- Network activity
+
+It is often the first tool I launch when troubleshooting resource constraints.
+
+## jq
+
+Modern systems communicate extensively through JSON.
+
+Being able to filter and transform JSON directly from the command line is extremely useful.
+
+```bash
+curl api.example.com | jq
+```
+
+For API development and automation tasks, jq is practically indispensable.
+
+## Combining Tools
+
+The real power of Linux tooling emerges when utilities are chained together.
+
+For example:
+
+```bash
+fd ".env" | fzf
+```
+
+or
+
+```bash
+journalctl -xe | rg error
+```
+
+Each tool performs a single task well, and pipelines allow them to work together seamlessly.
+
+## Final Thoughts
+
+Linux productivity is less about finding a single perfect application and more about assembling a collection of small tools that complement one another.
+
+The tools listed here consistently provide value because they reduce friction. They shorten feedback loops, improve visibility into systems, and make repetitive tasks easier to automate.
+
+That combination scales surprisingly well from personal projects to production environments.
