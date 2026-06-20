@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { useEffect, useState } from "react";
 
 const containerVariants: Variants = {
   hidden: { opacity: 1 },
@@ -38,13 +37,6 @@ const pathVariants: Variants = {
 };
 
 export function PageLoader() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <motion.div

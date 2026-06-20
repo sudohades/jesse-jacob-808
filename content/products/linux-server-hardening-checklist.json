@@ -6,7 +6,7 @@
   "longDescription": "A complete guide to securing your Linux servers from the ground up. This checklist covers user management, network security, file system permissions, service hardening, logging and monitoring, and more. Includes bash scripts for automated validation of your security configurations.\n\nWhat's included:\n- 50+ security checkpoints organized by category\n- Automated validation scripts for each check\n- Remediation commands for common issues\n- CIS Benchmarks alignment\n- Distribution-specific guidance (Ubuntu, Debian, RHEL, CentOS)\n\nPerfect for system administrators, DevOps engineers, and security professionals who need to ensure their servers meet industry security standards.",
   "type": "digital",
   "price": 29,
-  "currency": "KES",
+  "currency": "USD",
   "category": "tools",
   "tags": ["linux", "security", "automation", "bash", "devops"],
   "features": [
@@ -20,7 +20,7 @@
   ],
   "images": [
     {
-      "url": "/images/products/linux-hardening-cover.png",
+      "url": "/images/products/Linux_server_hardening_checklist.png",
       "alt": "Linux Server Hardening Checklist Cover"
     }
   ],

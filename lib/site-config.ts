@@ -37,6 +37,7 @@ export const siteConfig = {
   // Navigation
   nav: [
     { label: "Projects",  href: "/projects" },
+    { label: "Services",  href: "/services" },
     { label: "Shop",      href: "/shop" },
     { label: "Blog",      href: "/blog" },
     { label: "Build Log", href: "/build-log" },
@@ -178,48 +179,6 @@ export const siteConfig = {
   },
 ],
 
-  // Featured projects (replace with MDX-driven later)
-  featuredProjects: [
-  {
-    slug: "esp32-mesh-alert",
-
-    title: "ESP32 Mesh Alert System",
-
-    description:
-      "Distributed alerting infrastructure using ESP-NOW mesh networking, FreeRTOS task orchestration, cloud relays, and WebSocket dashboards.",
-
-    tags: [
-      "ESP32",
-      "FreeRTOS",
-      "Mesh Networking",
-      "IoT"
-    ],
-
-    status: "active" as const,
-
-    href: "/projects/esp32-mesh-alert",
-  },
-
-  {
-    slug: "infrastructure-lab",
-
-    title: "Infrastructure Lab",
-
-    description:
-      "A continuously evolving collection of Linux servers, automation tooling, deployment pipelines, monitoring systems, and self-hosted services.",
-
-    tags: [
-      "Linux",
-      "Docker",
-      "Nginx",
-      "Automation"
-    ],
-
-    status: "ongoing" as const,
-
-    href: "/projects",
-  },
-],
 
   // Current build (dynamic / placeholder)
   currentBuild: {

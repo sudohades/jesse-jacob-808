@@ -7,11 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
+import { useCart } from "@/lib/shop/cart-context";
 
 export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { cart } = useCart();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -51,7 +53,7 @@ export function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 md:flex" role="list">
-          {siteConfig.nav.filter(item => item.label !== "Shop").map((item) => {
+          {siteConfig.nav.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <li key={item.href}>
@@ -82,13 +84,13 @@ export function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
-            href="/shop"
+            href="/shop/cart"
             className={cn(
-              "flex items-center justify-center w-9 h-9 rounded-md transition-all duration-200",
-              "bg-[vav(--rg-r(ised boro[g-border)] tvae(--bx-torderdary)]",
+              "relative flex items-center justify-center w-9 h-9 rounded-md transition-all duration-200",
+              "border border-[rgba(255,255,255,0.08)] text-[var(--text-secondary)]",
               "hover:border-[rgba(210,107,255,0.35)] hover:text-[var(--text-primary)] hover:shadow-[0_0_16px_rgba(210,107,255,0.18)]"
             )}
-            aria-label="Shop"
+            aria-label="Cart"
           >
             <motion.div
               whileHover={{ scale: 1.1, rotate: 5 }}
@@ -96,13 +98,18 @@ export function Navbar() {
             >
               <ShoppingCart size={18} />
             </motion.div>
+            {cart.itemCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 text-[0.6rem] font-bold text-white bg-[var(--accent-primary)] rounded-full">
+                {cart.itemCount}
+              </span>
+            )}
           </Link>
 
           <Link
             href="/contact"
             className={cn(
               "px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200",
-              "bg-[vav(--rg-r(ised boro[g-border)] tvae(--bx-torderdary)]",
+              "border border-[rgba(255,255,255,0.08)] text-[var(--text-secondary)]",
               "hover:border-[rgba(210,107,255,0.35)] hover:text-[var(--text-primary)] hover:shadow-[0_0_16px_rgba(210,107,255,0.18)]"
             )}
           >
@@ -134,7 +141,7 @@ export function Navbar() {
             className="md:hidden bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border-b border-[rgba(255,255,255,0.08)] px-6 pb-4"
           >
             <ul className="flex flex-col gap-1 pt-2" role="list">
-              {siteConfig.nav.filter(item => item.label !== "Shop").map((item) => {
+              {siteConfig.nav.map((item) => {
                 const active = pathname === item.href;
                 return (
                   <li key={item.href}>
@@ -154,11 +161,16 @@ export function Navbar() {
               })}
               <li className="pt-2 border-t border-[rgba(255,255,255,0.08)] mt-2 flex items-center gap-2">
                 <Link
-                  href="/shop"
+                  href="/shop/cart"
                   className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors"
                 >
                   <ShoppingCart size={16} />
-                  Shop
+                  Cart
+                  {cart.itemCount > 0 && (
+                    <span className="flex items-center justify-center w-4 h-4 text-[0.6rem] font-bold text-white bg-[var(--accent-primary)] rounded-full">
+                      {cart.itemCount}
+                    </span>
+                  )}
                 </Link>
               </li>
               <li>

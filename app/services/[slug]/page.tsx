@@ -4,6 +4,8 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getServiceBySlug, getRelatedServices } from "@/lib/services/get-service-by-slug";
 import { generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
+import { getAllContent } from "@/lib/content/mdx";
+import { getProjects } from "@/lib/projects/get-projects";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Check, Clock, DollarSign } from "lucide-react";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
@@ -36,6 +38,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
   }
 
   const relatedServices = getRelatedServices(service, 3);
+  const relatedProjects = getProjects().slice(0, 3);
+  const relatedNotes = getAllContent("notes").slice(0, 3);
+  const relatedResources = getAllContent("resources").slice(0, 3);
 
   // Generate structured data
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
@@ -189,6 +194,129 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       <span className="text-[var(--text-muted)]">{relatedService.pricing}</span>
                       <span className="text-[var(--text-muted)]">{relatedService.deliveryEstimate}</span>
                     </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Related Projects */}
+          {relatedProjects.length > 0 && (
+            <div className="mt-16 pt-8 border-t border-[rgba(255,255,255,0.08)]">
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
+                Related Projects
+              </h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {relatedProjects.map((project) => (
+                  <Link
+                    key={project.slug}
+                    href={`/projects/${project.slug}`}
+                    className="card-base p-6 group hover:border-[rgba(210,107,255,0.3)] transition-all duration-300"
+                  >
+                    <div className="flex items-start justify-between gap-4 mb-4">
+                      <Badge variant="status" dot className="text-xs">
+                        {project.frontMatter.status}
+                      </Badge>
+                    </div>
+                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                      {project.frontMatter.title}
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                      {project.frontMatter.summary}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.frontMatter.technologies.slice(0, 3).map((tech) => (
+                        <span key={tech} className="text-xs text-[var(--text-muted)] font-mono">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Related Notes */}
+          {relatedNotes.length > 0 && (
+            <div className="mt-16 pt-8 border-t border-[rgba(255,255,255,0.08)]">
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
+                Related Notes
+              </h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {relatedNotes.map((note) => (
+                  <Link
+                    key={note.slug}
+                    href={`/notes/${note.slug}`}
+                    className="card-base p-6 group hover:border-[rgba(210,107,255,0.3)] transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-2 mb-4">
+                      <time className="text-xs text-[var(--text-muted)]">
+                        {new Date(note.frontMatter.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </time>
+                    </div>
+                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                      {note.frontMatter.title}
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                      {note.frontMatter.description}
+                    </p>
+                    {note.frontMatter.tags && (
+                      <div className="flex flex-wrap gap-2">
+                        {note.frontMatter.tags.slice(0, 3).map((tag) => (
+                          <Badge key={tag} variant="muted" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Related Resources */}
+          {relatedResources.length > 0 && (
+            <div className="mt-16 pt-8 border-t border-[rgba(255,255,255,0.08)]">
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
+                Related Resources
+              </h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {relatedResources.map((resource) => (
+                  <Link
+                    key={resource.slug}
+                    href={`/resources/${resource.slug}`}
+                    className="card-base p-6 group hover:border-[rgba(210,107,255,0.3)] transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-2 mb-4">
+                      <time className="text-xs text-[var(--text-muted)]">
+                        {new Date(resource.frontMatter.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </time>
+                    </div>
+                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                      {resource.frontMatter.title}
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                      {resource.frontMatter.description}
+                    </p>
+                    {resource.frontMatter.tags && (
+                      <div className="flex flex-wrap gap-2">
+                        {resource.frontMatter.tags.slice(0, 3).map((tag) => (
+                          <Badge key={tag} variant="muted" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </Link>
                 ))}
               </div>

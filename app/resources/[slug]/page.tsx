@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MdxRenderer } from "@/lib/content/mdxRenderer";
 import { getContentItem, getContentSlugs } from "@/lib/content/mdx";
 import { ArticleShell } from "@/components/layout/ArticleShell";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serializeMdx } from "@/lib/mdx/serialize";
+import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+
+// Skip static generation to avoid SSR issues with client components
+export const dynamic = 'force-dynamic';
 
 type Params = { slug: string };
 
@@ -69,7 +72,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<P
       tags={item.frontMatter.tags}
       backHref="/resources"
     >
-      <MdxRenderer source={source} />
+      <MdxRendererClient source={source} />
     </ArticleShell>
   );
 }

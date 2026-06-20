@@ -2,9 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ImageReveal } from "@/components/ui/ImageReveal";
+import dynamic from "next/dynamic";
 
 import { Sparkles, X } from "lucide-react";
+
+const ImageReveal = dynamic(() => import("@/components/ui/ImageReveal").then(mod => ({ default: mod.ImageReveal })), { ssr: false });
 
 const UNLOCK_WINDOW_MS = 1800; // 1.5–2s window
 

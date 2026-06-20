@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MdxRenderer } from "@/lib/content/mdxRenderer";
 import { getContentItem, getContentSlugs } from "@/lib/content/mdx";
 import { ArticleShell } from "@/components/layout/ArticleShell";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serializeMdx } from "@/lib/mdx/serialize";
+import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+
+// Skip static generation to avoid SSR issues with client components
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const slugs = getContentSlugs("build-log");
@@ -19,10 +21,7 @@ async function getSerializedItem(slug: string) {
 
   return {
     item,
-    source: source as MDXRemoteSerializeResult<
-      Record<string, unknown>,
-      Record<string, unknown>
-    >,
+    source,
   };
 }
 
@@ -69,6 +68,21 @@ export default async function BuildLogDetailPage({
 
   const { item, source } = data;
 
+  if (!item) {
+    return (
+      <section className="mx-auto max-w-3xl px-6 py-24">
+        <div className="card-base p-8 text-[var(--text-muted)] font-mono text-sm">
+          Build log not found.
+          <div className="mt-4">
+            <Link href="/build-log" className="text-[var(--accent-primary)] hover:underline">
+              Back to build log
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <ArticleShell
       title={item.frontMatter.title}
@@ -78,7 +92,7 @@ export default async function BuildLogDetailPage({
       tags={item.frontMatter.tags}
       backHref="/build-log"
     >
-      <MdxRenderer source={source} />
+      <MdxRendererClient source={source} />
     </ArticleShell>
   );
 }

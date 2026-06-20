@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ImageReveal } from "@/components/ui/ImageReveal";
+import dynamic from "next/dynamic";
 
 import { ArrowRight, Terminal } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { siteConfig } from "@/lib/site-config";
+
+const ImageReveal = dynamic(() => import("@/components/ui/ImageReveal").then(mod => ({ default: mod.ImageReveal })), { ssr: false });
 
 const easeOut = [0.22, 0.61, 0.36, 1] as const;
 

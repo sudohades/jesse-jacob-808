@@ -27,7 +27,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         className
       )}
     >
-      <Link href={`/shop/${product.slug}`} className="block h-full">
+      <Link href={`/shop/${product.slug}`} className="block">
         {/* Image */}
         {primaryImage && (
           <div className="relative aspect-[4/3] overflow-hidden bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)]">
@@ -102,24 +102,25 @@ export function ProductCard({ product, className }: ProductCardProps) {
               )}
             </div>
           )}
-
-          {/* Action */}
-          <div className="flex items-center gap-2 mt-auto">
-            <Button
-              variant="primary"
-              size="sm"
-              className="flex-1"
-              onClick={(e) => {
-                e.preventDefault();
-                addItem(product);
-              }}
-            >
-              <ShoppingCart size={14} />
-              Add to Cart
-            </Button>
-          </div>
         </div>
       </Link>
+
+      {/* Action - Outside Link */}
+      <div className="p-5 pt-0">
+        <Button
+          variant="primary"
+          size="sm"
+          className="w-full"
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log("Adding product:", product);
+            addItem(product);
+          }}
+        >
+          <ShoppingCart size={14} />
+          Add to Cart
+        </Button>
+      </div>
     </article>
   );
 }
