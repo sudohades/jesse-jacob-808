@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getProducts, getProductCategories } from "@/lib/products/get-products";
+import { getProducts, getProductCategories } from "@/lib/server/products/get-products";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";

@@ -1,27 +1,27 @@
-import fs from "fs";
-import path from "path";
-import { type Product } from "./product-types";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+import { readFileSync, readdirSync, existsSync } from "fs";
+import { join } from "path";
+import { type Product } from "../../products/product-types";
 import { getProducts } from "./get-products";
 
-const productsRoot = path.join(process.cwd(), "content", "products");
+export const runtime = "nodejs";
+
+const productsRoot = join(process.cwd(), "content", "products");
 
 /**
  * Get a single product by its slug.
  * Returns null if the product doesn't exist or is not published.
  */
 export function getProductBySlug(slug: string): Product | null {
-  if (!fs.existsSync(productsRoot)) {
+  if (!existsSync(productsRoot)) {
     return null;
   }
 
-  const productFiles = fs
-    .readdirSync(productsRoot)
+  const productFiles = readdirSync(productsRoot)
     .filter((f) => f.endsWith(".json"));
 
   for (const file of productFiles) {
-    const filePath = path.join(productsRoot, file);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const filePath = join(productsRoot, file);
+    const raw = readFileSync(filePath, "utf-8");
     
     try {
       const product = JSON.parse(raw) as Product;
@@ -46,17 +46,16 @@ export function getProductBySlug(slug: string): Product | null {
  * Returns null if the product doesn't exist or is not published.
  */
 export function getProductById(id: string): Product | null {
-  if (!fs.existsSync(productsRoot)) {
+  if (!existsSync(productsRoot)) {
     return null;
   }
 
-  const productFiles = fs
-    .readdirSync(productsRoot)
+  const productFiles = readdirSync(productsRoot)
     .filter((f) => f.endsWith(".json"));
 
   for (const file of productFiles) {
-    const filePath = path.join(productsRoot, file);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const filePath = join(productsRoot, file);
+    const raw = readFileSync(filePath, "utf-8");
     
     try {
       const product = JSON.parse(raw) as Product;

@@ -1,26 +1,27 @@
-import fs from "fs";
-import path from "path";
-import { type Service } from "@/lib/products/product-types";
+import { readFileSync, readdirSync, existsSync } from "fs";
+import { join } from "path";
+import { type Service } from "../../products/product-types";
 import { getServices } from "./get-services";
 
-const servicesRoot = path.join(process.cwd(), "content", "services");
+export const runtime = "nodejs";
+
+const servicesRoot = join(process.cwd(), "content", "services");
 
 /**
  * Get a single service by its slug.
  * Returns null if the service doesn't exist or is not published.
  */
 export function getServiceBySlug(slug: string): Service | null {
-  if (!fs.existsSync(servicesRoot)) {
+  if (!existsSync(servicesRoot)) {
     return null;
   }
 
-  const serviceFiles = fs
-    .readdirSync(servicesRoot)
+  const serviceFiles = readdirSync(servicesRoot)
     .filter((f) => f.endsWith(".json"));
 
   for (const file of serviceFiles) {
-    const filePath = path.join(servicesRoot, file);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const filePath = join(servicesRoot, file);
+    const raw = readFileSync(filePath, "utf-8");
     
     try {
       const service = JSON.parse(raw) as Service;
@@ -45,17 +46,16 @@ export function getServiceBySlug(slug: string): Service | null {
  * Returns null if the service doesn't exist or is not published.
  */
 export function getServiceById(id: string): Service | null {
-  if (!fs.existsSync(servicesRoot)) {
+  if (!existsSync(servicesRoot)) {
     return null;
   }
 
-  const serviceFiles = fs
-    .readdirSync(servicesRoot)
+  const serviceFiles = readdirSync(servicesRoot)
     .filter((f) => f.endsWith(".json"));
 
   for (const file of serviceFiles) {
-    const filePath = path.join(servicesRoot, file);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const filePath = join(servicesRoot, file);
+    const raw = readFileSync(filePath, "utf-8");
     
     try {
       const service = JSON.parse(raw) as Service;

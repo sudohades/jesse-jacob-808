@@ -1,5 +1,5 @@
-import { getAllContent } from "@/lib/content/mdx";
-import type { ProjectFrontMatter } from "@/lib/content/mdx";
+import { getAllContent } from "@/lib/server/content/mdx";
+import type { ProjectFrontMatter } from "@/lib/server/content/mdx";
 
 export interface ProjectItem {
   slug: string;

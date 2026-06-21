@@ -1,4 +1,4 @@
-import { getAllContent, type ContentItem, type ContentType } from "./mdx";
+import { getAllContent, type ContentItem, type ContentType } from "../server/content/mdx";
 
 const contentTypes: ContentType[] = ["blog", "notes", "build-log"];
 

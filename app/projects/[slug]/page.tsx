@@ -6,7 +6,7 @@ import { getProjectBySlug, getProjects } from "@/lib/projects/get-projects";
 import { generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Calendar, Github, ExternalLink } from "lucide-react";
-import { serialize } from "next-mdx-remote/serialize";
+import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
 
 // Skip static generation to avoid SSR issues with client components
@@ -46,12 +46,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const mdxSource = await serialize(project.content, {
-    mdxOptions: {
-      remarkPlugins: [],
-      rehypePlugins: [],
-    },
-  });
+  const mdxSource = await serializeMdx(project.content);
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
     { name: "Home", url: "/" },

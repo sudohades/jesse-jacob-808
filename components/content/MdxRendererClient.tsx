@@ -1,10 +1,9 @@
 "use client";
 
 import { MdxRenderer } from "@/lib/content/mdxRenderer";
-import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 type MdxRendererClientProps = {
-  source: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>;
+  source: { content: string; frontmatter?: Record<string, unknown> };
 };
 
 export function MdxRendererClient({ source }: MdxRendererClientProps) {

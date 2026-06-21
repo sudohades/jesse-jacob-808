@@ -1,6 +1,8 @@
-import fs   from "fs";
-import path from "path";
+import { readFileSync, readdirSync, existsSync } from "fs";
+import { join } from "path";
 import matter from "gray-matter";
+
+export const runtime = "nodejs";
 
 export type ContentType = "blog" | "notes" | "build-log" | "resources" | "projects";
 
@@ -34,27 +36,26 @@ export interface ContentItem {
   content:      string;
 }
 
-const contentRoot = path.join(process.cwd(), "content");
+const contentRoot = join(process.cwd(), "content");
 
 export function getContentSlugs(type: ContentType): string[] {
-  const dir = path.join(contentRoot, type);
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
+  const dir = join(contentRoot, type);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
     .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
     .map((f) => f.replace(/\.(mdx|md)$/, ""));
 }
 
 export function getContentItem(type: ContentType, slug: string): ContentItem | null {
-  const mdxPath = path.join(contentRoot, type, `${slug}.mdx`);
-  const mdPath = path.join(contentRoot, type, `${slug}.md`);
+  const mdxPath = join(contentRoot, type, `${slug}.mdx`);
+  const mdPath = join(contentRoot, type, `${slug}.md`);
   
-  const filePath = fs.existsSync(mdxPath) ? mdxPath : mdPath;
+  const filePath = existsSync(mdxPath) ? mdxPath : mdPath;
 
-  if (!fs.existsSync(filePath)) return null;
+  if (!existsSync(filePath)) return null;
 
   try {
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const raw = readFileSync(filePath, "utf-8");
     const { data, content } = matter(raw);
 
     return {

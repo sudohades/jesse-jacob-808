@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getContentItem, getContentSlugs } from "@/lib/content/mdx";
+import { getContentItem, getContentSlugs } from "@/lib/server/content/mdx";
 import { ArticleShell } from "@/components/layout/ArticleShell";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
@@ -24,7 +23,7 @@ async function getSerializedItem(slug: string) {
 
   return {
     item,
-    source: source as MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>,
+    source,
   };
 }
 

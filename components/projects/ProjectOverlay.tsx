@@ -3,9 +3,8 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Github, ExternalLink, Calendar, Tag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { serialize } from "next-mdx-remote/serialize";
+import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRenderer } from "@/lib/content/mdxRenderer";
-import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { ProjectItem } from "@/lib/projects/get-projects";
 
 interface ProjectOverlayProps {
@@ -21,10 +20,7 @@ export function ProjectOverlay({
 }: ProjectOverlayProps) {
   const [mdxSource, setMdxSource] =
     useState<
-      MDXRemoteSerializeResult<
-        Record<string, unknown>,
-        Record<string, unknown>
-      > | null
+      { content: string; frontmatter?: Record<string, unknown> } | null
     >(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -44,12 +40,7 @@ export function ProjectOverlay({
       setIsLoading(true);
 
       try {
-        const source = await serialize(project.content, {
-          mdxOptions: {
-            remarkPlugins: [],
-            rehypePlugins: [],
-          },
-        });
+        const source = await serializeMdx(project.content);
 
         setMdxSource(source);
       } catch (error) {

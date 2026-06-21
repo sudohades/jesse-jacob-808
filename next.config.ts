@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   experimental: {
     mdxRs: true,
   },
+  serverExternalPackages: [],
+  output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],

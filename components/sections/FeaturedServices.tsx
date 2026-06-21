@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FadeInUp, StaggerContainer } from "@/components/animations/FadeInUp";
-import { getFeaturedServices } from "@/lib/services/get-services";
+import { getFeaturedServices } from "@/lib/server/services/get-services";
 
 export function FeaturedServices() {
   const services = getFeaturedServices().slice(0, 3);

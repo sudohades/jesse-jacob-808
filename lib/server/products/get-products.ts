@@ -1,8 +1,10 @@
-import fs from "fs";
-import path from "path";
-import { type Product, type ProductCategory, type ProductType } from "./product-types";
+import { readFileSync, readdirSync, existsSync } from "fs";
+import { join } from "path";
+import { type Product, type ProductCategory, type ProductType } from "../../products/product-types";
 
-const productsRoot = path.join(process.cwd(), "content", "products");
+export const runtime = "nodejs";
+
+const productsRoot = join(process.cwd(), "content", "products");
 
 /**
  * Get all published products.
@@ -13,19 +15,18 @@ export function getProducts(options?: {
   type?: ProductType;
   featured?: boolean;
 }): Product[] {
-  if (!fs.existsSync(productsRoot)) {
+  if (!existsSync(productsRoot)) {
     return [];
   }
 
-  const productFiles = fs
-    .readdirSync(productsRoot)
+  const productFiles = readdirSync(productsRoot)
     .filter((f) => f.endsWith(".json"));
 
   const products: Product[] = [];
 
   for (const file of productFiles) {
-    const filePath = path.join(productsRoot, file);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const filePath = join(productsRoot, file);
+    const raw = readFileSync(filePath, "utf-8");
     
     try {
       const product = JSON.parse(raw) as Product;

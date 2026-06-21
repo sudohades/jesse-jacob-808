@@ -1,8 +1,10 @@
-import fs from "fs";
-import path from "path";
-import { type Service, type ServiceCategory } from "@/lib/products/product-types";
+import { readFileSync, readdirSync, existsSync } from "fs";
+import { join } from "path";
+import { type Service, type ServiceCategory } from "../../products/product-types";
 
-const servicesRoot = path.join(process.cwd(), "content", "services");
+export const runtime = "nodejs";
+
+const servicesRoot = join(process.cwd(), "content", "services");
 
 /**
  * Get all published services.
@@ -12,19 +14,18 @@ export function getServices(options?: {
   category?: ServiceCategory;
   featured?: boolean;
 }): Service[] {
-  if (!fs.existsSync(servicesRoot)) {
+  if (!existsSync(servicesRoot)) {
     return [];
   }
 
-  const serviceFiles = fs
-    .readdirSync(servicesRoot)
+  const serviceFiles = readdirSync(servicesRoot)
     .filter((f) => f.endsWith(".json"));
 
   const services: Service[] = [];
 
   for (const file of serviceFiles) {
-    const filePath = path.join(servicesRoot, file);
-    const raw = fs.readFileSync(filePath, "utf-8");
+    const filePath = join(servicesRoot, file);
+    const raw = readFileSync(filePath, "utf-8");
     
     try {
       const service = JSON.parse(raw) as Service;

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FadeInUp, StaggerContainer } from "@/components/animations/FadeInUp";
-import { getFeaturedProducts } from "@/lib/products/get-products";
+import { getFeaturedProducts } from "@/lib/server/products/get-products";
 import { Badge } from "@/components/ui/Badge";
 
 export function FeaturedProducts() {

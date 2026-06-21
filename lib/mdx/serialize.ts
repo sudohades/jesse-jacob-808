@@ -1,24 +1,10 @@
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
-import remarkGfm from "remark-gfm";
-
 /**
- * Centralized MDX serialization configuration.
- * Ensures consistent parsing across all content types (blog, build-log, notes, resources).
- *
- * Features enabled:
- * - GitHub Flavored Markdown (tables, task lists, strikethrough, etc.)
- * - Robust parsing for technical content (code blocks, numeric literals, etc.)
+ * Temporary safe mode: Return raw content until @next/mdx migration complete.
+ * This prevents MDX runtime eval errors during the architectural refactoring.
  */
 export async function serializeMdx(
   content: string
-): Promise<MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>> {
-  return serialize(content, {
-    parseFrontmatter: false,
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      // Add rehype plugins here if needed in the future
-      rehypePlugins: [],
-    },
-  });
+): Promise<{ content: string; frontmatter?: Record<string, unknown> }> {
+  // Return raw content temporarily - MDX rendering will be updated after migration
+  return { content };
 }

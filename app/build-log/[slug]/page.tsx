@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getContentItem, getContentSlugs } from "@/lib/content/mdx";
+import { getContentItem, getContentSlugs } from "@/lib/server/content/mdx";
 import { ArticleShell } from "@/components/layout/ArticleShell";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";

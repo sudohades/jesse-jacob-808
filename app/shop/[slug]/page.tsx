@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getProductBySlug, getRelatedProducts } from "@/lib/products/get-product-by-slug";
+import { getProductBySlug, getRelatedProducts } from "@/lib/server/products/get-product-by-slug";
 import { generateProductStructuredData, generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Download, Package, Check } from "lucide-react";
