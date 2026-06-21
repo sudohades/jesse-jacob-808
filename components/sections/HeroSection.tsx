@@ -127,6 +127,8 @@ export function HeroSection() {
                 <ImageReveal
                   src="/profile/profile.jpg"
                   alt="Profile"
+                  mode="reveal"
+                  aspectRatio="1 / 1.05"
                   sizes="(max-width: 1024px) 320px, 360px"
                   priority
                   pixelSize={7}

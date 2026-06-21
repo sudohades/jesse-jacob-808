@@ -7,6 +7,8 @@ import Link from "next/link";
 import { ArrowLeft, Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 
+export const dynamic = 'force-dynamic';
+
 export default function CartPage() {
   const { cart, removeItem, updateQuantity, clearCart } = useCart();
 
@@ -76,7 +78,7 @@ export default function CartPage() {
                       src={item.product.images[0].url}
                       alt={item.product.images[0].alt}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       sizes="96px"
                     />
                   </div>

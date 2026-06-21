@@ -1,8 +1,8 @@
 export const siteConfig = {
   // Identity
   name:      "Jesse Jacob",
-  brand:     "sudo-hades",
-  handle:    "@sudo-hades",
+  brand:     "sudo_hades",
+  handle:    "@sudo_hades",
   domain:    "sudo-hades.dev",
   baseUrl:   "https://sudo-hades.dev",
 

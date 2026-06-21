@@ -159,12 +159,11 @@ export function AboutEasterEgg() {
                         <ImageReveal
                           src="/images/og-default.png"
                           alt="Unlocked secret image"
+                          mode="static"
+                          aspectRatio="16 / 9"
                           sizes="(max-width: 768px) 92vw, 620px"
                           priority
-                          pixelSize={10}
-                          transitionMs={900}
                           className="relative overflow-hidden rounded-[12px]"
-                          style={{ objectFit: "contain" }}
                         />
                       </motion.div>
                     ) : (

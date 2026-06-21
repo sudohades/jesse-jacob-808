@@ -3,9 +3,14 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-type PixelRevealProps = {
+type ImageRevealMode = "reveal" | "static";
+
+type ImageRevealProps = {
   src: string;
   alt: string;
+  mode?: ImageRevealMode;
+  aspectRatio?: string;
+  // Reveal mode only props
   className?: string;
   sizes?: string;
   priority?: boolean;
@@ -20,21 +25,24 @@ type PixelRevealProps = {
 export function ImageReveal({
   src,
   alt,
+  mode = "reveal",
+  aspectRatio = "1 / 1",
   className,
   sizes,
   priority,
   style,
   pixelSize = 8,
   transitionMs = 900,
-}: PixelRevealProps) {
+}: ImageRevealProps) {
+  // Hooks must be called unconditionally at the top level
   const [loaded, setLoaded] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
   const seed = useMemo(() => Math.floor(Math.random() * 1_000_000), []);
 
+  // Canvas animation effect - only runs in reveal mode
   useEffect(() => {
-    if (!loaded) return;
+    if (mode !== "reveal" || !loaded) return;
     setRevealed(false);
 
     const canvas = canvasRef.current;
@@ -149,7 +157,34 @@ export function ImageReveal({
     return () => {
       cancelAnimationFrame(raf);
     };
-  }, [loaded, pixelSize, transitionMs, seed, src]);
+  }, [mode, loaded, pixelSize, transitionMs, seed, src]);
+
+  // Static mode: simple image renderer, no canvas, no animation
+  if (mode === "static") {
+    return (
+      <div
+        className={className}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "auto",
+          aspectRatio: aspectRatio || undefined,
+          ...style,
+        }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-contain w-full h-full"
+          sizes={sizes}
+          priority={priority}
+        />
+      </div>
+    );
+  }
+
+  // Reveal mode: canvas-based pixel animation system
 
   return (
     <div
@@ -160,7 +195,7 @@ export function ImageReveal({
         // Ensure the parent has a concrete height; otherwise next/image(fill) may render with near-zero height.
         minHeight: 1,
         height: "auto",
-        aspectRatio: "1 / 1",
+        aspectRatio: aspectRatio ?? "1 / 1",
         ...style,
       }}
     >
@@ -171,7 +206,7 @@ export function ImageReveal({
         fill
         sizes={sizes}
         priority={priority}
-        className="object-cover select-none"
+        className="select-none object-cover"
         onLoad={() => {
           setLoaded(true);
           // Keep the image visible even if the pixel-canvas effect stalls.
