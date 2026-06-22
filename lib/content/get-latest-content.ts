@@ -1,5 +1,7 @@
 import { getAllContent, type ContentItem, type ContentType } from "../server/internal/mdx";
 
+export const runtime = "nodejs";
+
 const contentTypes: ContentType[] = ["blog", "notes", "build-log"];
 
 export interface LatestContentItem {

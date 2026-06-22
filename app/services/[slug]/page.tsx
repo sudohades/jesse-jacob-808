@@ -12,6 +12,8 @@ interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
   const res = await fetch(`${siteConfig.baseUrl}/api/services?slug=${slug}`, { cache: "no-store" });

@@ -12,6 +12,8 @@ export const metadata: Metadata = buildMetadata({
   path:        "/resources",
 });
 
+export const dynamic = 'force-dynamic';
+
 export default async function ResourcesPage() {
   const res = await fetch(`${siteConfig.baseUrl}/api/content/resources?type=resources&all=true`, { cache: "no-store" });
   const items = await res.json();

@@ -12,6 +12,8 @@ export const metadata: Metadata = buildMetadata({
   path:        "/blog",
 });
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPage() {
   const res = await fetch(`${siteConfig.baseUrl}/api/content/blog?type=blog&all=true`, { cache: "no-store" });
   const posts = await res.json();

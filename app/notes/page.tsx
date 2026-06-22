@@ -12,6 +12,8 @@ export const metadata: Metadata = buildMetadata({
   path:        "/notes",
 });
 
+export const dynamic = 'force-dynamic';
+
 export default async function NotesPage() {
   const res = await fetch(`${siteConfig.baseUrl}/api/content/notes?type=notes&all=true`, { cache: "no-store" });
   const notes = await res.json();

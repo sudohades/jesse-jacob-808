@@ -12,6 +12,8 @@ export const metadata: Metadata = buildMetadata({
   path:        "/build-log",
 });
 
+export const dynamic = 'force-dynamic';
+
 export default async function BuildLogPage() {
   const res = await fetch(`${siteConfig.baseUrl}/api/content/build-log?type=build-log&all=true`, { cache: "no-store" });
   const logs = await res.json();

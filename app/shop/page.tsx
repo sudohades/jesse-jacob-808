@@ -13,6 +13,8 @@ export const metadata: Metadata = buildMetadata({
   path: "/shop",
 });
 
+export const dynamic = 'force-dynamic';
+
 export default async function ShopPage() {
   const res = await fetch(`${siteConfig.baseUrl}/api/products`, { cache: "no-store" });
   const allProducts = await res.json();

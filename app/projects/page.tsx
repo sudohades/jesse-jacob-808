@@ -9,6 +9,8 @@ export const metadata: Metadata = buildMetadata({
   path:        "/projects",
 });
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProjectsPage() {
   const res = await fetch(`${siteConfig.baseUrl}/api/content/projects?type=projects&all=true`, { cache: "no-store" });
   const projects = await res.json();

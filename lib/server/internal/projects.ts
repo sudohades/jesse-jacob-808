@@ -1,6 +1,8 @@
 import { getAllContent } from "./mdx";
 import type { ProjectItem, ProjectFrontMatter } from "../../types/project";
 
+export const runtime = "nodejs";
+
 export function getProjects(): ProjectItem[] {
   const allContent = getAllContent("projects");
   

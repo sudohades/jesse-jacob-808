@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
-    mdxRs: true,
+    // Removed mdxRs to prevent CommonJS bundling issues with gray-matter
   },
-  serverExternalPackages: [],
+  serverExternalPackages: ["gray-matter"],
   output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
