@@ -3,7 +3,7 @@
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { Badge } from "@/components/ui/Badge";
-import type { ProjectItem } from "@/lib/projects/get-projects";
+import type { ProjectItem } from "@/lib/types/project";
 
 interface ProjectCardProps {
   project: ProjectItem;

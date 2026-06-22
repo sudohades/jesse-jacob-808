@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getServiceBySlug, getRelatedServices } from "@/lib/server/services/get-service-by-slug";
 import { generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
-import { getAllContent } from "@/lib/server/content/mdx";
-import { getProjects } from "@/lib/projects/get-projects";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Check, Clock, DollarSign } from "lucide-react";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
+import { siteConfig } from "@/lib/site-config";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -16,7 +14,8 @@ interface ServicePageProps {
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/services?slug=${slug}`, { cache: "no-store" });
+  const service = await res.json();
 
   if (!service) {
     return buildMetadata({ title: "Service Not Found", path: "/services" });
@@ -31,16 +30,25 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/services?slug=${slug}`, { cache: "no-store" });
+  const service = await res.json();
 
   if (!service) {
     notFound();
   }
 
-  const relatedServices = getRelatedServices(service, 3);
-  const relatedProjects = getProjects().slice(0, 3);
-  const relatedNotes = getAllContent("notes").slice(0, 3);
-  const relatedResources = getAllContent("resources").slice(0, 3);
+  const relatedRes = await fetch(`${siteConfig.baseUrl}/api/services?relatedTo=${slug}&limit=3`, { cache: "no-store" });
+  const relatedServices = await relatedRes.json();
+  
+  const projectsRes = await fetch(`${siteConfig.baseUrl}/api/content/projects?type=projects&all=true`, { cache: "no-store" });
+  const allProjects = await projectsRes.json();
+  const relatedProjects = allProjects.slice(0, 3);
+  
+  const notesRes = await fetch(`${siteConfig.baseUrl}/api/content/notes?type=notes&all=true`, { cache: "no-store" });
+  const relatedNotes = (await notesRes.json()).slice(0, 3);
+  
+  const resourcesRes = await fetch(`${siteConfig.baseUrl}/api/content/resources?type=resources&all=true`, { cache: "no-store" });
+  const relatedResources = (await resourcesRes.json()).slice(0, 3);
 
   // Generate structured data
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
@@ -118,7 +126,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     Deliverables
                   </h3>
                   <ul className="space-y-2">
-                    {service.deliverables.map((deliverable, index) => (
+                    {service.deliverables.map((deliverable: any, index: number) => (
                       <li key={index} className="flex items-start gap-3 text-[var(--text-secondary)]">
                         <Check size={16} className="text-[var(--accent-primary)] mt-0.5 flex-shrink-0" />
                         <span>{deliverable}</span>
@@ -135,7 +143,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     Requirements
                   </h3>
                   <ul className="space-y-2">
-                    {service.requirements.map((requirement, index) => (
+                    {service.requirements.map((requirement: any, index: number) => (
                       <li key={index} className="flex items-start gap-3 text-[var(--text-secondary)]">
                         <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)]" aria-hidden />
                         <span>{requirement}</span>
@@ -168,7 +176,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 Related Services
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {relatedServices.map((relatedService) => (
+                {relatedServices.map((relatedService: any) => (
                   <Link
                     key={relatedService.id}
                     href={`/services/${relatedService.slug}`}
@@ -207,7 +215,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 Related Projects
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {relatedProjects.map((project) => (
+                {relatedProjects.map((project: any) => (
                   <Link
                     key={project.slug}
                     href={`/projects/${project.slug}`}
@@ -225,7 +233,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       {project.frontMatter.summary}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {project.frontMatter.technologies.slice(0, 3).map((tech) => (
+                      {project.frontMatter.technologies.slice(0, 3).map((tech: any) => (
                         <span key={tech} className="text-xs text-[var(--text-muted)] font-mono">
                           {tech}
                         </span>
@@ -244,7 +252,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 Related Notes
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {relatedNotes.map((note) => (
+                {relatedNotes.map((note: any) => (
                   <Link
                     key={note.slug}
                     href={`/notes/${note.slug}`}
@@ -267,7 +275,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     </p>
                     {note.frontMatter.tags && (
                       <div className="flex flex-wrap gap-2">
-                        {note.frontMatter.tags.slice(0, 3).map((tag) => (
+                        {note.frontMatter.tags.slice(0, 3).map((tag: any) => (
                           <Badge key={tag} variant="muted" className="text-xs">
                             {tag}
                           </Badge>
@@ -287,7 +295,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 Related Resources
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {relatedResources.map((resource) => (
+                {relatedResources.map((resource: any) => (
                   <Link
                     key={resource.slug}
                     href={`/resources/${resource.slug}`}
@@ -310,7 +318,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     </p>
                     {resource.frontMatter.tags && (
                       <div className="flex flex-wrap gap-2">
-                        {resource.frontMatter.tags.slice(0, 3).map((tag) => (
+                        {resource.frontMatter.tags.slice(0, 3).map((tag: any) => (
                           <Badge key={tag} variant="muted" className="text-xs">
                             {tag}
                           </Badge>

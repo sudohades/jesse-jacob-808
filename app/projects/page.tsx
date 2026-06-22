@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getProjects } from "@/lib/projects/get-projects";
 import { ProjectsSectionClient } from "@/components/sections/ProjectsSectionClient";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Projects",
@@ -9,8 +9,9 @@ export const metadata: Metadata = buildMetadata({
   path:        "/projects",
 });
 
-export default function ProjectsPage() {
-  const projects = getProjects();
+export default async function ProjectsPage() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/projects?type=projects&all=true`, { cache: "no-store" });
+  const projects = await res.json();
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">

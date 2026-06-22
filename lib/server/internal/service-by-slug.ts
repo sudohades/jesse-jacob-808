@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
 import { type Service } from "../../products/product-types";
-import { getServices } from "./get-services";
+import { getServices } from "./services";
 
 export const runtime = "nodejs";
 

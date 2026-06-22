@@ -5,7 +5,7 @@ import { X, Github, ExternalLink, Calendar, Tag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRenderer } from "@/lib/content/mdxRenderer";
-import type { ProjectItem } from "@/lib/projects/get-projects";
+import type { ProjectItem } from "@/lib/types/project";
 
 interface ProjectOverlayProps {
   project: ProjectItem | null;

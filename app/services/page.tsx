@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getServices, getServiceCategories } from "@/lib/server/services/get-services";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, Clock, DollarSign } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Services",
@@ -13,10 +13,13 @@ export const metadata: Metadata = buildMetadata({
   path:        "/services",
 });
 
-export default function ServicesPage() {
-  const allServices = getServices();
-  const featuredServices = allServices.filter((s) => s.featured);
-  const categories = getServiceCategories();
+export default async function ServicesPage() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/services`, { cache: "no-store" });
+  const allServices = await res.json();
+  const featuredServices = allServices.filter((s: any) => s.featured);
+  
+  const categoriesRes = await fetch(`${siteConfig.baseUrl}/api/services?categories=true`, { cache: "no-store" });
+  const categories = await categoriesRes.json();
 
   return (
     <section className="relative px-6 py-24">
@@ -36,7 +39,7 @@ export default function ServicesPage() {
               All Services
             </Button>
           </Link>
-          {categories.map((category) => (
+          {categories.map((category: any) => (
             <Link key={category} href={`/services?category=${category}`}>
               <Button variant="ghost" size="sm">
                 {category}
@@ -57,7 +60,7 @@ export default function ServicesPage() {
               </h2>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {featuredServices.map((service) => (
+              {featuredServices.map((service: any) => (
                 <ServiceCard key={service.id} service={service} />
               ))}
             </div>
@@ -75,7 +78,7 @@ export default function ServicesPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {allServices.map((service) => (
+              {allServices.map((service: any) => (
                 <ServiceCard key={service.id} service={service} />
               ))}
             </div>

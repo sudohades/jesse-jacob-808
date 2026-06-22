@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getProjectBySlug, getProjects } from "@/lib/projects/get-projects";
 import { generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Calendar, Github, ExternalLink } from "lucide-react";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { siteConfig } from "@/lib/site-config";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
@@ -18,7 +18,8 @@ interface ProjectPageProps {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=projects`, { cache: "no-store" });
+  const project = await res.json();
 
   if (!project) {
     return buildMetadata({ title: "Project Not Found", path: "/projects" });
@@ -31,16 +32,10 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   });
 }
 
-export async function generateStaticParams() {
-  const projects = getProjects();
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=projects`, { cache: "no-store" });
+  const project = await res.json();
 
   if (!project) {
     notFound();
@@ -73,7 +68,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <Badge variant="status" dot>
                 {project.frontMatter.status}
               </Badge>
-              {project.frontMatter.tags.map((tag) => (
+              {project.frontMatter.tags.map((tag: any) => (
                 <Badge key={tag} variant="muted" className="text-xs">
                   {tag}
                 </Badge>
@@ -133,7 +128,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.08)]">
             <div className="flex flex-wrap gap-2">
-              {project.frontMatter.technologies.map((tech) => (
+              {project.frontMatter.technologies.map((tech: any) => (
                 <span
                   key={tech}
                   className="font-mono text-xs tracking-wider uppercase text-[var(--text-muted)] border border-[rgba(255,255,255,0.08)] rounded-full px-3 py-1 bg-[rgba(15,15,15,0.35)] backdrop-blur-xl"

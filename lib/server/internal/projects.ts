@@ -1,11 +1,5 @@
-import { getAllContent } from "@/lib/server/content/mdx";
-import type { ProjectFrontMatter } from "@/lib/server/content/mdx";
-
-export interface ProjectItem {
-  slug: string;
-  frontMatter: ProjectFrontMatter;
-  content: string;
-}
+import { getAllContent } from "./mdx";
+import type { ProjectItem, ProjectFrontMatter } from "../../types/project";
 
 export function getProjects(): ProjectItem[] {
   const allContent = getAllContent("projects");

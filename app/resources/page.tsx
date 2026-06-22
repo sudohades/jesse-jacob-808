@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getAllContent } from "@/lib/server/content/mdx";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowRight } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Resources",
@@ -12,8 +12,9 @@ export const metadata: Metadata = buildMetadata({
   path:        "/resources",
 });
 
-export default function ResourcesPage() {
-  const items = getAllContent("resources");
+export default async function ResourcesPage() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/resources?type=resources&all=true`, { cache: "no-store" });
+  const items = await res.json();
 
   return (
     <section className="relative px-6 py-24">
@@ -32,7 +33,7 @@ export default function ResourcesPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {items.map((i) => (
+            {items.map((i: any) => (
               <article key={i.slug} className="card-base p-6">
                 <div className="flex items-center justify-between gap-4">
                   <Badge variant="muted">{i.frontMatter.date}</Badge>

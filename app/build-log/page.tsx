@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getAllContent } from "@/lib/server/content/mdx";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowRight } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Build Log",
@@ -12,8 +12,9 @@ export const metadata: Metadata = buildMetadata({
   path:        "/build-log",
 });
 
-export default function BuildLogPage() {
-  const logs = getAllContent("build-log");
+export default async function BuildLogPage() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/build-log?type=build-log&all=true`, { cache: "no-store" });
+  const logs = await res.json();
 
   return (
     <section className="relative px-6 py-24">
@@ -32,7 +33,7 @@ export default function BuildLogPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-             {logs.map((l) => (
+             {logs.map((l: any) => (
               <article key={l.slug} className="card-base p-6">
                 <div className="flex items-center justify-between gap-4">
                   <Badge variant="muted">{l.frontMatter.date}</Badge>
@@ -54,7 +55,7 @@ export default function BuildLogPage() {
 
                 {l.frontMatter.tags?.length ? (
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {l.frontMatter.tags.map((t) => (
+                    {l.frontMatter.tags.map((t: any) => (
                       <span
                         key={t}
                         className="font-mono text-[0.6rem] tracking-wider uppercase text-[var(--text-muted)] border border-[rgba(255,255,255,0.08)] rounded-full px-2 py-0.5 bg-[rgba(15,15,15,0.35)] backdrop-blur-xl"

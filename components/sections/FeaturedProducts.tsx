@@ -2,11 +2,12 @@ import Link from "next/link";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FadeInUp, StaggerContainer } from "@/components/animations/FadeInUp";
-import { getFeaturedProducts } from "@/lib/server/products/get-products";
 import { Badge } from "@/components/ui/Badge";
+import { siteConfig } from "@/lib/site-config";
 
-export function FeaturedProducts() {
-  const products = getFeaturedProducts().slice(0, 3);
+export async function FeaturedProducts() {
+  const res = await fetch(siteConfig.baseUrl + "/api/products?featured=true", { cache: "no-store" });
+  const products = (await res.json()).slice(0, 3);
 
   if (products.length === 0) return null;
 
@@ -35,10 +36,10 @@ export function FeaturedProducts() {
           delayStart={0.1}
           className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {products.map((product) => (
+          {products.map((product: any) => (
             <Link
               key={product.id}
-              href={`/shop/${product.slug}`}
+              href={"/shop/" + product.slug}
               className="card-base group p-6 transition-all duration-300 hover:shadow-[0_0_24px_rgba(210,107,255,0.15)] hover:border-[rgba(210,107,255,0.3)]"
             >
               <div className="mb-4 flex items-start justify-between">

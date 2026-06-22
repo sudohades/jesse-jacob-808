@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ProjectOverlay } from "@/components/projects/ProjectOverlay";
-import type { ProjectItem } from "@/lib/projects/get-projects";
+import type { ProjectItem } from "@/lib/types/project";
 
 interface ProjectsSectionClientProps {
   projects: ProjectItem[];

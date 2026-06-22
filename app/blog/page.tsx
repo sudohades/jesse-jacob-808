@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getAllContent } from "@/lib/server/content/mdx";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowRight } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Blog",
@@ -12,8 +12,9 @@ export const metadata: Metadata = buildMetadata({
   path:        "/blog",
 });
 
-export default function BlogPage() {
-  const posts = getAllContent("blog");
+export default async function BlogPage() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/blog?type=blog&all=true`, { cache: "no-store" });
+  const posts = await res.json();
 
   return (
     <section className="relative px-6 py-24">
@@ -32,7 +33,7 @@ export default function BlogPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {posts.map((p) => (
+            {posts.map((p: any) => (
               <article key={p.slug} className="card-base p-6 hover:cursor-pointer group">
                 <div className="flex items-center justify-between gap-4">
                   <Badge variant="muted">{p.frontMatter.date}</Badge>

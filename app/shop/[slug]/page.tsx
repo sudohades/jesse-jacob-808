@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getProductBySlug, getRelatedProducts } from "@/lib/server/products/get-product-by-slug";
 import { generateProductStructuredData, generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Download, Package, Check } from "lucide-react";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
+import { siteConfig } from "@/lib/site-config";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -16,7 +16,8 @@ interface ProductPageProps {
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/products?slug=${slug}`, { cache: "no-store" });
+  const product = await res.json();
 
   if (!product) {
     return buildMetadata({ title: "Product Not Found", path: "/shop" });
@@ -32,13 +33,15 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/products?slug=${slug}`, { cache: "no-store" });
+  const product = await res.json();
 
   if (!product) {
     notFound();
   }
 
-  const relatedProducts = getRelatedProducts(product, 3);
+  const relatedRes = await fetch(`${siteConfig.baseUrl}/api/products?relatedTo=${slug}&limit=3`, { cache: "no-store" });
+  const relatedProducts = await relatedRes.json();
   const isDigital = product.type === "digital";
 
   // Generate structured data
@@ -86,7 +89,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             )}
             {product.images.length > 1 && (
               <div className="grid grid-cols-4 gap-3">
-                {product.images.slice(1).map((image, index) => (
+                {product.images.slice(1).map((image: any, index: number) => (
                   <div key={index} className="relative aspect-square overflow-hidden rounded bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)]">
                     <Image
                       src={image.url}
@@ -146,7 +149,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   Features
                 </h3>
                 <ul className="space-y-2">
-                  {product.features.map((feature, index) => (
+                  {product.features.map((feature: any, index: number) => (
                     <li key={index} className="flex items-start gap-3 text-[var(--text-secondary)]">
                       <Check size={16} className="text-[var(--accent-primary)] mt-0.5 flex-shrink-0" />
                       <span>{feature}</span>
@@ -188,7 +191,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {product.tags.length > 0 && (
               <div className="pt-4 border-t border-[rgba(255,255,255,0.08)]">
                 <div className="flex flex-wrap gap-2">
-                  {product.tags.map((tag) => (
+                  {product.tags.map((tag: any) => (
                     <span
                       key={tag}
                       className="text-[0.65rem] font-mono text-[var(--text-muted)] border border-[rgba(255,255,255,0.08)] rounded px-2 py-1 bg-[rgba(15,15,15,0.35)] backdrop-blur-xl"
@@ -221,7 +224,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               Related Products
             </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {relatedProducts.map((relatedProduct) => (
+              {relatedProducts.map((relatedProduct: any) => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
             </div>

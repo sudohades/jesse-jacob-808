@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getAllContent } from "@/lib/server/content/mdx";
 import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowRight } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Notes",
@@ -12,8 +12,9 @@ export const metadata: Metadata = buildMetadata({
   path:        "/notes",
 });
 
-export default function NotesPage() {
-  const notes = getAllContent("notes");
+export default async function NotesPage() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/notes?type=notes&all=true`, { cache: "no-store" });
+  const notes = await res.json();
 
   return (
     <section className="relative px-6 py-24">
@@ -32,7 +33,7 @@ export default function NotesPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {notes.map((n) => (
+            {notes.map((n: any) => (
               <article key={n.slug} className="card-base p-6">
                 <div className="flex items-center justify-between gap-4">
                   <Badge variant="muted">{n.frontMatter.date}</Badge>

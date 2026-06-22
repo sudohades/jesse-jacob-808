@@ -2,10 +2,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ProjectsSectionClient } from "./ProjectsSectionClient";
-import { getFeaturedProjects } from "@/lib/projects/get-projects";
+import { siteConfig } from "@/lib/site-config";
 
-export function ProjectsSection() {
-  const projects = getFeaturedProjects(6);
+export async function ProjectsSection() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/projects?type=projects&all=true`, { cache: "no-store" });
+  const allProjects = await res.json();
+  const projects = allProjects.filter((p: any) => p.frontMatter.status === "active" || p.frontMatter.status === "ongoing").slice(0, 6);
 
   return (
     <section className="relative px-6 py-24" aria-labelledby="projects-heading">

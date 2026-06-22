@@ -2,10 +2,11 @@ import Link from "next/link";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FadeInUp, StaggerContainer } from "@/components/animations/FadeInUp";
-import { getFeaturedServices } from "@/lib/server/services/get-services";
+import { siteConfig } from "@/lib/site-config";
 
-export function FeaturedServices() {
-  const services = getFeaturedServices().slice(0, 3);
+export async function FeaturedServices() {
+  const res = await fetch(`${siteConfig.baseUrl}/api/services?featured=true`, { cache: "no-store" });
+  const services = (await res.json()).slice(0, 3);
 
   if (services.length === 0) return null;
 
@@ -34,7 +35,7 @@ export function FeaturedServices() {
           delayStart={0.1}
           className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {services.map((service) => (
+          {services.map((service: any) => (
             <Link
               key={service.id}
               href={`/services/${service.slug}`}

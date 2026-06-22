@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getContentItem, getContentSlugs } from "@/lib/server/content/mdx";
 import { ArticleShell } from "@/components/layout/ArticleShell";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { siteConfig } from "@/lib/site-config";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
 
 type Params = { slug: string };
 
-export async function generateStaticParams() {
-  const slugs = getContentSlugs("resources");
-  return slugs.map((slug) => ({ slug }));
-}
-
 async function getSerializedItem(slug: string) {
-  const item = getContentItem("resources", slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=resources`, { cache: "no-store" });
+  const item = await res.json();
   if (!item) return null;
 
   const source = await serializeMdx(item.content);
@@ -30,7 +26,8 @@ async function getSerializedItem(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<Params> }) : Promise<Metadata> {
   const { slug } = await params;
 
-  const data = getContentItem("resources", slug);
+  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=resources`, { cache: "no-store" });
+  const data = await res.json();
 
   if (!data) return { title: "Not found" };
   return {
