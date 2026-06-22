@@ -5,7 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, Clock, DollarSign } from "lucide-react";
-import { siteConfig } from "@/lib/site-config";
+import { getServices, getServiceCategories } from "@/lib/server/internal/services";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Services",
@@ -16,12 +16,10 @@ export const metadata: Metadata = buildMetadata({
 export const dynamic = 'force-dynamic';
 
 export default async function ServicesPage() {
-  const res = await fetch(`${siteConfig.baseUrl}/api/services`, { cache: "no-store" });
-  const allServices = await res.json();
-  const featuredServices = allServices.filter((s: any) => s.featured);
+  const allServices = getServices();
+  const featuredServices = allServices.filter((s) => s.featured);
   
-  const categoriesRes = await fetch(`${siteConfig.baseUrl}/api/services?categories=true`, { cache: "no-store" });
-  const categories = await categoriesRes.json();
+  const categories = getServiceCategories();
 
   return (
     <section className="relative px-6 py-24">

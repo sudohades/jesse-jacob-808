@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Download, Package, Check } from "lucide-react";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
-import { siteConfig } from "@/lib/site-config";
+import { getProductBySlug, getRelatedProducts } from "@/lib/server/internal/product-by-slug";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -18,8 +18,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/products?slug=${slug}`, { cache: "no-store" });
-  const product = await res.json();
+  const product = getProductBySlug(slug);
 
   if (!product) {
     return buildMetadata({ title: "Product Not Found", path: "/shop" });
@@ -35,15 +34,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/products?slug=${slug}`, { cache: "no-store" });
-  const product = await res.json();
+  const product = getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
-  const relatedRes = await fetch(`${siteConfig.baseUrl}/api/products?relatedTo=${slug}&limit=3`, { cache: "no-store" });
-  const relatedProducts = await relatedRes.json();
+  const relatedProducts = getRelatedProducts(product, 3);
   const isDigital = product.type === "digital";
 
   // Generate structured data

@@ -4,7 +4,9 @@ import { ArticleShell } from "@/components/layout/ArticleShell";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
 import { Badge } from "@/components/ui/Badge";
-import { siteConfig } from "@/lib/site-config";
+import { getContentItem } from "@/lib/server/internal/mdx";
+import { getServices } from "@/lib/server/internal/services";
+import { getProducts } from "@/lib/server/internal/products";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
@@ -12,8 +14,7 @@ export const dynamic = 'force-dynamic';
 type Params = { slug: string };
 
 async function getSerializedPost(slug: string) {
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=blog`, { cache: "no-store" });
-  const item = await res.json();
+  const item = getContentItem("blog", slug);
   if (!item) return null;
 
   const source = await serializeMdx(item.content);
@@ -26,9 +27,7 @@ async function getSerializedPost(slug: string) {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=blog`, { cache: "no-store" });
-  const data = await res.json();
-
+  const data = getContentItem("blog", slug);
 
   if (!data) return { title: "Not found" };
   return {
@@ -41,11 +40,8 @@ export default async function BlogPostDetailPage({ params }: { params: Promise<P
   const { slug } = await params;
   const data = await getSerializedPost(slug);
 
-  const servicesRes = await fetch(`${siteConfig.baseUrl}/api/services?featured=true`, { cache: "no-store" });
-  const relatedServices = (await servicesRes.json()).slice(0, 3);
-  
-  const productsRes = await fetch(`${siteConfig.baseUrl}/api/products?featured=true`, { cache: "no-store" });
-  const relatedProducts = (await productsRes.json()).slice(0, 3);
+  const relatedServices = getServices({ featured: true }).slice(0, 3);
+  const relatedProducts = getProducts({ featured: true }).slice(0, 3);
 
 
   if (!data) {

@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Calendar, Github, ExternalLink } from "lucide-react";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
-import { siteConfig } from "@/lib/site-config";
+import { getContentItem, type ProjectFrontMatter } from "@/lib/server/internal/mdx";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
@@ -18,35 +18,36 @@ interface ProjectPageProps {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=projects`, { cache: "no-store" });
-  const project = await res.json();
+  const project = getContentItem("projects", slug);
 
   if (!project) {
     return buildMetadata({ title: "Project Not Found", path: "/projects" });
   }
 
+  const fm = project.frontMatter as unknown as ProjectFrontMatter;
+
   return buildMetadata({
-    title: project.frontMatter.title,
-    description: project.frontMatter.summary,
+    title: fm.title,
+    description: fm.summary,
     path: `/projects/${project.slug}`,
   });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=projects`, { cache: "no-store" });
-  const project = await res.json();
+  const project = getContentItem("projects", slug);
 
   if (!project) {
     notFound();
   }
 
   const mdxSource = await serializeMdx(project.content);
+  const fm = project.frontMatter as unknown as ProjectFrontMatter;
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
     { name: "Home", url: "/" },
     { name: "Projects", url: "/projects" },
-    { name: project.frontMatter.title, url: `/projects/${project.slug}` },
+    { name: fm.title, url: `/projects/${project.slug}` },
   ]);
 
   return (
@@ -66,9 +67,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-4">
               <Badge variant="status" dot>
-                {project.frontMatter.status}
+                {fm.status}
               </Badge>
-              {project.frontMatter.tags.map((tag: any) => (
+              {fm.tags.map((tag) => (
                 <Badge key={tag} variant="muted" className="text-xs">
                   {tag}
                 </Badge>
@@ -76,18 +77,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             <h1 className="text-4xl font-bold text-[var(--text-primary)] mb-4">
-              {project.frontMatter.title}
+              {fm.title}
             </h1>
 
             <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
-              {project.frontMatter.summary}
+              {fm.summary}
             </p>
 
             <div className="flex items-center gap-6 text-sm text-[var(--text-muted)]">
               <div className="flex items-center gap-2">
                 <Calendar size={16} aria-hidden />
-                <time dateTime={project.frontMatter.date}>
-                  {new Date(project.frontMatter.date).toLocaleDateString("en-US", {
+                <time dateTime={fm.date}>
+                  {new Date(fm.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -98,9 +99,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           <div className="flex items-center gap-3 mb-8 pb-8 border-b border-[rgba(255,255,255,0.08)]">
-            {project.frontMatter.repositoryUrl && (
+            {fm.repositoryUrl && (
               <a
-                href={project.frontMatter.repositoryUrl}
+                href={fm.repositoryUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[rgba(255,255,255,0.08)] text-[var(--text-primary)] hover:border-[rgba(210,107,255,0.3)] hover:text-[var(--accent-secondary)] hover:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl transition-all text-sm font-medium"
@@ -109,9 +110,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 Repository
               </a>
             )}
-            {project.frontMatter.liveDemoUrl && (
+            {fm.liveDemoUrl && (
               <a
-                href={project.frontMatter.liveDemoUrl}
+                href={fm.liveDemoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[rgba(255,255,255,0.08)] text-[var(--text-primary)] hover:border-[rgba(210,107,255,0.3)] hover:text-[var(--accent-secondary)] hover:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl transition-all text-sm font-medium"
@@ -128,7 +129,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.08)]">
             <div className="flex flex-wrap gap-2">
-              {project.frontMatter.technologies.map((tech: any) => (
+              {fm.technologies.map((tech) => (
                 <span
                   key={tech}
                   className="font-mono text-xs tracking-wider uppercase text-[var(--text-muted)] border border-[rgba(255,255,255,0.08)] rounded-full px-3 py-1 bg-[rgba(15,15,15,0.35)] backdrop-blur-xl"

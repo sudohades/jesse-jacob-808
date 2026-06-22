@@ -5,7 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import { getProducts, getProductCategories } from "@/lib/server/internal/products";
 
 export const metadata: Metadata = buildMetadata({
   title: "Shop",
@@ -16,12 +16,10 @@ export const metadata: Metadata = buildMetadata({
 export const dynamic = 'force-dynamic';
 
 export default async function ShopPage() {
-  const res = await fetch(`${siteConfig.baseUrl}/api/products`, { cache: "no-store" });
-  const allProducts = await res.json();
-  const featuredProducts = allProducts.filter((p: any) => p.featured);
+  const allProducts = getProducts();
+  const featuredProducts = allProducts.filter((p) => p.featured);
   
-  const categoriesRes = await fetch(`${siteConfig.baseUrl}/api/products?categories=true`, { cache: "no-store" });
-  const categories = await categoriesRes.json();
+  const categories = getProductCategories();
 
   return (
     <section className="relative px-6 py-24">

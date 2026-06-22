@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArticleShell } from "@/components/layout/ArticleShell";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
-import { siteConfig } from "@/lib/site-config";
+import { getContentItem } from "@/lib/server/internal/mdx";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
@@ -11,8 +11,7 @@ export const dynamic = 'force-dynamic';
 type Params = { slug: string };
 
 async function getSerializedNote(slug: string) {
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=notes`, { cache: "no-store" });
-  const item = await res.json();
+  const item = getContentItem("notes", slug);
   if (!item) return null;
 
   const source = await serializeMdx(item.content);
@@ -23,8 +22,7 @@ async function getSerializedNote(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<Params> }) : Promise<Metadata> {
   const { slug } = await params;
 
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/${slug}?type=notes`, { cache: "no-store" });
-  const data = await res.json();
+  const data = getContentItem("notes", slug);
 
   if (!data) return { title: "Not found" };
   return {

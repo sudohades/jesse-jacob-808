@@ -2,11 +2,10 @@ import Link from "next/link";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FadeInUp, StaggerContainer } from "@/components/animations/FadeInUp";
-import { siteConfig } from "@/lib/site-config";
+import { getServices } from "@/lib/server/internal/services";
 
 export async function FeaturedServices() {
-  const res = await fetch(`${siteConfig.baseUrl}/api/services?featured=true`, { cache: "no-store" });
-  const services = (await res.json()).slice(0, 3);
+  const services = getServices({ featured: true }).slice(0, 3);
 
   if (services.length === 0) return null;
 

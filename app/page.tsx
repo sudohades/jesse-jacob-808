@@ -18,14 +18,13 @@ const CurrentBuild = dynamic(() => import("@/components/sections/CurrentBuild").
   loading: () => <div className="h-64 animate-pulse bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-lg" />,
 });
 
-// Temporarily removed to isolate deployment error
-// const LatestContent = dynamic(() => import("@/components/sections/LatestContent").then(mod => ({ default: mod.LatestContent })), {
-//   loading: () => <div className="h-80 animate-pulse bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-lg" />,
-// });
+const LatestContent = dynamic(() => import("@/components/sections/LatestContent").then(mod => ({ default: mod.LatestContent })), {
+  loading: () => <div className="h-80 animate-pulse bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-lg" />,
+});
 
-// const RecentNotes = dynamic(() => import("@/components/sections/RecentNotes").then(mod => ({ default: mod.RecentNotes })), {
-//   loading: () => <div className="h-80 animate-pulse bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-lg" />,
-// });
+const RecentNotes = dynamic(() => import("@/components/sections/RecentNotes").then(mod => ({ default: mod.RecentNotes })), {
+  loading: () => <div className="h-80 animate-pulse bg-[rgba(15,15,15,0.35)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-lg" />,
+});
 
 export default function HomePage() {
   return (
@@ -36,8 +35,8 @@ export default function HomePage() {
       <FeaturedServices />
       <FeaturedProducts />
       <CurrentBuild />
-      {/* <LatestContent /> */}
-      {/* <RecentNotes /> */}
+      <LatestContent />
+      <RecentNotes />
     </>
   );
 }

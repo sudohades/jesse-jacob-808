@@ -6,7 +6,8 @@ import { generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-d
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Check, Clock, DollarSign } from "lucide-react";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
-import { siteConfig } from "@/lib/site-config";
+import { getServiceBySlug, getRelatedServices } from "@/lib/server/internal/service-by-slug";
+import { getAllContent, type ProjectFrontMatter } from "@/lib/server/internal/mdx";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -16,8 +17,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/services?slug=${slug}`, { cache: "no-store" });
-  const service = await res.json();
+  const service = getServiceBySlug(slug);
 
   if (!service) {
     return buildMetadata({ title: "Service Not Found", path: "/services" });
@@ -32,25 +32,20 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const res = await fetch(`${siteConfig.baseUrl}/api/services?slug=${slug}`, { cache: "no-store" });
-  const service = await res.json();
+  const service = getServiceBySlug(slug);
 
   if (!service) {
     notFound();
   }
 
-  const relatedRes = await fetch(`${siteConfig.baseUrl}/api/services?relatedTo=${slug}&limit=3`, { cache: "no-store" });
-  const relatedServices = await relatedRes.json();
+  const relatedServices = getRelatedServices(service, 3);
   
-  const projectsRes = await fetch(`${siteConfig.baseUrl}/api/content/projects?type=projects&all=true`, { cache: "no-store" });
-  const allProjects = await projectsRes.json();
+  const allProjects = getAllContent("projects");
   const relatedProjects = allProjects.slice(0, 3);
   
-  const notesRes = await fetch(`${siteConfig.baseUrl}/api/content/notes?type=notes&all=true`, { cache: "no-store" });
-  const relatedNotes = (await notesRes.json()).slice(0, 3);
+  const relatedNotes = getAllContent("notes").slice(0, 3);
   
-  const resourcesRes = await fetch(`${siteConfig.baseUrl}/api/content/resources?type=resources&all=true`, { cache: "no-store" });
-  const relatedResources = (await resourcesRes.json()).slice(0, 3);
+  const relatedResources = getAllContent("resources").slice(0, 3);
 
   // Generate structured data
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
@@ -217,32 +212,35 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 Related Projects
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {relatedProjects.map((project: any) => (
-                  <Link
-                    key={project.slug}
-                    href={`/projects/${project.slug}`}
-                    className="card-base p-6 group hover:border-[rgba(210,107,255,0.3)] transition-all duration-300"
-                  >
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <Badge variant="status" dot className="text-xs">
-                        {project.frontMatter.status}
-                      </Badge>
-                    </div>
-                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                      {project.frontMatter.title}
-                    </h3>
-                    <p className="text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                      {project.frontMatter.summary}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.frontMatter.technologies.slice(0, 3).map((tech: any) => (
-                        <span key={tech} className="text-xs text-[var(--text-muted)] font-mono">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </Link>
-                ))}
+                {relatedProjects.map((project) => {
+                  const fm = project.frontMatter as unknown as ProjectFrontMatter;
+                  return (
+                    <Link
+                      key={project.slug}
+                      href={`/projects/${project.slug}`}
+                      className="card-base p-6 group hover:border-[rgba(210,107,255,0.3)] transition-all duration-300"
+                    >
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <Badge variant="status" dot className="text-xs">
+                          {fm.status}
+                        </Badge>
+                      </div>
+                      <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                        {fm.title}
+                      </h3>
+                      <p className="text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                        {fm.summary}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {fm.technologies.slice(0, 3).map((tech) => (
+                          <span key={tech} className="text-xs text-[var(--text-muted)] font-mono">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}

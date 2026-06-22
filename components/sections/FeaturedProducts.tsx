@@ -3,11 +3,10 @@ import { ArrowRight, ShoppingBag } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { FadeInUp, StaggerContainer } from "@/components/animations/FadeInUp";
 import { Badge } from "@/components/ui/Badge";
-import { siteConfig } from "@/lib/site-config";
+import { getProducts } from "@/lib/server/internal/products";
 
 export async function FeaturedProducts() {
-  const res = await fetch(siteConfig.baseUrl + "/api/products?featured=true", { cache: "no-store" });
-  const products = (await res.json()).slice(0, 3);
+  const products = getProducts({ featured: true }).slice(0, 3);
 
   if (products.length === 0) return null;
 

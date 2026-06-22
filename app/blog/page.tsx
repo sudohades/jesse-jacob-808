@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowRight } from "lucide-react";
-import { siteConfig } from "@/lib/site-config";
+import { getAllContent } from "@/lib/server/internal/mdx";
 
 export const metadata: Metadata = buildMetadata({
   title:       "Blog",
@@ -15,8 +15,7 @@ export const metadata: Metadata = buildMetadata({
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
-  const res = await fetch(`${siteConfig.baseUrl}/api/content/blog?type=blog&all=true`, { cache: "no-store" });
-  const posts = await res.json();
+  const posts = getAllContent("blog");
 
   return (
     <section className="relative px-6 py-24">
