@@ -9,8 +9,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import "@/styles/globals.css";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { Analytics } from "@vercel/analytics/react";
-import { shouldShowLaunchGate } from "@/lib/utils/launch";
-import { LaunchGate } from "@/components/launch/LaunchGate";
+import { LaunchCountdown } from "@/components/launch/LaunchCountdown";
 
 const CursorOverlay = dynamicImport(() => import("@/components/layout/CursorOverlay").then(mod => ({ default: mod.CursorOverlay })), { ssr: true });
 
@@ -30,8 +29,6 @@ export default function RootLayout({
 }: { 
   children: React.ReactNode;
 }) {
-  const showLaunchGate = shouldShowLaunchGate();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
@@ -40,20 +37,17 @@ export default function RootLayout({
           forcedTheme="dark"
           disableTransitionOnChange
         >
-          {showLaunchGate ? (
-            <LaunchGate />
-          ) : (
-            <SafeCartProvider>
-              <SkipLink />
-              <MeshBackground />
-              <CursorOverlay />
-              <div className="relative z-20 flex min-h-dvh flex-col">
-                <Navbar />
-                <main id="main-content" className="flex-1">{children}</main>
-                <Footer />
-              </div>
-            </SafeCartProvider>
-          )}
+          <SafeCartProvider>
+            <SkipLink />
+            <MeshBackground />
+            <CursorOverlay />
+            <LaunchCountdown />
+            <div className="relative z-20 flex min-h-dvh flex-col">
+              <Navbar />
+              <main id="main-content" className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </SafeCartProvider>
         </ThemeProvider>
         <Analytics />
       </body>
