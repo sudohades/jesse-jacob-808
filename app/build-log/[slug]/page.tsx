@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArticleShell } from "@/components/layout/ArticleShell";
 import { serializeMdx } from "@/lib/mdx/serialize";
 import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { getContentItem } from "@/lib/server/internal/mdx";
 
 // Skip static generation to avoid SSR issues with client components
 export const dynamic = 'force-dynamic';
 
 async function getSerializedItem(slug: string) {
-  const res = await fetch(`/api/content/${slug}?type=build-log`, { cache: "no-store" });
-  const item = await res.json();
+  const item = getContentItem("build-log", slug);
   if (!item) return null;
 
   const source = await serializeMdx(item.content);
@@ -26,9 +26,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-
-  const res = await fetch(`/api/content/${slug}?type=build-log`, { cache: "no-store" });
-  const data = await res.json();
+  const data = getContentItem("build-log", slug);
 
   if (!data) return { title: "Not found" };
 
@@ -48,36 +46,10 @@ export default async function BuildLogDetailPage({
   const data = await getSerializedItem(slug);
 
   if (!data) {
-    return (
-      <section className="mx-auto max-w-3xl px-6 py-24">
-        <div className="card-base p-8 text-[var(--text-muted)] font-mono text-sm">
-          Build log not found.
-          <div className="mt-4">
-            <Link href="/build-log" className="text-[var(--accent-primary)] hover:underline">
-              Back to build log
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
+    notFound();
   }
 
   const { item, source } = data;
-
-  if (!item) {
-    return (
-      <section className="mx-auto max-w-3xl px-6 py-24">
-        <div className="card-base p-8 text-[var(--text-muted)] font-mono text-sm">
-          Build log not found.
-          <div className="mt-4">
-            <Link href="/build-log" className="text-[var(--accent-primary)] hover:underline">
-              Back to build log
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <ArticleShell
