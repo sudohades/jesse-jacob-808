@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     // Removed mdxRs to prevent CommonJS bundling issues with gray-matter
   },
   serverExternalPackages: ["gray-matter"],
-  output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],

@@ -15,8 +15,6 @@ const CursorOverlay = dynamicImport(() => import("@/components/layout/CursorOver
 
 export const metadata: Metadata = buildMetadata();
 
-export const dynamic = "force-dynamic";
-
 export const viewport: Viewport = {
   themeColor: "#080808",
   colorScheme: "dark",
