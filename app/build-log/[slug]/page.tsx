@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleShell } from "@/components/layout/ArticleShell";
-import { serializeMdx } from "@/lib/mdx/serialize";
-import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { MdxRenderer } from "@/lib/content/mdxRenderer";
+
+
 import { getContentItem } from "@/lib/server/internal/mdx";
 
 // Skip static generation to avoid SSR issues with client components
@@ -12,13 +13,9 @@ async function getSerializedItem(slug: string) {
   const item = getContentItem("build-log", slug);
   if (!item) return null;
 
-  const source = await serializeMdx(item.content);
-
-  return {
-    item,
-    source,
-  };
+  return { item };
 }
+
 
 export async function generateMetadata({
   params,
@@ -49,7 +46,8 @@ export default async function BuildLogDetailPage({
     notFound();
   }
 
-  const { item, source } = data;
+  const { item } = data;
+
 
   return (
     <ArticleShell
@@ -60,7 +58,9 @@ export default async function BuildLogDetailPage({
       tags={item.frontMatter.tags}
       backHref="/build-log"
     >
-      <MdxRendererClient source={source} />
+      <MdxRenderer source={item.content} />
+
+
     </ArticleShell>
   );
 }

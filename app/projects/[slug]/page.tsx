@@ -5,8 +5,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { generateBreadcrumbStructuredData } from "@/lib/seo/product-structured-data";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Calendar, Github, ExternalLink } from "lucide-react";
-import { serializeMdx } from "@/lib/mdx/serialize";
-import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { MdxRenderer } from "@/lib/content/mdxRenderer";
+
+
 import { getContentItem, type ProjectFrontMatter } from "@/lib/server/internal/mdx";
 
 // Skip static generation to avoid SSR issues with client components
@@ -41,8 +42,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const mdxSource = await serializeMdx(project.content);
   const fm = project.frontMatter as unknown as ProjectFrontMatter;
+
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
     { name: "Home", url: "/" },
@@ -124,7 +125,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           <div className="prose prose-invert max-w-none">
-            <MdxRendererClient source={mdxSource} />
+            <MdxRenderer source={project.content} />
+
+
           </div>
 
           <div className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.08)]">

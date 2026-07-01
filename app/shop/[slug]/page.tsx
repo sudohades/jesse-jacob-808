@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ArrowLeft, Download, Package, Check } from "lucide-react";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
+import { AddToCartButton } from "@/components/shop/AddToCartButton";
 import { getProductBySlug, getRelatedProducts } from "@/lib/server/internal/product-by-slug";
 
 interface ProductPageProps {
@@ -173,7 +174,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             )}
 
             {/* Actions */}
-            <div className="pt-4">
+            <div className="pt-4 space-y-3">
+              <AddToCartButton product={product} />
               <MarketplaceActions
                 marketplaceLinks={{
                   fiverr: product.marketplaceLinks?.fiverr,

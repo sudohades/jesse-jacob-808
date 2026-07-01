@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleShell } from "@/components/layout/ArticleShell";
-import { serializeMdx } from "@/lib/mdx/serialize";
-import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { MdxRenderer } from "@/lib/content/mdxRenderer";
+
+
 import { Badge } from "@/components/ui/Badge";
 import { getContentItem } from "@/lib/server/internal/mdx";
 import { getServices } from "@/lib/server/internal/services";
@@ -17,13 +18,9 @@ async function getSerializedPost(slug: string) {
   const item = getContentItem("blog", slug);
   if (!item) return null;
 
-  const source = await serializeMdx(item.content);
-
-  return {
-    item,
-    source,
-  };
+  return { item };
 }
+
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
@@ -59,9 +56,10 @@ export default async function BlogPostDetailPage({ params }: { params: Promise<P
     );
   }
 
-  const { item, source } = data;
+  const { item } = data;
 
   return (
+
     <>
       <ArticleShell
         title={item.frontMatter.title}
@@ -71,7 +69,9 @@ export default async function BlogPostDetailPage({ params }: { params: Promise<P
         tags={item.frontMatter.tags}
         backHref="/blog"
       >
-        <MdxRendererClient source={source} />
+        <MdxRenderer source={item.content} />
+
+
       </ArticleShell>
 
       {/* Related Services */}

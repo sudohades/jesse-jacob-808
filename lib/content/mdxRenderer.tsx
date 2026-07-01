@@ -1,19 +1,22 @@
-"use client";
-
-import { cn } from "@/lib/utils/cn";
+import "server-only";
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
+import { MdxClientRenderer } from "@/components/content/MdxClientRenderer";
 
 export type MdxRendererProps = {
-  source: { content: string; frontmatter?: Record<string, unknown> };
+  source: string;
   className?: string;
 };
 
-export function MdxRenderer({ source, className }: MdxRendererProps) {
+export async function MdxRenderer({ source, className }: MdxRendererProps) {
+  const serialized = await serialize(source, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+    },
+  });
+
   return (
-    <article className={cn("prose-hades", className)}>
-      <div className="whitespace-pre-wrap text-[var(--text-secondary)] leading-relaxed">
-        {source.content}
-      </div>
-    </article>
+    <MdxClientRenderer source={serialized} className={className} />
   );
 }
 

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleShell } from "@/components/layout/ArticleShell";
-import { serializeMdx } from "@/lib/mdx/serialize";
-import { MdxRendererClient } from "@/components/content/MdxRendererClient";
+import { MdxRenderer } from "@/lib/content/mdxRenderer";
+
+
 import { getContentItem } from "@/lib/server/internal/mdx";
 
 // Skip static generation to avoid SSR issues with client components
@@ -14,10 +15,9 @@ async function getSerializedNote(slug: string) {
   const item = getContentItem("notes", slug);
   if (!item) return null;
 
-  const source = await serializeMdx(item.content);
-
-  return { item, source };
+  return { item };
 }
+
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) : Promise<Metadata> {
   const { slug } = await params;
@@ -52,7 +52,8 @@ export default async function NoteDetailPage({ params }: { params: Promise<Param
     );
   }
 
-  const { item, source } = data;
+  const { item } = data;
+
 
   return (
     <ArticleShell
@@ -63,7 +64,9 @@ export default async function NoteDetailPage({ params }: { params: Promise<Param
       tags={item.frontMatter.tags}
       backHref="/notes"
     >
-      <MdxRendererClient source={source} />
+      <MdxRenderer source={item.content} />
+
+
     </ArticleShell>
   );
 }

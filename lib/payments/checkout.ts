@@ -1,55 +1,117 @@
 /**
- * Payment checkout stub layer.
+ * Payment checkout integration layer for PayHero.
  * 
- * This module provides placeholder interfaces for PayHero integration.
- * When PayHero is integrated, this module will be replaced with actual payment logic.
+ * This module handles checkout session creation and payment processing.
  * 
- * The architecture is designed so that replacing this implementation requires minimal
- * changes to the rest of the codebase.
+ * ENVIRONMENT VARIABLES REQUIRED FOR PRODUCTION:
+ * - PAYHERO_API_KEY: Your PayHero API secret key
+ * - PAYHERO_PUBLIC_KEY: Your PayHero publishable key
+ * 
+ * To enable production mode, set PAYHERO_API_KEY in your environment.
+ * Without this variable, the system runs in mock mode for testing.
  */
 
 import { type CartItem, type CheckoutSession, type CheckoutOptions } from "@/lib/products/product-types";
 
+const PAYHERO_API_KEY = process.env.PAYHERO_API_KEY || "";
+const PAYHERO_API_URL = process.env.PAYHERO_API_URL || "https://api.payhero.co/v1";
+
+const isMockMode = !PAYHERO_API_KEY;
+
 /**
  * Create a checkout session for the given cart items.
  * 
- * This is a STUB implementation that returns a mock session.
- * When PayHero is integrated, this will:
- * 1. Call PayHero API to create a checkout session
- * 2. Return the actual session URL and ID
- * 3. Handle error states properly
+ * In mock mode (no API key): Returns a simulated session for testing.
+ * In production mode: Calls PayHero API to create a real checkout session.
  * 
  * @param cartItems - Array of cart items to checkout
- * @param options - Optional checkout configuration
+ * @param options - Optional checkout configuration (successUrl, cancelUrl, metadata)
  * @returns Promise resolving to a CheckoutSession
  */
 export async function createCheckoutSession(
   cartItems: CartItem[],
   options: CheckoutOptions = {}
 ): Promise<CheckoutSession> {
-  // STUB: This is a placeholder implementation
-  // Replace with actual PayHero integration when ready
-  
   const total = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const currency = cartItems[0]?.product.currency || "USD";
 
+  if (isMockMode) {
+    console.log("[PayHero Mock Mode] Running in mock mode - set PAYHERO_API_KEY to enable production");
+    return createMockSession(cartItems, total, currency);
+  }
+
+  try {
+    // Production mode: Call PayHero API
+    const response = await fetch(`${PAYHERO_API_URL}/checkout/sessions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${PAYHERO_API_KEY}`,
+      },
+      body: JSON.stringify({
+        amount: total,
+        currency,
+        items: cartItems.map(item => ({
+          id: item.product.id,
+          name: item.product.title,
+          quantity: item.quantity,
+          price: item.product.price,
+        })),
+        success_url: options.successUrl || `${process.env.NEXT_PUBLIC_BASE_URL || window.location.origin}/shop/success`,
+        cancel_url: options.cancelUrl || `${process.env.NEXT_PUBLIC_BASE_URL || window.location.origin}/shop/cart`,
+        metadata: options.metadata || {},
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to create checkout session");
+    }
+
+    const session = await response.json();
+
+    return {
+      id: session.id,
+      url: session.checkout_url,
+      status: "pending",
+      amount: total,
+      currency,
+      items: cartItems,
+      createdAt: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error("[PayHero] Error creating checkout session:", error);
+    throw error;
+  }
+}
+
+/**
+ * Create a mock checkout session for testing purposes.
+ */
+async function createMockSession(
+  cartItems: CartItem[],
+  total: number,
+  currency: string
+): Promise<CheckoutSession> {
   // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  // Mock session object
-  const mockSession: CheckoutSession = {
-    id: `mock_session_${Date.now()}`,
-    url: options.successUrl || "/shop/success",
-    status: "pending",
-    amount: total,
-    currency,
-    items: cartItems,
-    createdAt: new Date().toISOString(),
-  };
-
-  console.log("[PayHero Stub] Checkout session created:", mockSession);
+  const delay = Math.random() * 500 + 300;
   
-  return mockSession;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const mockSession: CheckoutSession = {
+        id: `mock_session_${Date.now()}`,
+        url: undefined, // Mock mode doesn't redirect to payment provider
+        status: "pending",
+        amount: total,
+        currency,
+        items: cartItems,
+        createdAt: new Date().toISOString(),
+      };
+
+      console.log("[PayHero Mock] Checkout session created:", mockSession);
+      resolve(mockSession);
+    }, delay);
+  });
 }
 
 /**

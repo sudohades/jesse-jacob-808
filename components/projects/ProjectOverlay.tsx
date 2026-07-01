@@ -3,8 +3,9 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Github, ExternalLink, Calendar, Tag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { serializeMdx } from "@/lib/mdx/serialize";
-import { MdxRenderer } from "@/lib/content/mdxRenderer";
+import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
+import { mdxComponents } from "@/lib/mdx/components";
+
 import type { ProjectItem } from "@/lib/types/project";
 
 interface ProjectOverlayProps {
@@ -18,10 +19,8 @@ export function ProjectOverlay({
   isOpen,
   onClose,
 }: ProjectOverlayProps) {
-  const [mdxSource, setMdxSource] =
-    useState<
-      { content: string; frontmatter?: Record<string, unknown> } | null
-    >(null);
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
+
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,11 +39,23 @@ export function ProjectOverlay({
       setIsLoading(true);
 
       try {
-        const source = await serializeMdx(project.content);
+        const response = await fetch(`/api/projects/${project.slug}/mdx`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        });
 
-        setMdxSource(source);
+        if (!response.ok) {
+          throw new Error(`Failed to load project MDX (${response.status})`);
+        }
+
+        const serialized = (await response.json()) as MDXRemoteSerializeResult;
+        setMdxSource(serialized);
       } catch (error) {
+
         console.error("Failed to serialize MDX:", error);
+        setMdxSource(null);
       } finally {
         setIsLoading(false);
       }
@@ -343,9 +354,12 @@ export function ProjectOverlay({
                   </div>
                 </div>
               ) : mdxSource ? (
-                <MdxRenderer source={mdxSource} />
+                <article className="prose prose-invert max-w-none">
+                    <MDXRemote {...mdxSource} components={mdxComponents} />
+                </article>
               ) : null}
             </div>
+
 
             {/* Footer */}
             <div className="border-t border-[rgba(255,255,255,0.08)] bg-[rgba(17,17,17,0.95)] backdrop-blur-md p-4">
