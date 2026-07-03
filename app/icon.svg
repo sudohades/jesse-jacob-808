@@ -34,7 +34,8 @@
        gradientTransform="translate(-4.25e-6,-0.202386)" />
   </defs>
   <g
-     id="layer4">
+     id="layer4"
+     transform="translate(400 400) scale(1.38) translate(-400 -400)">
     <path
        style="display:inline;opacity:1;fill:url(#linearGradient23);fill-opacity:1;stroke:none;stroke-width:0.333333"
        d="m 356.69873,358.79759 -13.85641,8 v 66 L 400,466.09298 434.64102,445.79759 v -34 l -55.42563,-32 v -18 L 400,349.71789 l 43.30127,25.0797 v 66 l 13.85641,-8 v -66 L 400,333.90702 365.35898,353.79759 v 34 l 55.42563,32 v 18 l -20.78461,12 -43.30127,-25 z"
