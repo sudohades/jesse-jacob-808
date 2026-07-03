@@ -45,7 +45,7 @@
 
 **Day 1-2: Assets**
 - [ ] Add profile image to `public/profile/profile.jpg`
-- [ ] Create OG image at `public/images/og-default.png` (1200x630px)
+- [ ] Maintain the internal About artwork at `public/images/og-default.png` for the easter egg only
 - [ ] Add project thumbnails to `public/projects/` (if any)
 - [ ] Test all images load correctly
 

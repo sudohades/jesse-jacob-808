@@ -260,15 +260,23 @@ In your MDX content, you can use standard Markdown plus:
 
 ---
 
-### OpenGraph Images
+### Social Preview Image
+
+**Location:** `public/social-preview.png`
+
+**Steps:**
+1. Create or replace `public/social-preview.png`
+2. Recommended size: 1200x630px
+3. Used for all external metadata previews
+4. Configure in `lib/seo/metadata.ts`
+
+### Internal About Artwork
 
 **Location:** `public/images/og-default.png`
 
 **Steps:**
-1. Create or replace `public/images/og-default.png`
-2. Recommended size: 1200x630px
-3. Used for all pages unless overridden
-4. Configure in `lib/site-config.ts` (line 163)
+1. Keep this asset for the About page easter egg only
+2. Do not reference it in metadata or SEO configuration
 
 ---
 
@@ -340,8 +348,8 @@ export const metadata: Metadata = buildMetadata({
 **File:** `lib/seo/metadata.ts` (lines 28-36)
 
 **What to change:**
-- Default OG image: Edit `ogImage` in `lib/site-config.ts`
-- Per-page OG images: Pass `ogImage` to `buildMetadata()`
+- Default OG image: Edit `branding.socialPreviewImage` in `lib/site-config.ts`
+- Per-page OG images: Use the shared `buildMetadata()` helper
 
 ---
 

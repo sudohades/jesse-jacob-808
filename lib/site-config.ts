@@ -201,9 +201,15 @@ export const siteConfig = {
   startedAt: "2026-Q2",
 },
 
-  // Open Graph
-  ogImage: "/images/og-default.png",
-  ogImage2: "sudo_hades_logo_dark.svg",
+  // Brand assets are used externally in metadata and browser UI.
+  branding: {
+    socialPreviewImage: "/social-preview.png",
+  },
+
+  // Content assets are used only inside the application.
+  content: {
+    aboutEasterEggImage: "/images/og-default.png",
+  },
 
   // Appearance
   theme: {

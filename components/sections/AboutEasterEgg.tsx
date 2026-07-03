@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 import { Sparkles, X } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 const ImageReveal = dynamic(() => import("@/components/ui/ImageReveal").then(mod => ({ default: mod.ImageReveal })), { ssr: false });
 
@@ -157,7 +158,7 @@ export function AboutEasterEgg() {
                         transition={{ duration: reducedMotion ? 0 : 0.25, ease: [0.22, 0.61, 0.36, 1] }}
                       >
                         <ImageReveal
-                          src="/images/og-default.png"
+                          src={siteConfig.content.aboutEasterEggImage}
                           alt="Unlocked secret image"
                           mode="static"
                           aspectRatio="16 / 9"

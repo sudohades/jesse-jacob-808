@@ -14,7 +14,7 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
     : `${siteConfig.name} — ${siteConfig.tagline}`;
   const description = opts.description ?? siteConfig.description;
   const url         = `${siteConfig.baseUrl}${opts.path ?? ""}`;
-  const socialPreviewPngUrl = `${siteConfig.baseUrl}/social-preview.png`;
+  const socialPreviewPngUrl = `${siteConfig.baseUrl}${siteConfig.branding.socialPreviewImage}`;
 
 
   return {
@@ -40,13 +40,13 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
       title,
       description,
       siteName:    siteConfig.brand,
-      images: [{ url: socialPreviewPngUrl, width: 1200, height: 630, alt: title }],
+      images: [{ url: socialPreviewPngUrl, secureUrl: socialPreviewPngUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card:        "summary_large_image",
       title,
       description,
-      images:      [socialPreviewPngUrl],
+      images:      [{ url: socialPreviewPngUrl, secureUrl: socialPreviewPngUrl, alt: title, width: 1200, height: 630 }],
       creator:     "@sudo_hades",
     },
 
