@@ -12,8 +12,6 @@ export const metadata: Metadata = buildMetadata({
   path:        "/notes",
 });
 
-export const dynamic = 'force-dynamic';
-
 export default async function NotesPage() {
   const notes = getAllContent("notes");
 

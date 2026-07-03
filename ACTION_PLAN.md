@@ -7,6 +7,32 @@
 
 ---
 
+## Engineering Optimization Pass
+
+### Completed
+- Removed unnecessary `force-dynamic` flags from static listing routes.
+- Promoted finite content, services, shop, and project detail routes to static params generation.
+- Added request-safe memoization to filesystem-backed content, product, and service lookups.
+- Simplified homepage loading so below-the-fold sections render directly instead of waiting on skeleton-based lazy imports.
+
+### In Progress
+- None.
+
+### Deferred
+- MDX pipeline rewrite or renderer migration.
+- Broader image pipeline changes beyond current `next/image` usage.
+- Global layout hydration refactor beyond the current SSR-safe setup.
+
+### Not Recommended
+- Adding new dependencies for this pass.
+- Changing the visual design or motion system for performance alone.
+
+### New Engineering Tasks
+- Revisit sitemap timestamping and other cache-sensitive metadata only if a measurable crawler or CDN issue appears.
+- Re-evaluate any future layout-only client components before moving them behind client-only wrappers.
+
+---
+
 ## Week 1 — Foundation & Assets
 
 ### Goals

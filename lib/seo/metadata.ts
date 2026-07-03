@@ -5,9 +5,7 @@ interface PageMetaOptions {
   title?:       string;
   description?: string;
   path?:        string;
-  ogImage?:     string;
   noIndex?:     boolean;
-  ogImage2?:    string;
 }
 
 export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
@@ -16,7 +14,8 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
     : `${siteConfig.name} — ${siteConfig.tagline}`;
   const description = opts.description ?? siteConfig.description;
   const url         = `${siteConfig.baseUrl}${opts.path ?? ""}`;
-  const faviconSourceUrl = `${siteConfig.baseUrl}/favicon.ico`;
+  const socialPreviewPngUrl = `${siteConfig.baseUrl}/social-preview.png`;
+
 
   return {
     title,
@@ -41,15 +40,16 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
       title,
       description,
       siteName:    siteConfig.brand,
-      images: [{ url: faviconSourceUrl, width: 1200, height: 630, alt: title }],
+      images: [{ url: socialPreviewPngUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card:        "summary_large_image",
       title,
       description,
-      images:      [faviconSourceUrl],
+      images:      [socialPreviewPngUrl],
       creator:     "@sudo_hades",
     },
+
 
     robots: opts.noIndex
       ? { index: false, follow: false }

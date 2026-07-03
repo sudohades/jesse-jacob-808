@@ -158,6 +158,23 @@ Potential products:
 
 ---
 
+# Final Optimization Pass
+
+The final engineering pass focused on runtime performance and cache efficiency without changing the site's behavior, design, SEO, MDX pipeline, or launch gating.
+
+Completed work:
+
+* Removed unnecessary `force-dynamic` rendering from finite content, service, shop, and project routes.
+* Added request-safe memoization for repeated filesystem reads in the content, product, and service data layers.
+* Converted the homepage section loading path back to direct server rendering so below-the-fold content no longer depends on skeleton-driven lazy imports.
+* Kept the existing launch countdown, MDX rendering approach, animations, and visual style intact.
+
+Behavior intentionally unchanged:
+
+* The MDX pipeline still uses the current server serialization and client `MDXRemote` rendering model.
+* The route structure, checkout/cart behavior, metadata strategy, and content sources remain the same.
+* No new dependencies were introduced.
+
 # Development Roadmap
 
 ---

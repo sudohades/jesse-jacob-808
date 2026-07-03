@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
+import { cache } from "react";
 import { type Service } from "../../products/product-types";
 import { getServices } from "./services";
 
@@ -7,11 +8,7 @@ export const runtime = "nodejs";
 
 const servicesRoot = join(process.cwd(), "content", "services");
 
-/**
- * Get a single service by its slug.
- * Returns null if the service doesn't exist or is not published.
- */
-export function getServiceBySlug(slug: string): Service | null {
+const getServiceBySlugCached = cache((slug: string): Service | null => {
   if (!existsSync(servicesRoot)) {
     return null;
   }
@@ -39,13 +36,17 @@ export function getServiceBySlug(slug: string): Service | null {
   }
 
   return null;
-}
+});
 
 /**
- * Get a service by its ID.
+ * Get a single service by its slug.
  * Returns null if the service doesn't exist or is not published.
  */
-export function getServiceById(id: string): Service | null {
+export function getServiceBySlug(slug: string): Service | null {
+  return getServiceBySlugCached(slug);
+}
+
+const getServiceByIdCached = cache((id: string): Service | null => {
   if (!existsSync(servicesRoot)) {
     return null;
   }
@@ -73,6 +74,14 @@ export function getServiceById(id: string): Service | null {
   }
 
   return null;
+});
+
+/**
+ * Get a service by its ID.
+ * Returns null if the service doesn't exist or is not published.
+ */
+export function getServiceById(id: string): Service | null {
+  return getServiceByIdCached(id);
 }
 
 /**

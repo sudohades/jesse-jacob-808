@@ -8,12 +8,11 @@ import { ArrowLeft, Check, Clock, DollarSign } from "lucide-react";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
 import { getServiceBySlug, getRelatedServices } from "@/lib/server/internal/service-by-slug";
 import { getAllContent, type ProjectFrontMatter } from "@/lib/server/internal/mdx";
+import { getServices } from "@/lib/server/internal/services";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
-
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -334,4 +333,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
       </section>
     </>
   );
+}
+
+export function generateStaticParams() {
+  return getServices().map((service) => ({ slug: service.slug }));
 }

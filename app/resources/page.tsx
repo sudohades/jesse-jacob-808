@@ -12,8 +12,6 @@ export const metadata: Metadata = buildMetadata({
   path:        "/resources",
 });
 
-export const dynamic = 'force-dynamic';
-
 export default async function ResourcesPage() {
   const items = getAllContent("resources");
 

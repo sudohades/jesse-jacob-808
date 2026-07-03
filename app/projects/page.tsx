@@ -9,8 +9,6 @@ export const metadata: Metadata = buildMetadata({
   path:        "/projects",
 });
 
-export const dynamic = 'force-dynamic';
-
 export default async function ProjectsPage() {
   const projects = getAllContent("projects").map((p) => ({
     ...p,

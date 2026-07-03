@@ -10,12 +10,11 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import { MarketplaceActions } from "@/components/shop/MarketplaceActions";
 import { AddToCartButton } from "@/components/shop/AddToCartButton";
 import { getProductBySlug, getRelatedProducts } from "@/lib/server/internal/product-by-slug";
+import { getProducts } from "@/lib/server/internal/products";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
-
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -29,8 +28,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     title: product.title,
     description: product.shortDescription,
     path: `/shop/${product.slug}`,
-    ogImage: product.images[0]?.url,
   });
+
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
@@ -235,4 +234,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
     </section>
     </>
   );
+}
+
+export function generateStaticParams() {
+  return getProducts().map((product) => ({ slug: product.slug }));
 }

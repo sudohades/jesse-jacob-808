@@ -12,8 +12,6 @@ export const metadata: Metadata = buildMetadata({
   path:        "/build-log",
 });
 
-export const dynamic = 'force-dynamic';
-
 export default async function BuildLogPage() {
   const logs = getAllContent("build-log");
 

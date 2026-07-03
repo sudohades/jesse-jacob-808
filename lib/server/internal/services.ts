@@ -1,19 +1,16 @@
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
+import { cache } from "react";
 import { type Service, type ServiceCategory } from "../../products/product-types";
 
 export const runtime = "nodejs";
 
 const servicesRoot = join(process.cwd(), "content", "services");
 
-/**
- * Get all published services.
- * Optionally filter by category.
- */
-export function getServices(options?: {
-  category?: ServiceCategory;
-  featured?: boolean;
-}): Service[] {
+const getServicesCached = cache((
+  category?: ServiceCategory,
+  featured?: boolean,
+): Service[] => {
   if (!existsSync(servicesRoot)) {
     return [];
   }
@@ -36,11 +33,11 @@ export function getServices(options?: {
       }
 
       // Apply filters
-      if (options?.category && service.category !== options.category) {
+      if (category && service.category !== category) {
         continue;
       }
 
-      if (options?.featured !== undefined && service.featured !== options.featured) {
+      if (featured !== undefined && service.featured !== featured) {
         continue;
       }
 
@@ -50,12 +47,22 @@ export function getServices(options?: {
     }
   }
 
-  // Sort by featured first, then by date (newest first)
   return services.sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
+});
+
+/**
+ * Get all published services.
+ * Optionally filter by category.
+ */
+export function getServices(options?: {
+  category?: ServiceCategory;
+  featured?: boolean;
+}): Service[] {
+  return getServicesCached(options?.category, options?.featured);
 }
 
 /**

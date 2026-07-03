@@ -13,8 +13,6 @@ export const metadata: Metadata = buildMetadata({
   path:        "/services",
 });
 
-export const dynamic = 'force-dynamic';
-
 export default async function ServicesPage() {
   const allServices = getServices();
   const featuredServices = allServices.filter((s) => s.featured);

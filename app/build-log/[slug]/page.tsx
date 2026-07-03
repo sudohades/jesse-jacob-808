@@ -4,16 +4,17 @@ import { ArticleShell } from "@/components/layout/ArticleShell";
 import { MdxRenderer } from "@/lib/content/mdxRenderer";
 
 
-import { getContentItem } from "@/lib/server/internal/mdx";
-
-// Skip static generation to avoid SSR issues with client components
-export const dynamic = 'force-dynamic';
+import { getContentItem, getContentSlugs } from "@/lib/server/internal/mdx";
 
 async function getSerializedItem(slug: string) {
   const item = getContentItem("build-log", slug);
   if (!item) return null;
 
   return { item };
+}
+
+export function generateStaticParams() {
+  return getContentSlugs("build-log").map((slug) => ({ slug }));
 }
 
 

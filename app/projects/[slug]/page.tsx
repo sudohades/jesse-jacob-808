@@ -8,13 +8,14 @@ import { ArrowLeft, Calendar, Github, ExternalLink } from "lucide-react";
 import { MdxRenderer } from "@/lib/content/mdxRenderer";
 
 
-import { getContentItem, type ProjectFrontMatter } from "@/lib/server/internal/mdx";
-
-// Skip static generation to avoid SSR issues with client components
-export const dynamic = 'force-dynamic';
+import { getContentItem, getContentSlugs, type ProjectFrontMatter } from "@/lib/server/internal/mdx";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export function generateStaticParams() {
+  return getContentSlugs("projects").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {

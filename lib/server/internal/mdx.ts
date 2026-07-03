@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
 import matter from "gray-matter";
+import { cache } from "react";
 
 export const runtime = "nodejs";
 
@@ -38,15 +39,19 @@ export interface ContentItem {
 
 const contentRoot = join(process.cwd(), "content");
 
-export function getContentSlugs(type: ContentType): string[] {
+const getContentSlugsCached = cache((type: ContentType): string[] => {
   const dir = join(contentRoot, type);
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
     .map((f) => f.replace(/\.(mdx|md)$/, ""));
+});
+
+export function getContentSlugs(type: ContentType): string[] {
+  return getContentSlugsCached(type);
 }
 
-export function getContentItem(type: ContentType, slug: string): ContentItem | null {
+const getContentItemCached = cache((type: ContentType, slug: string): ContentItem | null => {
   const mdxPath = join(contentRoot, type, `${slug}.mdx`);
   const mdPath = join(contentRoot, type, `${slug}.md`);
   
@@ -67,9 +72,13 @@ export function getContentItem(type: ContentType, slug: string): ContentItem | n
     console.error(`Error parsing content file ${filePath}:`, error);
     return null;
   }
+});
+
+export function getContentItem(type: ContentType, slug: string): ContentItem | null {
+  return getContentItemCached(type, slug);
 }
 
-export function getAllContent(type: ContentType): ContentItem[] {
+const getAllContentCached = cache((type: ContentType): ContentItem[] => {
   const slugs = getContentSlugs(type);
   const items: ContentItem[] = [];
 
@@ -83,4 +92,8 @@ export function getAllContent(type: ContentType): ContentItem[] {
   return items.sort((a, b) =>
     new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime()
   );
+});
+
+export function getAllContent(type: ContentType): ContentItem[] {
+  return getAllContentCached(type);
 }

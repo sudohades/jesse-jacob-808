@@ -5,14 +5,15 @@ import { MdxRenderer } from "@/lib/content/mdxRenderer";
 
 
 import { Badge } from "@/components/ui/Badge";
-import { getContentItem } from "@/lib/server/internal/mdx";
+import { getContentItem, getContentSlugs } from "@/lib/server/internal/mdx";
 import { getServices } from "@/lib/server/internal/services";
 import { getProducts } from "@/lib/server/internal/products";
 
-// Skip static generation to avoid SSR issues with client components
-export const dynamic = 'force-dynamic';
-
 type Params = { slug: string };
+
+export function generateStaticParams() {
+  return getContentSlugs("blog").map((slug) => ({ slug }));
+}
 
 async function getSerializedPost(slug: string) {
   const item = getContentItem("blog", slug);

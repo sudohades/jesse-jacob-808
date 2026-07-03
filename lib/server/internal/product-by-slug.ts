@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
+import { cache } from "react";
 import { type Product } from "../../products/product-types";
 import { getProducts } from "./products";
 
@@ -7,11 +8,7 @@ export const runtime = "nodejs";
 
 const productsRoot = join(process.cwd(), "content", "products");
 
-/**
- * Get a single product by its slug.
- * Returns null if the product doesn't exist or is not published.
- */
-export function getProductBySlug(slug: string): Product | null {
+const getProductBySlugCached = cache((slug: string): Product | null => {
   if (!existsSync(productsRoot)) {
     return null;
   }
@@ -39,13 +36,17 @@ export function getProductBySlug(slug: string): Product | null {
   }
 
   return null;
-}
+});
 
 /**
- * Get a product by its ID.
+ * Get a single product by its slug.
  * Returns null if the product doesn't exist or is not published.
  */
-export function getProductById(id: string): Product | null {
+export function getProductBySlug(slug: string): Product | null {
+  return getProductBySlugCached(slug);
+}
+
+const getProductByIdCached = cache((id: string): Product | null => {
   if (!existsSync(productsRoot)) {
     return null;
   }
@@ -73,6 +74,14 @@ export function getProductById(id: string): Product | null {
   }
 
   return null;
+});
+
+/**
+ * Get a product by its ID.
+ * Returns null if the product doesn't exist or is not published.
+ */
+export function getProductById(id: string): Product | null {
+  return getProductByIdCached(id);
 }
 
 /**

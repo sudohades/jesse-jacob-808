@@ -1,20 +1,17 @@
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join } from "path";
+import { cache } from "react";
 import { type Product, type ProductCategory, type ProductType } from "../../products/product-types";
 
 export const runtime = "nodejs";
 
 const productsRoot = join(process.cwd(), "content", "products");
 
-/**
- * Get all published products.
- * Optionally filter by category or type.
- */
-export function getProducts(options?: {
-  category?: ProductCategory;
-  type?: ProductType;
-  featured?: boolean;
-}): Product[] {
+const getProductsCached = cache((
+  category?: ProductCategory,
+  type?: ProductType,
+  featured?: boolean,
+): Product[] => {
   if (!existsSync(productsRoot)) {
     return [];
   }
@@ -37,15 +34,15 @@ export function getProducts(options?: {
       }
 
       // Apply filters
-      if (options?.category && product.category !== options.category) {
+      if (category && product.category !== category) {
         continue;
       }
 
-      if (options?.type && product.type !== options.type) {
+      if (type && product.type !== type) {
         continue;
       }
 
-      if (options?.featured !== undefined && product.featured !== options.featured) {
+      if (featured !== undefined && product.featured !== featured) {
         continue;
       }
 
@@ -55,12 +52,23 @@ export function getProducts(options?: {
     }
   }
 
-  // Sort by featured first, then by date (newest first)
   return products.sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
+});
+
+/**
+ * Get all published products.
+ * Optionally filter by category or type.
+ */
+export function getProducts(options?: {
+  category?: ProductCategory;
+  type?: ProductType;
+  featured?: boolean;
+}): Product[] {
+  return getProductsCached(options?.category, options?.type, options?.featured);
 }
 
 /**

@@ -13,8 +13,6 @@ export const metadata: Metadata = buildMetadata({
   path: "/shop",
 });
 
-export const dynamic = 'force-dynamic';
-
 export default async function ShopPage() {
   const allProducts = getProducts();
   const featuredProducts = allProducts.filter((p) => p.featured);
