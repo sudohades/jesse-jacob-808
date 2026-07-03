@@ -203,6 +203,7 @@ export const siteConfig = {
 
   // Open Graph
   ogImage: "/images/og-default.png",
+  ogImage2: "sudo_hades_logo_dark.svg",
 
   // Appearance
   theme: {

@@ -7,6 +7,7 @@ interface PageMetaOptions {
   path?:        string;
   ogImage?:     string;
   noIndex?:     boolean;
+  ogImage2?:    string;
 }
 
 export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
@@ -15,7 +16,7 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
     : `${siteConfig.name} — ${siteConfig.tagline}`;
   const description = opts.description ?? siteConfig.description;
   const url         = `${siteConfig.baseUrl}${opts.path ?? ""}`;
-  const ogImage     = opts.ogImage ?? siteConfig.ogImage;
+  const ogImage2     = opts.ogImage2 ?? siteConfig.ogImage2;
 
   return {
     title,
@@ -25,6 +26,14 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
     creator: siteConfig.name,
     metadataBase: new URL(siteConfig.baseUrl),
     alternates: { canonical: url },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
+        { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    },
+    // Next.js will generate <link rel="icon"> / apple-touch-icon from the `icons` field.
     openGraph: {
       type:        "website",
       locale:      "en_US",
@@ -32,13 +41,13 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
       title,
       description,
       siteName:    siteConfig.brand,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImage2, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card:        "summary_large_image",
       title,
       description,
-      images:      [ogImage],
+      images:      [ogImage2],
       creator:     "@sudo_hades",
     },
     robots: opts.noIndex
