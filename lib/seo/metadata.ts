@@ -16,7 +16,7 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
     : `${siteConfig.name} — ${siteConfig.tagline}`;
   const description = opts.description ?? siteConfig.description;
   const url         = `${siteConfig.baseUrl}${opts.path ?? ""}`;
-  const ogImage2     = opts.ogImage2 ?? siteConfig.ogImage2;
+  const faviconSourceUrl = `${siteConfig.baseUrl}/favicon.ico`;
 
   return {
     title,
@@ -41,15 +41,16 @@ export function buildMetadata(opts: PageMetaOptions = {}): Metadata {
       title,
       description,
       siteName:    siteConfig.brand,
-      images: [{ url: ogImage2, width: 1200, height: 630, alt: title }],
+      images: [{ url: faviconSourceUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card:        "summary_large_image",
       title,
       description,
-      images:      [ogImage2],
+      images:      [faviconSourceUrl],
       creator:     "@sudo_hades",
     },
+
     robots: opts.noIndex
       ? { index: false, follow: false }
       : { index: true, follow: true, googleBot: { index: true, follow: true } },
