@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';   
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Jesse Jacob" }],
   openGraph: {
     title: "Sudo Hades — Engineering Solutions",
+    images: [{ url: "/logo-256.png" }],
     description:
       "Software engineering firm specializing in complex problem-solving and scalable solutions.",
     type: "website",
@@ -53,7 +55,8 @@ export default function RootLayout({
       lang="en"
       className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>{children}<Analytics /></body>
+      
     </html>
   );
 }
