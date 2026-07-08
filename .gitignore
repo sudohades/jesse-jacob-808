@@ -69,3 +69,6 @@ jest.log
 # --- Keep important files ----------------------------------------------------
 # Prevent accidental deletion of placeholder files
 !.gitkeep
+
+# allat shii
+TODO.md

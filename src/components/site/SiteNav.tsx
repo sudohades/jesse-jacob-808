@@ -9,16 +9,27 @@ const navItems: Array<{ label: string; href: string }> = [
   { label: "About", href: "/about" },
 ];
 
-export function SiteNav() {
+export function SiteNav({
+  variant = "horizontal",
+}: {
+  variant?: "horizontal" | "vertical";
+}) {
+  const listClassName =
+    variant === "vertical"
+      ? "flex flex-col gap-2"
+      : "flex items-center gap-1 text-xs md:gap-2";
+
+  const linkClassName =
+    variant === "vertical"
+      ? "w-full justify-center rounded-md border border-border/40 bg-background/40 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-border/70 hover:bg-background hover:text-foreground"
+      : "inline-flex items-center rounded-md border border-border/40 bg-background/40 px-3 py-2 text-muted-foreground transition-colors hover:border-border/70 hover:bg-background hover:text-foreground";
+
   return (
     <nav aria-label="Primary">
-      <ul className="flex items-center gap-1 text-xs md:gap-2">
-        {navItems.map((item) => (
+      <ul className={listClassName}>{
+        navItems.map((item) => (
           <li key={item.href}>
-            <Link
-              href={item.href}
-              className="inline-flex items-center rounded-md border border-border/40 bg-background/40 px-3 py-2 text-muted-foreground transition-colors hover:border-border/70 hover:bg-background hover:text-foreground"
-            >
+            <Link href={item.href} className={linkClassName}>
               {item.label}
             </Link>
           </li>
@@ -27,4 +38,5 @@ export function SiteNav() {
     </nav>
   );
 }
+
 

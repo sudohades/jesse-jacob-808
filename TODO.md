@@ -1,15 +1,11 @@
 # TODO
 
-## Website navigation + dummy pages
-- [x] Add `SiteNav` component with nav items (Home, Projects, Services, Resources, Blog, About)
-- [x] Integrate `SiteNav` into `SiteHeader`
-- [x] Create dummy pages:
-  - [x] `/projects`
-  - [x] `/services`
-  - [x] `/resources`
-  - [x] `/blog`
-  - [x] `/about`
-- [x] Update `app/sitemap.ts` to include the new routes
-- [x] Verify build/lint passes (build succeeded; lint currently fails due to ESLint config circular structure)
+
+## Mobile responsiveness improvements
+- [x] Add responsive hamburger/toggle to `SiteHeader` that stores navigation inside the hamburger by default.
+- [x] Add animatable hamburger markup (button + icon spans) that can later be animated for both mobile and desktop.
+- [x] Update `SiteNav` to support vertical menu layout for the hamburger drawer/menu.
+- [ ] (Optional) Minor mobile spacing tweaks in `app/globals.css` / shared utilities if needed.
+- [ ] Test on common mobile widths (375px/390px) and tablet (768px).
 
 
