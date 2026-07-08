@@ -1,0 +1,71 @@
+# --- Dependencies ------------------------------------------------------------
+node_modules/
+
+# --- Local env / secrets ----------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# --- Logs -------------------------------------------------------------------
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# --- OS / editor / tooling -------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+
+# --- TurboRepo --------------------------------------------------------------
+# Cached computation artifacts
+.turbo/
+
+# --- Build outputs -----------------------------------------------------------
+# TypeScript
+*.tsbuildinfo
+
+# Dist outputs for packages
+dist/
+
+# Common framework/build dirs (future integrations)
+build/
+out/
+coverage/  # test coverage output (often produced by vitest/jest)
+
+# --- Runtime / local generated content -------------------------------------
+.cache/
+.next/
+.nuxt/
+.svelte-kit/
+.vercel/
+
+# --- Package manager lockfiles (optional safety) ----------------------------
+# Keep lockfiles committed; ignore only transient state if it appears.
+.pnpm-store/
+
+# --- Docs tooling (future integrations) ------------------------------------
+# e.g. typedoc, docusaurus, storybook, etc.
+*.tgz
+.docusaurus/
+#site/
+storybook-static/
+
+# --- Test runner artifacts (future integrations) ----------------------------
+.vitest/
+jest.log
+
+# --- Envrc / direnv (future integrations) ---------------------------------
+.direnv/
+
+# --- Keep important files ----------------------------------------------------
+# Prevent accidental deletion of placeholder files
+!.gitkeep
