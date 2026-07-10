@@ -21,7 +21,7 @@ export default function HomePage() {
 
           <div className="relative z-20 flex h-full items-end px-6 pb-10 md:px-12 md:pb-16">
             <div className="max-w-4xl">
-              <Eyebrow className="mb-6">
+              <Eyebrow className="mb-6 text">
                 <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;Infrastructure & Systems Engineer | Linux Systems | Automation | Technical Research
               </Eyebrow>
               <h1 className="text-[clamp(1.75rem,4vw,3.25rem)] md:text-[clamp(2.25rem,5vw,4.25rem)] font-semibold leading-[1.08]">
