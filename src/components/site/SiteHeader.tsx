@@ -62,7 +62,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
-      <Container className="flex h-16 items-center justify-between gap-6 md:h-20">
+      <Container className="flex h-14 items-center justify-between gap-4 md:h-20">
         <Link href="/" className="shrink-0" aria-label="Home">
           <Logo />
         </Link>

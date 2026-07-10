@@ -99,11 +99,11 @@
   --color-dark-amethyst-900: var(--dark-amethyst-900);
   --color-dark-amethyst-950: var(--dark-amethyst-950);
 
-  --shadow-elevate: 0 24px 48px -12px rgb(0 0 0 / 0.25);
-  --shadow-panel: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 2px 8px -2px rgb(0 0 0 / 0.1);
-  --shadow-soft: 0 1px 3px -1px rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-glow: 0 0 32px -8px var(--dark-amethyst-500 / 0.12);
-  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-elevate: 0 24px 48px -12px var(--dark-amethyst-500 / 0.15);
+  --shadow-panel: 0 1px 0 0 var(--dark-amethyst-500 / 0.1) inset, 0 2px 8px -2px var(--dark-amethyst-500 / 0.08);
+  --shadow-soft: 0 1px 3px -1px var(--dark-amethyst-500 / 0.1), 0 1px 2px -1px var(--dark-amethyst-500 / 0.05);
+  --shadow-glow: 0 0 32px -8px var(--dark-amethyst-500 / 0.15);
+  --shadow-card: 0 1px 2px 0 var(--dark-amethyst-500 / 0.08);
 }
 
 :root {
@@ -197,8 +197,8 @@
   --destructive: var(--bright-amber-500);
   --destructive-foreground: var(--carbon-black-950);
 
-  --border: var(--lavender-grey-700);
-  --input: var(--lavender-grey-800);
+  --border: var(--dark-amethyst-500 / 0.3);
+  --input: var(--dark-amethyst-500 / 0.2);
   --ring: var(--frozen-lake-500);
 
   --radius: 4px;
@@ -230,8 +230,8 @@
   --destructive: var(--bright-amber-500);
   --destructive-foreground: var(--carbon-black-950);
 
-  --border: var(--lavender-grey-200);
-  --input: var(--lavender-grey-300);
+  --border: var(--dark-amethyst-500 / 0.3);
+  --input: var(--dark-amethyst-500 / 0.2);
   --ring: var(--frozen-lake-500);
 }
 
@@ -326,6 +326,11 @@
   /* Smooth transitions for interactive elements */
   button, a, input, textarea, select {
     transition: all 0.2s ease-in-out;
+  }
+
+  /* SVG icon animations */
+  svg {
+    display: inline-block;
   }
 
   /* Card hover effects */
