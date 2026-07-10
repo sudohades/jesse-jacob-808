@@ -61,7 +61,8 @@ export function SiteHeader() {
   const navId = "site-nav-drawer";
 
   return (
-    <header className="sticky top-0 z-50 glass-matte border-b border-border">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-[6px]">
+
       <Container className="flex h-16 items-center justify-between gap-4 md:h-20">
         <Link href="/" className="shrink-0" aria-label="Home">
           <Logo />
@@ -87,8 +88,9 @@ export function SiteHeader() {
         id={navId}
         className={
           open
-            ? "border-t border-border glass-matte"
+            ? "border-t border-border bg-background/60 backdrop-blur-[6px]"
             : "hidden"
+
         }
       >
         <div className="container-rl py-6">

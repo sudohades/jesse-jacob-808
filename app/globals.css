@@ -342,12 +342,13 @@
 
   /* Subtle Dark Amethyst effects for depth */
   .glow-subtle {
-    box-shadow: var(--shadow-glow);
+    box-shadow: none;
   }
 
   .hover-glow:hover {
-    box-shadow: var(--shadow-glow);
+    box-shadow: none;
   }
+
 
   /* Focus states with Bright Amber */
   :focus-visible {
@@ -355,21 +356,11 @@
     outline-offset: 2px;
   }
 
-  /* Hero background animation */
-  @keyframes heroOverlay {
-    0%, 100% {
-      opacity: 0.85;
-      transform: translateX(0);
-    }
-    50% {
-      opacity: 0.9;
-      transform: translateX(-2%);
-    }
+  /* Hero background animation (disabled for editorial calm) */
+  .hero-overlay {
+    animation: none;
   }
 
-  .hero-overlay {
-    animation: heroOverlay 12s ease-in-out infinite;
-  }
 
   /* Subtle material texture - prevents flat appearance */
   .texture-subtle {
@@ -378,7 +369,7 @@
   }
 
   /* Matte engineering glass utility */
-  .glass-matte {
+.surface-glass-matte {
     background: var(--surface-elevated);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -386,7 +377,7 @@
     position: relative;
   }
 
-  .glass-matte::before {
+  .surface-glass-matte::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -395,7 +386,7 @@
     opacity: 0.5;
   }
 
-  .glass-floating {
+.surface-glass-floating {
     background: var(--surface-floating);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -403,7 +394,7 @@
     position: relative;
   }
 
-  .glass-floating::before {
+  .surface-glass-floating::before {
     content: '';
     position: absolute;
     inset: 0;

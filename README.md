@@ -31,11 +31,10 @@ Each page is a standalone route under `app/` and uses the shared marketing shell
 - `app/blog/page.tsx`
 - `app/about/page.tsx`
 
-Each page contains:
-- A heading + placeholder paragraph
-- Dummy “button” actions (currently plain `<button>` elements so you can wire up real routes/handlers later)
+Pages are currently being aligned to a common editorial system (page header + editorial layout primitives).
 
 ### Sitemap
+
 - **Updated:** `app/sitemap.ts`
   - Ensures `/projects`, `/services`, `/resources`, `/blog`, `/about` are included.
 
