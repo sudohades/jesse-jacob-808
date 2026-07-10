@@ -16,13 +16,13 @@ export function SiteNav({
 }) {
   const listClassName =
     variant === "vertical"
-      ? "flex flex-col gap-2"
+      ? "flex flex-col gap-3"
       : "flex items-center gap-1 text-xs md:gap-2";
 
   const linkClassName =
     variant === "vertical"
-      ? "w-full justify-center rounded-md border border-border bg-secondary/50 px-4 py-2 text-sm text-muted-foreground transition-all hover:border-border hover:bg-secondary hover:text-foreground"
-      : "inline-flex items-center rounded-md border border-transparent px-3 py-2 text-muted-foreground transition-all hover:border-border hover:bg-secondary/50 hover:text-foreground";
+      ? "w-full justify-center rounded-lg border border-border bg-secondary/50 px-4 py-3 text-sm text-muted-foreground transition-all duration-200 hover:border-border hover:bg-secondary hover:text-foreground"
+      : "inline-flex items-center rounded-lg border border-transparent px-4 py-2 text-muted-foreground transition-all duration-200 hover:border-border hover:bg-secondary/50 hover:text-foreground";
 
   return (
     <nav aria-label="Primary">

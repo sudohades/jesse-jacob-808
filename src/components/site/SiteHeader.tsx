@@ -20,7 +20,7 @@ function Hamburger({
   return (
     <button
       type="button"
-      className="group inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-secondary/50 text-muted-foreground transition-all hover:border-border hover:bg-secondary hover:text-foreground md:hidden"
+      className="group inline-flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground transition-all duration-200 hover:border-border hover:bg-secondary hover:text-foreground md:hidden"
       aria-label={open ? "Close navigation" : "Open navigation"}
       aria-expanded={open}
       aria-controls={ariaControls}
@@ -32,11 +32,11 @@ function Hamburger({
         it into an X (mobile + desktop) by targeting these spans.
       */}
       <span className="sr-only">Toggle navigation</span>
-      <span aria-hidden="true" className="relative h-5 w-5">
+      <span aria-hidden="true" className="relative h-6 w-6">
         <span
-          className="absolute left-0 top-1 h-[2px] w-full origin-center bg-current transition-transform duration-200"
+          className="absolute left-0 top-1.5 h-[2px] w-full origin-center bg-current transition-transform duration-200"
           data-line-1
-          style={{ transform: open ? "translateY(5px) rotate(45deg)" : "none" }}
+          style={{ transform: open ? "translateY(6px) rotate(45deg)" : "none" }}
         />
         <span
           className="absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 bg-current transition-opacity duration-200"
@@ -44,9 +44,9 @@ function Hamburger({
           style={{ opacity: open ? 0 : 1 }}
         />
         <span
-          className="absolute left-0 bottom-1 h-[2px] w-full origin-center bg-current transition-transform duration-200"
+          className="absolute left-0 bottom-1.5 h-[2px] w-full origin-center bg-current transition-transform duration-200"
           data-line-3
-          style={{ transform: open ? "translateY(-5px) rotate(-45deg)" : "none" }}
+          style={{ transform: open ? "translateY(-6px) rotate(-45deg)" : "none" }}
         />
       </span>
       <span id={id} className="sr-only">
@@ -61,8 +61,8 @@ export function SiteHeader() {
   const navId = "site-nav-drawer";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
-      <Container className="flex h-14 items-center justify-between gap-4 md:h-20">
+    <header className="sticky top-0 z-50 glass-matte border-b border-border">
+      <Container className="flex h-16 items-center justify-between gap-4 md:h-20">
         <Link href="/" className="shrink-0" aria-label="Home">
           <Logo />
         </Link>
@@ -87,11 +87,11 @@ export function SiteHeader() {
         id={navId}
         className={
           open
-            ? "border-t border-border bg-background/95 backdrop-blur-xl"
+            ? "border-t border-border glass-matte"
             : "hidden"
         }
       >
-        <div className="container-rl py-4">
+        <div className="container-rl py-6">
           <SiteNav variant="vertical" />
         </div>
       </div>
