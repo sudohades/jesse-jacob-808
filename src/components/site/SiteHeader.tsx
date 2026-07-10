@@ -20,7 +20,7 @@ function Hamburger({
   return (
     <button
       type="button"
-      className="group inline-flex h-10 w-10 items-center justify-center rounded-md border border-border/40 bg-background/40 text-muted-foreground transition-colors hover:border-border/70 hover:bg-background hover:text-foreground md:hidden"
+      className="group inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-secondary/50 text-muted-foreground transition-all hover:border-border hover:bg-secondary hover:text-foreground md:hidden"
       aria-label={open ? "Close navigation" : "Open navigation"}
       aria-expanded={open}
       aria-controls={ariaControls}
@@ -61,7 +61,7 @@ export function SiteHeader() {
   const navId = "site-nav-drawer";
 
   return (
-    <header className="border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between gap-6 md:h-20">
         <Link href="/" className="shrink-0" aria-label="Home">
           <Logo />
@@ -87,11 +87,11 @@ export function SiteHeader() {
         id={navId}
         className={
           open
-            ? "border-t border-border/60 bg-background/95 backdrop-blur-xl"
+            ? "border-t border-border bg-background/95 backdrop-blur-xl"
             : "hidden"
         }
       >
-      <div className="container-rl py-4">
+        <div className="container-rl py-4">
           <SiteNav variant="vertical" />
         </div>
       </div>

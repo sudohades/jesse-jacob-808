@@ -3,7 +3,7 @@ import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "solid" | "outline" | "ghost" | "redline";
+type Variant = "solid" | "outline" | "ghost" | "accent";
 
 type Props = {
   to?: string;
@@ -25,12 +25,12 @@ export function CTAButton({
 }: Props) {
   const base =
     "group inline-flex items-center gap-3 px-6 py-4 text-xs uppercase tracking-[0.22em] transition-all duration-300";
-  const styles: Record<Variant, string> = {
-    solid: "bg-foreground text-background hover:bg-redline hover:text-background",
+  const styles: Record<string, string> = {
+    solid: "bg-primary text-primary-foreground hover:bg-primary/90",
     outline:
-      "border border-foreground/80 text-foreground hover:bg-foreground hover:text-background",
-    ghost: "text-foreground hover:text-redline",
-    redline: "bg-redline text-background hover:bg-redline-glow",
+      "border border-border text-foreground hover:bg-accent hover:text-accent-foreground",
+    ghost: "text-foreground hover:text-accent hover:bg-accent/10",
+    accent: "bg-bright-amber-500 text-carbon-black-950 hover:bg-bright-amber-600",
   };
   const Icon = icon === "right" ? ArrowRight : icon === "up-right" ? ArrowUpRight : null;
   const content = (

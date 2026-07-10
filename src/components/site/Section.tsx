@@ -31,11 +31,11 @@ export function Section({
           <div className="mb-14 grid gap-8 md:mb-20 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-4">
               {index && (
-                <div className="mono-label mb-4 text-titanium">
-                  <span className="text-redline">■</span>&nbsp;&nbsp;{index}
+                <div className="mb-4 font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                  <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;{index}
                 </div>
               )}
-              {eyebrow && <div className="eyebrow">{eyebrow}</div>}
+              {eyebrow && <div className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">{eyebrow}</div>}
             </div>
             <div className="md:col-span-8">
               {title && <h2 className="display-lg text-foreground">{title}</h2>}

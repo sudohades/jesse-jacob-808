@@ -12,8 +12,8 @@ export function PageHero({ eyebrow, title, lede }: Props) {
       <Container>
         <div className="grid gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <div className="mono-label mb-4 text-titanium">
-              <span className="text-redline">■</span>&nbsp;&nbsp;{eyebrow}
+            <div className="mb-4 font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;{eyebrow}
             </div>
           </div>
           <div className="md:col-span-8">

@@ -21,13 +21,13 @@ export function SiteNav({
 
   const linkClassName =
     variant === "vertical"
-      ? "w-full justify-center rounded-md border border-border/40 bg-background/40 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-border/70 hover:bg-background hover:text-foreground"
-      : "inline-flex items-center rounded-md border border-border/40 bg-background/40 px-3 py-2 text-muted-foreground transition-colors hover:border-border/70 hover:bg-background hover:text-foreground";
+      ? "w-full justify-center rounded-md border border-border bg-secondary/50 px-4 py-2 text-sm text-muted-foreground transition-all hover:border-border hover:bg-secondary hover:text-foreground"
+      : "inline-flex items-center rounded-md border border-transparent px-3 py-2 text-muted-foreground transition-all hover:border-border hover:bg-secondary/50 hover:text-foreground";
 
   return (
     <nav aria-label="Primary">
-      <ul className={listClassName}>{
-        navItems.map((item) => (
+      <ul className={listClassName}>
+        {navItems.map((item) => (
           <li key={item.href}>
             <Link href={item.href} className={linkClassName}>
               {item.label}

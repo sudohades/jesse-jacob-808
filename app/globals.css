@@ -9,9 +9,9 @@
    ========================================================================= */
 
 @theme inline {
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-quantico), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-share-tech-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --radius-sm: 2px;
   --radius-md: 4px;
@@ -39,79 +39,200 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-carbon: var(--carbon);
-  --color-graphite: var(--graphite);
-  --color-gunmetal: var(--gunmetal);
-  --color-titanium: var(--titanium);
-  --color-bone: var(--bone);
-  --color-redline: var(--redline);
-  --color-redline-glow: var(--redline-glow);
+  --color-frozen-lake-50: var(--frozen-lake-50);
+  --color-frozen-lake-100: var(--frozen-lake-100);
+  --color-frozen-lake-200: var(--frozen-lake-200);
+  --color-frozen-lake-300: var(--frozen-lake-300);
+  --color-frozen-lake-400: var(--frozen-lake-400);
+  --color-frozen-lake-500: var(--frozen-lake-500);
+  --color-frozen-lake-600: var(--frozen-lake-600);
+  --color-frozen-lake-700: var(--frozen-lake-700);
+  --color-frozen-lake-800: var(--frozen-lake-800);
+  --color-frozen-lake-900: var(--frozen-lake-900);
+  --color-frozen-lake-950: var(--frozen-lake-950);
 
-  --shadow-elevate: 0 30px 80px -30px rgb(0 0 0 / 0.6);
-  --shadow-panel: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 20px 60px -20px rgb(0 0 0 / 0.5);
+  --color-lavender-grey-50: var(--lavender-grey-50);
+  --color-lavender-grey-100: var(--lavender-grey-100);
+  --color-lavender-grey-200: var(--lavender-grey-200);
+  --color-lavender-grey-300: var(--lavender-grey-300);
+  --color-lavender-grey-400: var(--lavender-grey-400);
+  --color-lavender-grey-500: var(--lavender-grey-500);
+  --color-lavender-grey-600: var(--lavender-grey-600);
+  --color-lavender-grey-700: var(--lavender-grey-700);
+  --color-lavender-grey-800: var(--lavender-grey-800);
+  --color-lavender-grey-900: var(--lavender-grey-900);
+  --color-lavender-grey-950: var(--lavender-grey-950);
+
+  --color-carbon-black-50: var(--carbon-black-50);
+  --color-carbon-black-100: var(--carbon-black-100);
+  --color-carbon-black-200: var(--carbon-black-200);
+  --color-carbon-black-300: var(--carbon-black-300);
+  --color-carbon-black-400: var(--carbon-black-400);
+  --color-carbon-black-500: var(--carbon-black-500);
+  --color-carbon-black-600: var(--carbon-black-600);
+  --color-carbon-black-700: var(--carbon-black-700);
+  --color-carbon-black-800: var(--carbon-black-800);
+  --color-carbon-black-900: var(--carbon-black-900);
+  --color-carbon-black-950: var(--carbon-black-950);
+
+  --color-bright-amber-50: var(--bright-amber-50);
+  --color-bright-amber-100: var(--bright-amber-100);
+  --color-bright-amber-200: var(--bright-amber-200);
+  --color-bright-amber-300: var(--bright-amber-300);
+  --color-bright-amber-400: var(--bright-amber-400);
+  --color-bright-amber-500: var(--bright-amber-500);
+  --color-bright-amber-600: var(--bright-amber-600);
+  --color-bright-amber-700: var(--bright-amber-700);
+  --color-bright-amber-800: var(--bright-amber-800);
+  --color-bright-amber-900: var(--bright-amber-900);
+  --color-bright-amber-950: var(--bright-amber-950);
+
+  --color-dark-amethyst-50: var(--dark-amethyst-50);
+  --color-dark-amethyst-100: var(--dark-amethyst-100);
+  --color-dark-amethyst-200: var(--dark-amethyst-200);
+  --color-dark-amethyst-300: var(--dark-amethyst-300);
+  --color-dark-amethyst-400: var(--dark-amethyst-400);
+  --color-dark-amethyst-500: var(--dark-amethyst-500);
+  --color-dark-amethyst-600: var(--dark-amethyst-600);
+  --color-dark-amethyst-700: var(--dark-amethyst-700);
+  --color-dark-amethyst-800: var(--dark-amethyst-800);
+  --color-dark-amethyst-900: var(--dark-amethyst-900);
+  --color-dark-amethyst-950: var(--dark-amethyst-950);
+
+  --shadow-elevate: 0 24px 48px -12px rgb(0 0 0 / 0.25);
+  --shadow-panel: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 2px 8px -2px rgb(0 0 0 / 0.1);
+  --shadow-soft: 0 1px 3px -1px rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-glow: 0 0 32px -8px var(--dark-amethyst-500 / 0.12);
+  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 :root {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.97 0 0);
+  /* Frozen Lake */
+  --frozen-lake-50: #e6f7fe;
+  --frozen-lake-100: #cef0fd;
+  --frozen-lake-200: #9ce1fc;
+  --frozen-lake-300: #6bd2fa;
+  --frozen-lake-400: #39c3f9;
+  --frozen-lake-500: #08b3f7;
+  --frozen-lake-600: #0690c6;
+  --frozen-lake-700: #056c94;
+  --frozen-lake-800: #034863;
+  --frozen-lake-900: #022431;
+  --frozen-lake-950: #011923;
 
-  --card: oklch(0.18 0 0);
-  --card-foreground: oklch(0.97 0 0);
+  /* Lavender Grey */
+  --lavender-grey-50: #f1f1f4;
+  --lavender-grey-100: #e2e3e9;
+  --lavender-grey-200: #c5c7d3;
+  --lavender-grey-300: #a9abbc;
+  --lavender-grey-400: #8c8fa6;
+  --lavender-grey-500: #6f7390;
+  --lavender-grey-600: #595c73;
+  --lavender-grey-700: #434556;
+  --lavender-grey-800: #2c2e3a;
+  --lavender-grey-900: #16171d;
+  --lavender-grey-950: #101014;
 
-  --popover: oklch(0.16 0 0);
-  --popover-foreground: oklch(0.97 0 0);
+  /* Carbon Black */
+  --carbon-black-50: #f3f4f1;
+  --carbon-black-100: #e7e8e3;
+  --carbon-black-200: #d0d2c6;
+  --carbon-black-300: #b8bbaa;
+  --carbon-black-400: #a0a48e;
+  --carbon-black-500: #898e71;
+  --carbon-black-600: #6d715b;
+  --carbon-black-700: #525544;
+  --carbon-black-800: #37392d;
+  --carbon-black-900: #1b1c17;
+  --carbon-black-950: #131410;
 
-  --primary: oklch(0.97 0 0);
-  --primary-foreground: oklch(0.145 0 0);
+  /* Bright Amber */
+  --bright-amber-50: #fefae6;
+  --bright-amber-100: #fdf5ce;
+  --bright-amber-200: #fcec9c;
+  --bright-amber-300: #fae26b;
+  --bright-amber-400: #f9d939;
+  --bright-amber-500: #f7cf08;
+  --bright-amber-600: #c6a606;
+  --bright-amber-700: #947c05;
+  --bright-amber-800: #635303;
+  --bright-amber-900: #312902;
+  --bright-amber-950: #231d01;
 
-  --secondary: oklch(0.22 0 0);
-  --secondary-foreground: oklch(0.97 0 0);
+  /* Dark Amethyst */
+  --dark-amethyst-50: #f9e8fc;
+  --dark-amethyst-100: #f2d2f9;
+  --dark-amethyst-200: #e5a4f4;
+  --dark-amethyst-300: #d877ee;
+  --dark-amethyst-400: #cb49e9;
+  --dark-amethyst-500: #be1ce3;
+  --dark-amethyst-600: #9816b6;
+  --dark-amethyst-700: #721188;
+  --dark-amethyst-800: #4c0b5b;
+  --dark-amethyst-900: #26062d;
+  --dark-amethyst-950: #1b0420;
 
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.65 0 0);
+  /* Dark Theme (Default) */
+  --background: var(--carbon-black-950);
+  --foreground: var(--lavender-grey-100);
 
-  --accent: oklch(0.58 0.22 26);
-  --accent-foreground: oklch(0.98 0 0);
+  --card: var(--carbon-black-900);
+  --card-foreground: var(--lavender-grey-100);
 
-  --destructive: oklch(0.58 0.22 26);
-  --destructive-foreground: oklch(0.98 0 0);
+  --popover: var(--carbon-black-900);
+  --popover-foreground: var(--lavender-grey-100);
 
-  --border: oklch(1 0 0 / 0.08);
-  --input: oklch(1 0 0 / 0.12);
-  --ring: oklch(0.58 0.22 26);
+  --primary: var(--frozen-lake-500);
+  --primary-foreground: var(--carbon-black-950);
 
-  --carbon: oklch(0.145 0 0);
-  --graphite: oklch(0.22 0 0);
-  --gunmetal: oklch(0.30 0 0);
-  --titanium: oklch(0.55 0 0);
-  --bone: oklch(0.97 0 0);
-  --redline: oklch(0.58 0.22 26);
-  --redline-glow: oklch(0.62 0.24 26);
+  --secondary: var(--carbon-black-800);
+  --secondary-foreground: var(--lavender-grey-100);
+
+  --muted: var(--carbon-black-800);
+  --muted-foreground: var(--lavender-grey-500);
+
+  --accent: var(--frozen-lake-400);
+  --accent-foreground: var(--carbon-black-950);
+
+  --destructive: var(--bright-amber-500);
+  --destructive-foreground: var(--carbon-black-950);
+
+  --border: var(--lavender-grey-700);
+  --input: var(--lavender-grey-800);
+  --ring: var(--frozen-lake-500);
 
   --radius: 4px;
 }
 
 .light {
-  --background: oklch(0.98 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Light Theme */
+  --background: var(--frozen-lake-50);
+  --foreground: var(--carbon-black-950);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card: var(--frozen-lake-100);
+  --card-foreground: var(--carbon-black-950);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover: var(--frozen-lake-100);
+  --popover-foreground: var(--carbon-black-950);
 
-  --primary: oklch(0.145 0 0);
-  --primary-foreground: oklch(0.98 0 0);
+  --primary: var(--frozen-lake-500);
+  --primary-foreground: var(--carbon-black-950);
 
-  --secondary: oklch(0.94 0 0);
-  --secondary-foreground: oklch(0.145 0 0);
+  --secondary: var(--lavender-grey-50);
+  --secondary-foreground: var(--carbon-black-950);
 
-  --muted: oklch(0.94 0 0);
-  --muted-foreground: oklch(0.45 0 0);
+  --muted: var(--frozen-lake-200);
+  --muted-foreground: var(--carbon-black-500);
 
-  --border: oklch(0 0 0 / 0.1);
-  --input: oklch(0 0 0 / 0.12);
+  --accent: var(--frozen-lake-500);
+  --accent-foreground: var(--carbon-black-950);
+
+  --destructive: var(--bright-amber-500);
+  --destructive-foreground: var(--carbon-black-950);
+
+  --border: var(--lavender-grey-200);
+  --input: var(--lavender-grey-300);
+  --ring: var(--frozen-lake-500);
 }
 
 @layer base {
@@ -129,22 +250,112 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "ss02", "cv11";
+    font-feature-settings: "ss01", "ss02";
   }
 
   ::selection {
-    background: var(--redline);
-    color: var(--bone);
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
   }
 
-  h1, h2, h3, h4, h5 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
-    font-weight: 500;
+    letter-spacing: 0.02em;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
-  h1 { letter-spacing: -0.035em; }
-  h2 { letter-spacing: -0.03em; }
+  h1 { letter-spacing: 0.01em; }
+  h2 { letter-spacing: 0.015em; }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  .display-xl {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+  }
+
+  .display-lg {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+  }
+
+  /* Subtle Dark Amethyst effects for depth */
+  .glow-subtle {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Focus states with Bright Amber */
+  :focus-visible {
+    outline: 2px solid var(--bright-amber-500);
+    outline-offset: 2px;
+  }
+
+  /* Hero background animation */
+  @keyframes heroOverlay {
+    0%, 100% {
+      opacity: 0.85;
+      transform: translateX(0);
+    }
+    50% {
+      opacity: 0.9;
+      transform: translateX(-2%);
+    }
+  }
+
+  .hero-overlay {
+    animation: heroOverlay 12s ease-in-out infinite;
+  }
+
+  /* Smooth transitions for interactive elements */
+  button, a, input, textarea, select {
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevate);
+  }
+
+  /* Dynamic content handling - ensures smooth layout shifts */
+  .dynamic-content {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Responsive grid utilities for dynamic content */
+  .responsive-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  @media (min-width: 768px) {
+    .responsive-grid {
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+  }
 }
 
 /* Generic layout utilities */

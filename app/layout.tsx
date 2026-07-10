@@ -1,19 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Quantico, Share_Tech_Mono, Inter } from "next/font/google";
 import { Analytics } from '@vercel/analytics/next';   
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const quantico = Quantico({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "700"],
+  variable: "--font-quantico",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const shareTechMono = Share_Tech_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-jetbrains-mono",
+  weight: ["400"],
+  variable: "--font-share-tech-mono",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -40,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#090909",
+  themeColor: "#131410",
   width: "device-width",
   initialScale: 1,
 };
@@ -53,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`dark ${quantico.variable} ${shareTechMono.variable} ${inter.variable}`}
     >
       <body>{children}<Analytics /></body>
       

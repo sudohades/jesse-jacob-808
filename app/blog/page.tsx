@@ -11,10 +11,10 @@ export default function BlogPage() {
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <button className="rounded-md border border-foreground/60 bg-background px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors hover:bg-foreground hover:text-background">
+          <button className="rounded-md border border-border bg-secondary/50 px-4 py-2 text-xs uppercase tracking-[0.22em] transition-all hover:border-border hover:bg-secondary hover:text-foreground">
             View Latest Post
           </button>
-          <button className="rounded-md border border-foreground/60 bg-background px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors hover:bg-foreground hover:text-background">
+          <button className="rounded-md border border-border bg-secondary/50 px-4 py-2 text-xs uppercase tracking-[0.22em] transition-all hover:border-border hover:bg-secondary hover:text-foreground">
             Subscribe for Updates
           </button>
         </div>
