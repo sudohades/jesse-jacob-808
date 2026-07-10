@@ -1,25 +1,65 @@
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/primitives/PageHeader";
+import { Panel } from "@/components/site/primitives/Panel";
+import { Metadata } from "@/components/site/primitives/Metadata";
 import { CTAButton } from "@/components/site/CTAButton";
 
 export default function ServicesPage() {
   return (
     <SiteShell>
-      <div className="container-rl py-24 md:py-32">
-        <h1 className="text-2xl font-semibold md:text-4xl font-display tracking-wide">Services</h1>
-        <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
-          Dummy placeholder content for the Services page. To be replaced with
-          how I apply my skills for others (offerings, deliverables, process).
-        </p>
+      <PageHeader eyebrow="Services" title="Engineering consultancy" />
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <CTAButton to="/contact" variant="outline">
-            Request a Consultation
-          </CTAButton>
-          <CTAButton to="/services/packages" variant="outline">
-            See Service Packages
-          </CTAButton>
+      <section className="pb-24 md:pb-32">
+        <div className="container-rl">
+          <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+            <Panel className="h-full">
+              <div className="flex h-full flex-col gap-6">
+                <Metadata>DIAGNOSIS</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Failure analysis and root cause tracing across distributed systems.
+                  Evidence-first investigations that convert uncertainty into design
+                  decisions.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/services/packages" variant="outline" icon="none">
+                    Service packages
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+
+            <Panel className="h-full">
+              <div className="flex h-full flex-col gap-6">
+                <Metadata>ARCHITECTURE</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Systems design for reliability, deployability, and maintainability.
+                  Clear interfaces, controlled change, and operational clarity.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/projects" variant="outline" icon="none">
+                    See architecture work
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+
+            <Panel className="h-full">
+              <div className="flex h-full flex-col gap-6">
+                <Metadata>AI INTEGRATION</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Pragmatic AI engineering: evaluation pipelines, safe rollout
+                  strategies, and secure integration into production systems.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/resources" variant="outline" icon="none">
+                    Read notes
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+          </div>
         </div>
-      </div>
+      </section>
     </SiteShell>
   );
 }

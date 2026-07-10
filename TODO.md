@@ -8,8 +8,13 @@
 
 - [x] Step 4: Redesign homepage `app/page.tsx` using editorial primitives (hero calm; integrated panels).
 
-- [ ] Step 5: Refactor secondary pages (`about`, `projects`, `services`, `resources`, `blog`, `not-found`) to use `PageHeader`/editorial primitives for consistent editorial rhythm.
+- [x] Step 5: Refactor secondary pages (`about`, `projects`, `services`, `resources`, `blog`, `not-found`) to use `PageHeader`/editorial primitives for consistent editorial rhythm.
 
-- [ ] Step 6: Consistency audit: ensure no page uses old “glass card” patterns.
+
+
+- [x] Step 6: Consistency audit: ensure no page uses old “glass card” patterns.
+
+
 - [ ] Step 7: Build + typecheck: `npm run build`, `npx tsc -p tsconfig.json --noEmit`.
+
 

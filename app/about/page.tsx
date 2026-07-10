@@ -1,25 +1,67 @@
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/primitives/PageHeader";
+import { Panel } from "@/components/site/primitives/Panel";
+import { Metadata } from "@/components/site/primitives/Metadata";
+import { Divider } from "@/components/site/primitives/Divider";
 import { CTAButton } from "@/components/site/CTAButton";
 
 export default function AboutPage() {
   return (
     <SiteShell>
-      <div className="container-rl py-24 md:py-32">
-        <h1 className="text-3xl font-semibold md:text-5xl font-display tracking-wide">About</h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-          Dummy placeholder content for the About page. To be replaced with my
-          engineering philosophy, background, and approach.
-        </p>
+      <PageHeader eyebrow="About" title="Engineering philosophy" />
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <CTAButton to="/about/story" variant="outline">
-            Read the Full Story
-          </CTAButton>
-          <CTAButton to="mailto:jesse.jacob.808@gmail.com" variant="outline">
-            Contact Me
-          </CTAButton>
+      <section className="pb-24 md:pb-32">
+        <div className="container-rl">
+          <div className="grid gap-6 md:grid-cols-12 md:gap-8">
+            <div className="md:col-span-7">
+              <Panel>
+                <div className="flex flex-col gap-6">
+                  <Metadata>METHOD</Metadata>
+                  <p className="text-muted-foreground leading-relaxed">
+                    I design systems like engineering instruments: clear interfaces,
+                    predictable behavior under load, and verifiable assumptions.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    My work focuses on infrastructure reliability, systems
+                    observability, and pragmatic AI integration—always grounded in
+                    failure modes and operational reality.
+                  </p>
+                  <Divider className="bg-border" />
+                  <p className="text-muted-foreground leading-relaxed">
+                    The goal is simple: build what can be trusted, not what can be
+                    demoed.
+                  </p>
+                </div>
+              </Panel>
+            </div>
+
+            <div className="md:col-span-5">
+              <Panel>
+                <div className="flex flex-col gap-6">
+                  <Metadata>CONTACT</Metadata>
+                  <p className="text-muted-foreground leading-relaxed">
+                    If you’re hiring for infrastructure, systems engineering, or
+                    applied AI—and you care about evidence-driven architecture—reach
+                    out.
+                  </p>
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <CTAButton
+                      to="mailto:jesse.jacob.808@gmail.com"
+                      variant="outline"
+                      icon="none"
+                    >
+                      Email Jesse
+                    </CTAButton>
+                    <CTAButton to="/projects" variant="outline" icon="none">
+                      See work
+                    </CTAButton>
+                  </div>
+                </div>
+              </Panel>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </SiteShell>
   );
 }

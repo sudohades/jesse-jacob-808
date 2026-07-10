@@ -1,25 +1,49 @@
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/primitives/PageHeader";
+import { Panel } from "@/components/site/primitives/Panel";
+import { Metadata } from "@/components/site/primitives/Metadata";
 import { CTAButton } from "@/components/site/CTAButton";
 
 export default function ResourcesPage() {
   return (
     <SiteShell>
-      <div className="container-rl py-24 md:py-32">
-        <h1 className="text-3xl font-semibold md:text-5xl font-display tracking-wide">Resources</h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-          Dummy placeholder content for the Resources page. To be replaced with
-          guides, templates, tools, or learning materials that I will share.
-        </p>
+      <PageHeader eyebrow="Resources" title="Engineering notes & templates" />
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <CTAButton to="/resources/guides" variant="outline">
-            Browse Guides
-          </CTAButton>
-          <CTAButton to="/resources/templates" variant="outline">
-            Download Template
-          </CTAButton>
+      <section className="pb-24 md:pb-32">
+        <div className="container-rl">
+          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+            <Panel>
+              <div className="flex flex-col gap-6">
+                <Metadata>GUIDES</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Deep technical writeups for infrastructure, systems diagnosis, and
+                  AI engineering—focused on reproducible reasoning.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/resources/guides" variant="outline" icon="none">
+                    Browse guides
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+
+            <Panel>
+              <div className="flex flex-col gap-6">
+                <Metadata>TEMPLATES</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Practical starting points: evaluation checklists, runbook patterns,
+                  and architecture documentation structures.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/resources/templates" variant="outline" icon="none">
+                    Download templates
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+          </div>
         </div>
-      </div>
+      </section>
     </SiteShell>
   );
 }

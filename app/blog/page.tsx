@@ -1,25 +1,63 @@
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/primitives/PageHeader";
+import { Panel } from "@/components/site/primitives/Panel";
+import { Metadata } from "@/components/site/primitives/Metadata";
 import { CTAButton } from "@/components/site/CTAButton";
 
 export default function BlogPage() {
   return (
     <SiteShell>
-      <div className="container-rl py-24 md:py-32">
-        <h1 className="text-3xl font-semibold md:text-5xl font-display tracking-wide">Blog</h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-          Dummy placeholder content for the Blog page. To be replaced with my
-          posts, writing cadence, and topic categories.
-        </p>
+      <PageHeader eyebrow="Blog" title="Editorial engineering writing" />
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <CTAButton to="/blog/latest" variant="outline">
-            View Latest Post
-          </CTAButton>
-          <CTAButton to="/blog/subscribe" variant="outline">
-            Subscribe for Updates
-          </CTAButton>
+      <section className="pb-24 md:pb-32">
+        <div className="container-rl">
+          <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+            <Panel className="h-full">
+              <div className="flex h-full flex-col gap-6">
+                <Metadata>LATEST</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Short, precise writeups on production debugging, architecture tradeoffs,
+                  and practical systems design.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/blog/latest" variant="outline" icon="none">
+                    View latest
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+
+            <Panel className="h-full">
+              <div className="flex h-full flex-col gap-6">
+                <Metadata>SERIES</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Ongoing technical series: failure modes, reliability patterns, and
+                  applied AI engineering.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/blog/categories" variant="outline" icon="none">
+                    Browse categories
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+
+            <Panel className="h-full">
+              <div className="flex h-full flex-col gap-6">
+                <Metadata>SUBSCRIBE</Metadata>
+                <p className="text-muted-foreground leading-relaxed">
+                  Occasional technical notes—no spam, just engineered clarity.
+                </p>
+                <div className="mt-auto">
+                  <CTAButton to="/blog/subscribe" variant="outline" icon="none">
+                    Subscribe
+                  </CTAButton>
+                </div>
+              </div>
+            </Panel>
+          </div>
         </div>
-      </div>
+      </section>
     </SiteShell>
   );
 }
