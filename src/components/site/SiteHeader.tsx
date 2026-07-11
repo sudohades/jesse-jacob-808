@@ -5,6 +5,9 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { SiteNav } from "./SiteNav";
+import { useDrawerBehavior } from "@/hooks/useViewport";
+import { useMobile } from "@/hooks/useMobile";
+
 
 function Hamburger({
   open,
@@ -60,10 +63,14 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const navId = "site-nav-drawer";
 
+  const mobile = useMobile();
+  const { drawerRef } = useDrawerBehavior({ open, setOpen, close: () => setOpen(false) });
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-[6px]">
 
       <Container className="flex h-16 items-center justify-between gap-4 md:h-20">
+
         <Link href="/" className="shrink-0" aria-label="Home">
           <Logo />
         </Link>
@@ -78,25 +85,32 @@ export function SiteHeader() {
           <Hamburger
             open={open}
             ariaControls={navId}
-            onToggle={() => setOpen((v) => !v)}
+            onToggle={() => {
+              if (!mobile) return;
+              setOpen((v) => !v);
+            }}
           />
         </div>
+
       </Container>
 
       {/* Mobile drawer (simple, customize later) */}
       <div
         id={navId}
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
         className={
           open
             ? "border-t border-border bg-background/60 backdrop-blur-[6px]"
             : "hidden"
-
         }
       >
         <div className="container-rl py-6">
           <SiteNav variant="vertical" />
         </div>
       </div>
+
     </header>
   );
 }
