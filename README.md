@@ -327,6 +327,7 @@ Planned improvements include:
 * diagram rendering
 * infrastructure write-ups
 * interactive engineering case studies
+* product catalog with listing and payment processing
 
 ---
 
