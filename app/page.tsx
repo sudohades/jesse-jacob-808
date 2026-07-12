@@ -10,35 +10,77 @@ export default function HomePage() {
   return (
     <SiteShell>
       {/* Hero */}
-      <section className="relative">
-        <div className="relative h-[52dvh] min-h-[420px] max-h-[640px] overflow-hidden">
+      <section className="relative overflow-hidden">
+        <div className="relative h-[45dvh] min-h-[360px] max-h-[520px] overflow-hidden">
+
+          {/* Background Image */}
           <img
             src="/hero.jpg"
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
 
-          {/* static overlay (editorial calm) */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-carbon-black-950/60 to-carbon-black-950" />
+          {/* Primary overlay */}
+          <div
+            className="
+              absolute inset-0 z-10
+              bg-gradient-to-t
+              from-[var(--hero-overlay-bottom)]
+              via-[var(--hero-overlay-middle)]
+              to-[var(--hero-overlay-top)]
+            "
+          />
 
-          <div className="relative z-20 flex h-full items-end px-6 pb-10 md:px-12 md:pb-16">
-            <div className="max-w-4xl">
-              <Eyebrow className="mb-6">
-                <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;Infrastructure & Systems Engineer | Linux Systems | Automation | Technical Research
+          {/* Secondary overlay behind content */}
+          <div
+            className="
+              absolute inset-0 z-10
+              bg-[radial-gradient(circle_at_30%_65%,var(--hero-overlay-focus)_0%,transparent_65%)]
+            "
+          />
+
+          {/* Content */}
+          <div
+            className="
+              relative z-20
+              flex h-full items-end
+              px-6 pb-10
+              md:px-12 md:pb-14
+            "
+          >
+            <div className="max-w-3xl">
+
+              <Eyebrow className="mb-5">
+                <span className="text-[var(--hero-accent)]">■</span>
+                <span className="ml-3">
+                  Infrastructure & Systems Engineer |
+                  Linux Systems |
+                  Automation |
+                  Technical Research
+                </span>
               </Eyebrow>
-              <Heading level={1}>
-                I help engineering teams solve difficult infrastructure, systems, and AI engineering problems.
+
+              <Heading
+                level={1}
+                className="bg-gradient-to-b from-[var(--hero-text-start)] via-[var(--hero-text-middle)] to-[var(--hero-text-end)] bg-clip-text text-transparent
+                "
+              >
+                I help engineering teams solve difficult
+                infrastructure, systems, and AI engineering
+                problems.
               </Heading>
+
             </div>
+            </div>
+
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Editorial panels */}
       <section className="pt-10 pb-20 md:pt-14 md:pb-28">
         <Container>
           <div className="grid gap-8 md:grid-cols-3 md:gap-10">
-            <div className="md:border-r md:border-border md:pr-10">
+            <div>
               <Panel className="h-full border-none bg-transparent">
                 <Metadata className="mb-4">EXPERTISE</Metadata>
 
@@ -49,12 +91,13 @@ export default function HomePage() {
               </Panel>
             </div>
 
-            <div className="md:border-r md:border-border md:pr-10">
+            <div>
               <Panel className="h-full border-none bg-transparent">
                 <Metadata className="mb-4">APPROACH</Metadata>
 
                 <p className="hd-body mt-0">
-                  Each project begins with understanding why a complex system behaves the way it does. I investigate unfamiliar architectures, validate assumptions with evidence, trace failures to their root cause, and then design solutions that are reliable, maintainable, and well understood.
+                  Each project begins with understanding why a complex system behaves the way it does. 
+                  I investigate unfamiliar architectures, validate assumptions with evidence, trace failures to their root cause, and then design solutions that are reliable, maintainable, and well understood.
                 </p>
 
               </Panel>
@@ -65,12 +108,14 @@ export default function HomePage() {
                 <Metadata className="mb-4">COLLABORATION</Metadata>
 
                 <p className="hd-body mt-0">
-                  If you’re an engineering manager hiring infrastructure, systems, or AI engineers—or a technical founder looking for someone to solve difficult engineering problems—you’ll find examples of how I approach ambiguity, evaluate trade-offs, and deliver dependable solutions.
+                  If you’re an engineering manager hiring infrastructure, systems, or AI engineers, or a technical founder looking for someone to solve difficult engineering problems, you’ll find examples of how I approach ambiguity, evaluate trade-offs, and deliver dependable solutions.
                 </p>
                 <p className="hd-body mt-4">
                   If that approach could help your team, reach me at
-                  <span className="ml-1 hd-font-mono">jesse.jacob.808@gmail.com</span>.
                 </p>
+                <a href="mailto:jesse.jacob.808@gmail.com" className="mt-2 inline-block hd-font-mono break-all text-[var(--hero-accent)]">
+                  jesse.jacob.808@gmail.com
+                </a>
 
               </Panel>
             </div>

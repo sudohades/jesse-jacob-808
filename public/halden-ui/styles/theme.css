@@ -54,7 +54,7 @@
   --radius-lg:14px; --radius-xl:18px; --radius-2xl:22px;
 
   /* Blur */
-  --blur-xs:6px; --blur-sm:10px; --blur-md:18px; --blur-lg:28px; --blur-xl:40px;
+  --blur-xs:16px; --blur-sm:20px; --blur-md:28px; --blur-lg:38px; --blur-xl:50px;
 
   /* Motion */
   --duration-fast:160ms; --duration-base:240ms; --duration-slow:480ms;
@@ -73,6 +73,10 @@
   /* Grid */
   --grid-line: rgba(226, 227, 233, .04);
   --grid-line-strong: rgba(8, 179, 247, .08);
+
+  --color-gradient-start: #876FC3;
+  --color-gradient-mid: #5C429E;
+  --color-gradient-end: #19122B;
 }
 
 /* Light mode — opt-in via .light on <html> or a wrapper */

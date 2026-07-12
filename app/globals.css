@@ -24,20 +24,31 @@
   --font-display: var(--font-quantico);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-share-tech-mono);
+   /* Image overlays */
+  --hero-overlay-top: transparent;
+
+  --hero-overlay-middle: rgb(0 0 0 / 0.35);
+
+  --hero-overlay-bottom: rgb(0 0 0 / 0.85);
+
+  /* Radial spotlight */
+  --hero-overlay-focus: rgb(0 0 0 / 0.55);
+
+  /* Accent */
+  --hero-accent: var(--color-grey-700);
+
+  /* Heading gradient */
+  --hero-text-start: var(--color-gradient-start);
+
+  --hero-text-middle: var(--color-gradient-mid);
+
+  --hero-text-end: var(--color-gradient-end);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
 /* Safe aliasing to preserve legacy variable names (Phase 1: avoid breaking behavior) */
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-}
 
-::selection {
-  background: var(--color-highlight);
-  color: var(--color-highlight-foreground);
-}
 
 
