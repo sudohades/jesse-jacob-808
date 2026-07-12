@@ -1,0 +1,45 @@
+/* =========================================================
+   Halden UI — globals.css
+   Import this once in your app root (e.g. app/layout.tsx).
+   ========================================================= */
+
+@import "./theme.css";
+@import "./typography.css";
+@import "./glass.css";
+@import "./animations.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans, "Inter"), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  background-image:
+    radial-gradient(1000px 600px at 85% -10%, rgba(190,28,227,.08), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(8,179,247,.06), transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--color-highlight);
+  color: var(--color-highlight-foreground);
+}
+
+/* Focus ring — accessible, amber */
+.hd-focus-ring:focus-visible,
+:where(button, a, input, select, textarea, [role="button"]).hd-focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-ring);
+  border-radius: var(--radius-sm);
+}

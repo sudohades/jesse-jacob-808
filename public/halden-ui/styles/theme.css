@@ -1,0 +1,95 @@
+/* =========================================================
+   Halden UI — theme.css
+   Design tokens as CSS variables. Framework-agnostic.
+   ========================================================= */
+
+:root {
+  /* Frozen Lake */
+  --color-lake-50:#e6f7fe; --color-lake-100:#cef0fd; --color-lake-200:#9ce1fc;
+  --color-lake-300:#6bd2fa; --color-lake-400:#39c3f9; --color-lake-500:#08b3f7;
+  --color-lake-600:#0690c6; --color-lake-700:#056c94; --color-lake-800:#034863;
+  --color-lake-900:#022431; --color-lake-950:#011923;
+
+  /* Lavender Grey */
+  --color-grey-50:#f1f1f4; --color-grey-100:#e2e3e9; --color-grey-200:#c5c7d3;
+  --color-grey-300:#a9abbc; --color-grey-400:#8c8fa6; --color-grey-500:#6f7390;
+  --color-grey-600:#595c73; --color-grey-700:#434556; --color-grey-800:#2c2e3a;
+  --color-grey-900:#16171d; --color-grey-950:#101014;
+
+  /* Carbon Black */
+  --color-carbon-50:#f3f4f1;  --color-carbon-100:#e7e8e3; --color-carbon-200:#d0d2c6;
+  --color-carbon-300:#b8bbaa; --color-carbon-400:#a0a48e; --color-carbon-500:#898e71;
+  --color-carbon-600:#6d715b; --color-carbon-700:#525544; --color-carbon-800:#37392d;
+  --color-carbon-900:#1b1c17; --color-carbon-950:#131410;
+
+  /* Bright Amber */
+  --color-amber-50:#fefae6; --color-amber-100:#fdf5ce; --color-amber-200:#fcec9c;
+  --color-amber-300:#fae26b; --color-amber-400:#f9d939; --color-amber-500:#f7cf08;
+  --color-amber-600:#c6a606; --color-amber-700:#947c05;
+
+  /* Dark Amethyst — ambient only */
+  --color-amethyst-500:#be1ce3; --color-amethyst-700:#721188; --color-amethyst-900:#26062d;
+
+  /* Semantic — dark by default */
+  --color-background:        #131410;
+  --color-foreground:        #e2e3e9;
+  --color-surface:           #1b1c17;
+  --color-surface-2:         #16171d;
+  --color-panel:             rgba(27, 28, 23, .72);
+  --color-muted:             #2c2e3a;
+  --color-muted-foreground:  #8c8fa6;
+  --color-border:            rgba(190, 28, 227, .15);
+  --color-hairline:          rgba(226, 227, 233, .08);
+  --color-ring:              #f7cf08;
+  --color-primary:           #08b3f7;
+  --color-primary-foreground:#011923;
+  --color-accent:            #6bd2fa;
+  --color-highlight:         #f7cf08;
+  --color-highlight-foreground: #131410;
+  --color-glow:              rgba(190, 28, 227, .18);
+
+  /* Radii */
+  --radius-xs:6px; --radius-sm:8px; --radius-md:12px;
+  --radius-lg:14px; --radius-xl:18px; --radius-2xl:22px;
+
+  /* Blur */
+  --blur-xs:6px; --blur-sm:10px; --blur-md:18px; --blur-lg:28px; --blur-xl:40px;
+
+  /* Motion */
+  --duration-fast:160ms; --duration-base:240ms; --duration-slow:480ms;
+  --ease-standard:cubic-bezier(.2,.7,.2,1);
+  --ease-entrance:cubic-bezier(.16,.84,.32,1);
+  --ease-exit:cubic-bezier(.4,0,.6,1);
+
+  /* Shadows */
+  --shadow-panel: 0 1px 0 rgba(255,255,255,.04) inset,
+                  0 0 0 1px rgba(190, 28, 227, .12),
+                  0 20px 60px -30px rgba(0,0,0,.7),
+                  0 8px 30px -20px rgba(190, 28, 227, .25);
+  --shadow-glow:  0 0 40px -8px rgba(190, 28, 227, .35);
+  --shadow-lift:  0 20px 40px -20px rgba(0,0,0,.6);
+
+  /* Grid */
+  --grid-line: rgba(226, 227, 233, .04);
+  --grid-line-strong: rgba(8, 179, 247, .08);
+}
+
+/* Light mode — opt-in via .light on <html> or a wrapper */
+.light {
+  --color-background:        #f3f4f1;
+  --color-foreground:        #131410;
+  --color-surface:           #ffffff;
+  --color-surface-2:         #f1f1f4;
+  --color-panel:             rgba(255,255,255,.7);
+  --color-muted:             #e2e3e9;
+  --color-muted-foreground:  #595c73;
+  --color-border:            rgba(190,28,227,.1);
+  --color-hairline:          rgba(19,20,16,.08);
+  --color-primary:           #056c94;
+  --color-primary-foreground:#ffffff;
+  --color-accent:            #08b3f7;
+  --color-highlight:         #f7cf08;
+  --color-glow:              rgba(190,28,227,.08);
+  --grid-line: rgba(19,20,16,.04);
+  --grid-line-strong: rgba(5,108,148,.08);
+}

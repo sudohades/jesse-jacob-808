@@ -1,0 +1,17 @@
+{
+  "name": "halden-ui",
+  "version": "0.1.0",
+  "description": "Portable UI component library for engineering-focused Next.js applications.",
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "sideEffects": ["**/*.css"],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "clsx": ">=2",
+    "tailwind-merge": ">=2"
+  },
+  "keywords": ["ui", "components", "react", "nextjs", "design-system", "engineering", "glassmorphism"],
+  "license": "MIT"
+}

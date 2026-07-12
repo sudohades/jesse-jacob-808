@@ -9,7 +9,7 @@ export function Panel({
 }: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) {
   return (
     <Surface
-      variant="panel"
+      variant="glass"
       className={cn("p-8 md:p-10", className)}
       {...props}
     >
@@ -17,4 +17,5 @@ export function Panel({
     </Surface>
   );
 }
+
 

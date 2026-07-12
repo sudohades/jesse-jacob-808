@@ -1,25 +1,38 @@
 import { cn } from "@/lib/utils";
-import type { HTMLAttributes } from "react";
-
-type Props = HTMLAttributes<HTMLDivElement> & {
-  variant?: "default" | "panel" | "subtle";
-};
+import * as React from "react";
 
 /**
- * Surface: disciplined background material. Prefer borders/spacing over glow.
+ * Foundation Surface primitive.
+ * Migrated to the canonical Halden UI implementation (public/halden-ui/components/ui/Surface).
  */
+export type SurfaceProps = React.ComponentPropsWithoutRef<"div"> & {
+  variant?: "glass" | "soft" | "flat" | "nav";
+  glow?: boolean;
+};
+
 export function Surface({
-  variant = "panel",
+  variant = "glass",
+  glow = false,
   className,
   ...props
-}: Props) {
-  const base = "rounded-[var(--radius-lg)] border border-border";
-  const variants: Record<string, string> = {
-    panel: "bg-secondary/20",
-    subtle: "bg-secondary/10",
-    default: "bg-background",
-  };
+}: SurfaceProps) {
+  const variantClass =
+    variant === "soft"
+      ? "hd-glass hd-glass--soft"
+      : variant === "flat"
+        ? "hd-glass hd-glass--flat"
+        : variant === "nav"
+          ? "hd-glass hd-glass--nav"
+          : "hd-glass";
 
-  return <div className={cn(base, variants[variant], className)} {...props} />;
+  const Tag: any = "div";
+
+  return (
+    <Tag
+      className={cn(variantClass, glow && "hd-glow-border", className)}
+      {...props}
+    />
+  );
 }
+
 

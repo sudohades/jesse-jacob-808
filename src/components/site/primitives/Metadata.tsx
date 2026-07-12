@@ -5,11 +5,12 @@ export function Metadata({ className, ...props }: HTMLAttributes<HTMLDivElement>
   return (
     <div
       className={cn(
-        "font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground",
+        "hd-font-mono text-[11px] tracking-[.14em] uppercase text-[var(--color-muted-foreground)]",
         className
       )}
       {...props}
     />
   );
 }
+
 

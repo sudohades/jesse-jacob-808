@@ -5,6 +5,10 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   orientation?: "horizontal" | "vertical";
 };
 
+/**
+ * Divider primitive.
+ * Migrated to Halden UI semantics using the shared border hairline token.
+ */
 export function Divider({
   orientation = "horizontal",
   className,
@@ -14,11 +18,12 @@ export function Divider({
     <div
       className={cn(
         orientation === "horizontal" ? "h-px w-full" : "w-px h-full",
-        "bg-border",
+        "bg-[var(--color-hairline)]",
         className
       )}
       {...props}
     />
   );
 }
+
 

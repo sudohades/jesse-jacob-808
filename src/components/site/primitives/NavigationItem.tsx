@@ -3,6 +3,10 @@ import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+/**
+ * Navigation item primitive.
+ * Migrated to Halden UI semantics so header + drawer share one visual language.
+ */
 export function NavigationItem({
   href,
   children,
@@ -13,7 +17,8 @@ export function NavigationItem({
   className?: string;
 }) {
   const pathname = usePathname();
-  const active = pathname === href || (href !== "/" && pathname?.startsWith(href));
+  const active =
+    pathname === href || (href !== "/" && pathname?.startsWith(href));
 
   return (
     <Link
@@ -24,7 +29,7 @@ export function NavigationItem({
         active
           ? "text-foreground"
           : "hover:text-foreground focus-visible:outline-none",
-        active && "border-b border-border",
+        active && "border-b border-[var(--color-hairline)]",
         className
       )}
     >
@@ -32,4 +37,5 @@ export function NavigationItem({
     </Link>
   );
 }
+
 

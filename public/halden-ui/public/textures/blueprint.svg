@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="ln" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#08b3f7" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#08b3f7" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="bp" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#08b3f7" stroke-opacity="0.18" stroke-width="1"/>
+      <circle cx="0" cy="0" r="1.2" fill="#08b3f7" fill-opacity="0.35"/>
+      <circle cx="80" cy="0" r="1.2" fill="#08b3f7" fill-opacity="0.35"/>
+      <circle cx="0" cy="80" r="1.2" fill="#08b3f7" fill-opacity="0.35"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="#0b1220"/>
+  <rect width="1200" height="800" fill="url(#bp)"/>
+  <rect width="1200" height="800" fill="url(#ln)"/>
+  <g fill="none" stroke="#f7cf08" stroke-opacity="0.55">
+    <circle cx="900" cy="240" r="60"/>
+    <circle cx="900" cy="240" r="90" stroke-opacity="0.25"/>
+    <path d="M900 180v-40M900 300v40M840 240h-40M960 240h40"/>
+  </g>
+</svg>

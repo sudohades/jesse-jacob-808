@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Container } from "../Container";
 import { Eyebrow } from "./Eyebrow";
+import { Heading } from "./Heading";
 
 export function PageHeader({
   eyebrow,
@@ -17,18 +18,25 @@ export function PageHeader({
         <div className="grid gap-8 md:grid-cols-12 md:gap-12 items-start">
           <div className="md:col-span-4">
             {eyebrow ? (
-              <Eyebrow>
-                <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;{eyebrow}
-              </Eyebrow>
+              <Eyebrow index="">{eyebrow}</Eyebrow>
             ) : null}
           </div>
           <div className="md:col-span-8">
-            <h1 className="display-xl">{title}</h1>
-            {lede ? <p className="mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">{lede}</p> : null}
+            {typeof title === "string" ? (
+              <Heading level={1}>{title}</Heading>
+            ) : (
+              <div className="hd-h1">{title}</div>
+            )}
+            {lede ? (
+              <p className="mt-8 max-w-2xl text-[18px] leading-[28px] text-muted-foreground md:text-[20px]">
+                {lede}
+              </p>
+            ) : null}
           </div>
         </div>
       </Container>
     </section>
   );
 }
+
 

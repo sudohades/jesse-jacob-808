@@ -1,0 +1,42 @@
+/* =========================================================
+   Halden UI — animations.css
+   Understated motion. Standard easing curves.
+   ========================================================= */
+
+@keyframes hd-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hd-fade-in    { from {opacity:0} to {opacity:1} }
+@keyframes hd-blur-in    { from {opacity:0; filter: blur(10px)} to {opacity:1; filter: blur(0)} }
+@keyframes hd-scale-in   { from {opacity:0; transform: scale(.98)} to {opacity:1; transform: scale(1)} }
+@keyframes hd-drawer-in  { from {transform: translateX(100%)} to {transform: translateX(0)} }
+@keyframes hd-drawer-out { from {transform: translateX(0)} to {transform: translateX(100%)} }
+
+/* Right-side drawer (mobile nav) */
+@keyframes hd-drawer-in-right  { from {transform: translateX(-100%)} to {transform: translateX(0)} }
+@keyframes hd-drawer-out-right { from {transform: translateX(0)} to {transform: translateX(-100%)} }
+@keyframes hd-ambient    { 0%,100% {opacity:.5; transform: translate3d(0,0,0) scale(1)} 50% {opacity:.75; transform: translate3d(0,-6px,0) scale(1.02)} }
+@keyframes hd-scanline   { 0% {transform: translateY(-100%)} 100% {transform: translateY(100%)} }
+@keyframes hd-accordion-down { from {height:0} to {height: var(--radix-accordion-content-height, auto)} }
+@keyframes hd-accordion-up   { from {height: var(--radix-accordion-content-height, auto)} to {height:0} }
+
+.hd-animate-fade-up   { animation: hd-fade-up   var(--duration-slow) var(--ease-entrance) both; }
+.hd-animate-fade-in   { animation: hd-fade-in   var(--duration-base) var(--ease-standard) both; }
+.hd-animate-blur-in   { animation: hd-blur-in   var(--duration-slow) var(--ease-entrance) both; }
+.hd-animate-scale-in  { animation: hd-scale-in  var(--duration-base) var(--ease-standard) both; }
+.hd-animate-drawer-in { animation: hd-drawer-in var(--duration-base) var(--ease-entrance) both; }
+.hd-animate-drawer-in-right { animation: hd-drawer-in-right var(--duration-base) var(--ease-entrance) both; }
+.hd-animate-ambient   { animation: hd-ambient   9s ease-in-out infinite; }
+
+.hd-hover-lift  { transition: transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard); }
+.hd-hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+
+.hd-hover-glow  { transition: box-shadow var(--duration-base) var(--ease-standard); }
+.hd-hover-glow:hover { box-shadow: var(--shadow-glow); }
+
+.hd-transition  { transition: all 0.2s cubic-bezier(0.4, 0, 0.6, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

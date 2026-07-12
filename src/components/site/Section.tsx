@@ -28,22 +28,28 @@ export function Section({
     <section className={cn("relative py-24 md:py-32", className)} {...props}>
       <Container>
         {(eyebrow || title || lede) && !bare && (
-          <div className="mb-14 grid gap-8 md:mb-20 md:grid-cols-12 md:gap-12">
-            <div className="md:col-span-4">
-              {index && (
-                <div className="mb-4 font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                  <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;{index}
-                </div>
-              )}
-              {eyebrow && <div className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">{eyebrow}</div>}
-            </div>
-            <div className="md:col-span-8">
-              {title && <h2 className="display-lg text-foreground">{title}</h2>}
-              {lede && (
-                <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-                  {lede}
-                </p>
-              )}
+          <div className="mb-14 md:mb-20">
+            <div className="">
+              <div className="md:col-span-4">
+                {index && (
+                  <div className="mb-4 font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                    <span className="text-bright-amber-500">■</span>&nbsp;&nbsp;{index}
+                  </div>
+                )}
+                {eyebrow && (
+                  <div className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                    {eyebrow}
+                  </div>
+                )}
+              </div>
+              <div className="md:col-span-8">
+                {title && <h2 className="display-lg text-foreground">{title}</h2>}
+                {lede && (
+                  <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+                    {lede}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         )}

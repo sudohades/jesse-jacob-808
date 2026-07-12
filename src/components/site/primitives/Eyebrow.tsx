@@ -1,17 +1,32 @@
-import type { HTMLAttributes } from "react";
+import * as React from "react";
 import { cn } from "@/lib/utils";
 
-type Props = HTMLAttributes<HTMLDivElement>;
+export interface EyebrowProps extends React.HTMLAttributes<HTMLSpanElement> {
+  index?: number | string;
+  as?: React.ElementType;
+}
 
-export function Eyebrow({ className, ...props }: Props) {
+export function Eyebrow({
+  index,
+  as: Tag = "span",
+  className,
+  children,
+  ...props
+}: EyebrowProps) {
   return (
-    <div
-      className={cn(
-        "font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground",
-        className
-      )}
+    <Tag
+      className={cn("hd-eyebrow inline-flex items-center gap-2", className)}
       {...props}
-    />
+    >
+      {index !== undefined && (
+        <span className="opacity-60">
+          {typeof index === "number" ? String(index).padStart(2, "0") : index}
+        </span>
+      )}
+      <span className="h-px w-4 bg-current opacity-40" />
+      {children}
+    </Tag>
   );
 }
+
 

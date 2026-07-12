@@ -1,7 +1,14 @@
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-export function EditorialGrid({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+/**
+ * Editorial grid wrapper.
+ * Migrated to match Halden UI responsive spacing conventions.
+ */
+export function EditorialGrid({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
@@ -12,4 +19,5 @@ export function EditorialGrid({ className, ...props }: HTMLAttributes<HTMLDivEle
     />
   );
 }
+
 
