@@ -94,7 +94,7 @@ Pages are statically generated where appropriate for performance and SEO.
 
 ---
 
-# Repository Structure
+# Target Repository Structure
 
 ```text
 app/
