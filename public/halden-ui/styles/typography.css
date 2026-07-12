@@ -7,7 +7,7 @@
 .hd-font-sans    { font-family: var(--font-sans, "Inter"), ui-sans-serif, system-ui, sans-serif; }
 .hd-font-mono    { font-family: var(--font-mono, "Share Tech Mono"), ui-monospace, "SFMono-Regular", monospace; }
 
-.hd-h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(38px, 6vw, 72px); line-height: 1.02; letter-spacing: -.02em; }
+.hd-h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(38px, 6vw, 60px); line-height: 1.02; letter-spacing: -.02em; }
 .hd-h2 { font-family: var(--font-display); font-weight: 700; font-size: 36px; line-height: 46px; letter-spacing: -.015em; }
 .hd-h3 { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 34px; letter-spacing: -.012em; }
 .hd-h4 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; letter-spacing: -.01em; }
