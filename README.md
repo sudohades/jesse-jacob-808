@@ -1,164 +1,361 @@
-# Sudo Hades — Engineering Solutions
+# sudo-hades.dev
 
-Production website built with **Next.js (App Router) + React + TypeScript** and styled with **Tailwind CSS (v4)**.
+A personal engineering portfolio and technical publishing platform built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, and a custom **Halden UI** design system.
 
-This repo currently includes a **template navigation + section pages** with dummy content so you can quickly plug in real copy, interactive components, and CMS data.
+The project is designed around one principle:
 
----
+> Build software that communicates engineering competence through implementation rather than presentation.
 
-## What was added for this template
-
-### Navigation panel (header)
-- **New:** `src/components/site/SiteNav.tsx`
-  - Defines the primary nav items:
-    - Home (`/`)
-    - Projects (`/projects`)
-    - Services (`/services`)
-    - Resources (`/resources`)
-    - Blog (`/blog`)
-    - About (`/about`)
-  - Uses `next/link` so navigation is client-fast and accessible.
-
-- **Updated:** `src/components/site/SiteHeader.tsx`
-  - Renders the existing logo link and places `SiteNav` next to it.
-  - Nav is hidden on small screens (`hidden md:block`)—easy place to later add a mobile drawer.
-
-### Dummy pages (ready to integrate)
-Each page is a standalone route under `app/` and uses the shared marketing shell:
-- `app/projects/page.tsx`
-- `app/services/page.tsx`
-- `app/resources/page.tsx`
-- `app/blog/page.tsx`
-- `app/about/page.tsx`
-
-Pages are currently being aligned to a common editorial system (page header + editorial layout primitives).
-
-### Sitemap
-
-- **Updated:** `app/sitemap.ts`
-  - Ensures `/projects`, `/services`, `/resources`, `/blog`, `/about` are included.
+Rather than functioning as a traditional portfolio, this repository serves as an extensible platform for publishing technical work, documenting engineering investigations, showcasing infrastructure projects, and providing consulting services across systems engineering, infrastructure, and applied AI.
 
 ---
 
-## How the framework is structured (mental model)
+## Overview
 
-### 1) Routing: `app/`
-In Next.js **App Router**, each folder under `app/` can expose a route:
-- `app/page.tsx` → `/` (Home)
-- `app/<route>/page.tsx` → `/<route>`
+The application is built using the Next.js App Router and emphasizes:
 
-Your dummy pages are implemented exactly like production routes, so you can later:
-- replace dummy text with real content
-- swap buttons for real links
-- fetch data (CMS) inside server components
+* modular architecture
+* reusable UI primitives
+* MDX-driven content
+* consistent typography and design tokens
+* progressive enhancement
+* responsive layouts
+* accessibility-first navigation
+* long-term maintainability
 
-### 2) Shared layout chrome: `SiteShell`
-Pages use `SiteShell` (from `src/components/site/SiteShell.tsx`) to keep the header/footer consistent.
-
-The typical flow is:
-- `app/layout.tsx` defines global document structure (fonts, metadata, base HTML)
-- `SiteShell` renders:
-  - `<SiteHeader />`
-  - `<main id="main">{children}</main>`
-  - `<SiteFooter />`
-
-So pages only focus on their own content.
-
-### 3) Components: `src/components/site/`
-This directory holds reusable UI pieces:
-- `SiteHeader.tsx` (logo + nav)
-- `SiteNav.tsx` (navigation items)
-- `SiteFooter.tsx` (footer)
-- other small layout primitives like `Container.tsx`
-
-### 4) Styling: Tailwind + design tokens
-Styling is done via Tailwind utility classes.
-
-Common patterns in this repo:
-- Token-like colors such as `border-border`, `bg-background`, `text-muted-foreground`
-- Spacing and layout via standard Tailwind classes (`py-24`, `flex`, `gap-3`, etc.)
-
-To change the look globally, edit:
-- `app/globals.css`
-- Tailwind/theme configuration (depending on your Tailwind v4 setup)
-
-To change styling per component/page:
-- edit the Tailwind classes directly in the relevant component/page (fast iteration)
+Content and presentation are intentionally separated so the website behaves more like a documentation platform than a collection of static pages.
 
 ---
 
-## How to define animations & interactions (recommended approach)
+## Features
 
-### A) Keep components “dumb” and actions “owned”
-Right now the dummy buttons are plain `<button>` elements. When you wire up real behavior:
-- If the interaction changes state on the client: turn the component into a Client Component (`"use client"`) and use hooks.
-- If the interaction is navigation: prefer `<Link href="...">` so you avoid unnecessary client JS.
+### Portfolio
 
-### B) Simple motion (CSS first)
-Because Tailwind is already in place, the quickest path is usually:
-- add transitions/hover styles via Tailwind classes
-  - `transition-colors`, `duration-200`, `ease-out`
-- for scroll/viewport effects, you can integrate a small client component (or a lightweight library)
+Showcases engineering work, investigations, infrastructure projects, and consulting services.
 
-If you already have animation helpers like `Reveal`/`Section` components in `src/components/site/`, reuse them:
-- they typically encapsulate `IntersectionObserver`-style interactions
+### MDX Publishing
 
-### C) Modern interactions
-To bring the site toward modern standards:
-- add active nav state (highlight current route)
-  - `usePathname()` in a small Client Component can drive styling
-- add keyboard + focus-visible improvements
-  - ensure buttons/links have `focus-visible:*` styles
-- improve mobile navigation
-  - replace `hidden md:block` with a drawer/menu component
+Technical articles, notes, research, and build logs are authored as MDX and rendered through a shared content pipeline.
 
----
+### Halden UI Design System
 
-## Changing styles quickly
+A custom component library providing:
 
-### Change header/nav styling
-Update:
-- `src/components/site/SiteNav.tsx`
-  - edit the `className` on the `<Link>` items
+* typography tokens
+* spacing system
+* responsive layout primitives
+* glassmorphism components
+* animations
+* reusable navigation
+* cards
+* panels
+* buttons
 
-### Change page typography and spacing
-Update the dummy pages in:
-- `app/<route>/page.tsx`
+The website consumes Halden UI rather than defining page-specific styling.
 
-Because each page is currently just Tailwind utilities, you can iterate safely without impacting the rest of the site.
+### Responsive Navigation
+
+Navigation adapts between desktop and mobile while maintaining a shared design language.
+
+### Type-safe Content
+
+Content metadata is parsed and validated before rendering.
+
+### Static Generation
+
+Pages are statically generated where appropriate for performance and SEO.
 
 ---
 
-## Local development
+# Technology Stack
 
-```bash
-pnpm install
-pnpm dev
-```
+## Framework
 
-Open: http://localhost:3000
+* Next.js 15
+* React 19
+* TypeScript
 
-Build:
-```bash
-pnpm build
-pnpm start
+## Styling
+
+* Tailwind CSS
+* CSS Design Tokens
+* Halden UI
+* next/font
+
+## Content
+
+* MDX
+* gray-matter
+
+## Animation
+
+* CSS animations
+* Framer Motion (where appropriate)
+
+---
+
+# Repository Structure
+
+```text
+app/
+│
+├── about/
+├── blog/
+├── build-log/
+├── notes/
+├── projects/
+├── resources/
+├── services/
+├── contact/
+│
+├── layout.tsx
+├── globals.css
+└── page.tsx
+
+components/
+│
+├── site/
+├── halden-ui/
+└── ui/
+
+content/
+│
+├── blog/
+├── notes/
+├── projects/
+├── resources/
+└── build-log/
+
+lib/
+│
+├── mdx/
+├── content/
+├── utils/
+└── helpers/
+
+public/
+│
+├── images/
+├── icons/
+└── halden-ui/
 ```
 
 ---
 
-## Notes
-- `pnpm lint` may currently fail due to an existing ESLint circular-structure issue in the repo’s ESLint configuration. This does not block `pnpm build`.
+# Design Philosophy
+
+The website intentionally minimizes unnecessary visual noise.
+
+Instead of relying on heavy visual effects, it communicates through:
+
+* strong typography
+* spacing
+* hierarchy
+* content structure
+* restrained animation
+* engineering-focused language
+
+Every component should contribute to clarity.
 
 ---
 
-## Files modified/added in this navigation+pages update
+# Halden UI
 
-- Added: `src/components/site/SiteNav.tsx`
-- Updated: `src/components/site/SiteHeader.tsx`
-- Added: `app/projects/page.tsx`
-- Added: `app/services/page.tsx`
-- Added: `app/resources/page.tsx`
-- Added: `app/blog/page.tsx`
-- Added: `app/about/page.tsx`
-- Updated: `app/sitemap.ts`
+The project includes an internal design system named **Halden UI**.
 
+Halden UI provides:
+
+* typography
+* layout containers
+* spacing primitives
+* navigation
+* cards
+* panels
+* animations
+* design tokens
+
+Application components consume these primitives rather than redefining styles locally.
+
+This keeps the styling architecture centralized and consistent.
+
+---
+
+# Content Architecture
+
+All long-form content lives outside the application logic.
+
+Typical workflow:
+
+```text
+MDX
+↓
+
+Frontmatter parsing
+↓
+
+Metadata generation
+↓
+
+Static routing
+↓
+
+Shared layout
+
+↓
+
+Rendered page
+```
+
+This separation allows content to evolve independently from the application.
+
+---
+
+# Typography
+
+Typography is managed through a centralized token system.
+
+Fonts are loaded using `next/font` and exposed through CSS variables consumed by Halden UI.
+
+Typography should never be hardcoded inside individual components.
+
+---
+
+# Layout
+
+Layout is based on reusable primitives.
+
+Typical hierarchy:
+
+```text
+Layout
+
+↓
+
+SiteShell
+
+↓
+
+Container
+
+↓
+
+Section
+
+↓
+
+Content
+```
+
+Pages should inherit spacing from shared layout components rather than applying custom padding individually.
+
+---
+
+# Navigation
+
+The navigation system is responsive and consists of:
+
+* desktop navigation
+* mobile drawer
+* shared navigation primitives
+* route-aware active state
+* reusable animation system
+
+Navigation behavior should remain consistent across all pages.
+
+---
+
+# Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Build the application:
+
+```bash
+npm run build
+```
+
+Run production:
+
+```bash
+npm start
+```
+
+Lint:
+
+```bash
+npm run lint
+```
+
+---
+
+# Engineering Principles
+
+This repository follows several engineering principles:
+
+* Composition over duplication
+* Design tokens over hardcoded values
+* Shared primitives over page-specific implementations
+* Accessibility by default
+* Progressive enhancement
+* Type safety
+* Predictable architecture
+* Incremental refactoring
+
+---
+
+# Future Work
+
+Planned improvements include:
+
+* advanced MDX component library
+* search
+* syntax highlighting improvements
+* RSS feeds
+* project filtering
+* reading progress
+* dark/light theme enhancements
+* diagram rendering
+* infrastructure write-ups
+* interactive engineering case studies
+
+---
+
+# Contributing
+
+Although primarily a personal project, issues and discussions are welcome.
+
+When contributing:
+
+* preserve the design system
+* avoid introducing duplicate components
+* prefer extending shared primitives
+* maintain accessibility
+* keep architecture consistent
+
+---
+
+# License
+
+Unless otherwise stated, all source code is released under the MIT License.
+
+Written content, articles, photography, and branding remain the intellectual property of their respective authors.
+
+---
+
+## Author
+
+**Jesse Jacob**
+
+Systems Engineering • Infrastructure • AI Engineering
+
+Building reliable systems, documenting engineering decisions, and solving difficult technical problems through first-principles thinking.
