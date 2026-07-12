@@ -13,7 +13,7 @@ export default function HomePage() {
       <section className="relative">
         <div className="relative h-[52dvh] min-h-[420px] max-h-[640px] overflow-hidden">
           <img
-            src="/Engineering_Lab_Hero_Server_Rack.png"
+            src="/hero.jpg"
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />

@@ -37,7 +37,7 @@
   --color-surface-2:         #16171d;
   --color-panel:             rgba(27, 28, 23, .72);
   --color-muted:             #2c2e3a;
-  --color-muted-foreground:  #8c8fa6;
+  --color-muted-foreground:  #37d5d5;
   --color-border:            rgba(190, 28, 227, .15);
   --color-hairline:          rgba(226, 227, 233, .08);
   --color-ring:              #f7cf08;
@@ -47,6 +47,7 @@
   --color-highlight:         #f7cf08;
   --color-highlight-foreground: #131410;
   --color-glow:              rgba(190, 28, 227, .18);
+  --color-neon-glow:          rgba(188, 15, 231, 0.465);
 
   /* Radii */
   --radius-xs:6px; --radius-sm:8px; --radius-md:12px;
