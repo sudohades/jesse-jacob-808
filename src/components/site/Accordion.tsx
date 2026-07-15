@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 type InteractiveTextProps = {
   title: string;
@@ -10,6 +9,7 @@ type InteractiveTextProps = {
 
 export function InteractiveText({ title, children }: InteractiveTextProps) {
   const [isOpen, setIsOpen] = useState(false);
+
 
   return (
     <div 

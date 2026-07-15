@@ -1,4 +1,4 @@
-import { Container } from "./Container";
+import { Container } from "../halden-ui/layout/Container";
 
 type Props = {
   eyebrow: string;

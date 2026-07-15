@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Quantico, Share_Tech_Mono, Inter } from "next/font/google";
 import { Analytics } from '@vercel/analytics/next';   
-import "./globals.css";
+import "@/styles/globals.css";
+
+
+import { getNextMetadata, getNextViewport } from "@/platform/adapters/next";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -24,33 +27,8 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Sudo Hades — Engineering Solutions.",
-  description:
-    "Sudo Hades is a software engineering firm focused on building reliable, scalable solutions for complex problems.",
-  authors: [{ name: "Jesse Jacob" }],
-  openGraph: {
-    title: "Sudo Hades — Engineering Solutions",
-    images: [{ url: "/logo-256.png" }],
-    description:
-      "Software engineering firm specializing in complex problem-solving and scalable solutions.",
-    type: "website",
-    siteName: "Sudo Hades",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@sudo_hades",
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: "#110C1D",
-  width: "device-width",
-  initialScale: 1,
-};
+export const metadata: Metadata = getNextMetadata();
+export const viewport: Viewport = getNextViewport();
 
 export default function RootLayout({
   children,

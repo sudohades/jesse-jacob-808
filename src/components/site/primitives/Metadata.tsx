@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/platform/lib/utils";
 
 export function Metadata({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (

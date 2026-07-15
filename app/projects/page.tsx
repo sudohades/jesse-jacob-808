@@ -1,9 +1,9 @@
 import { SiteShell } from "@/components/site/SiteShell";
-import { Container } from "@/components/site/Container";
+import { Container } from "@/components/halden-ui/layout/Container";
 import { PageHeader } from "@/components/site/primitives/PageHeader";
-import { Panel } from "@/components/site/primitives/Panel";
+import { GlassPanel } from "@/components/halden-ui/layout/GlassPanel";
 import { Metadata } from "@/components/site/primitives/Metadata";
-import { CTAButton } from "@/components/site/CTAButton";
+import { Button } from "@/components/halden-ui/ui/Button";
 
 export default function ProjectsPage() {
   return (
@@ -13,7 +13,7 @@ export default function ProjectsPage() {
       <section className="pb-24 md:pb-32">
         <Container>
           <div className="grid gap-6 md:grid-cols-3 md:gap-8">
-            <Panel className="h-full">
+            <GlassPanel className="h-full" padding="md">
               <div className="flex h-full flex-col gap-6">
                 <Metadata>INFRASTRUCTURE</Metadata>
                 <p className="text-muted-foreground leading-relaxed">
@@ -21,18 +21,16 @@ export default function ProjectsPage() {
                   deployability, and observability that reduces time-to-diagnosis.
                 </p>
                 <div className="mt-auto">
-                  <CTAButton
-                    to="/projects/infrastructure"
-                    variant="outline"
-                    icon="none"
-                  >
-                    Infrastructure case study
-                  </CTAButton>
+                  <Button variant="outline" asChild>
+                    <a href="/projects/infrastructure">
+                      Infrastructure case study
+                    </a>
+                  </Button>
                 </div>
               </div>
-            </Panel>
+            </GlassPanel>
 
-            <Panel className="h-full">
+            <GlassPanel className="h-full" padding="md">
               <div className="flex h-full flex-col gap-6">
                 <Metadata>AI SYSTEMS</Metadata>
                 <p className="text-muted-foreground leading-relaxed">
@@ -40,14 +38,16 @@ export default function ProjectsPage() {
                   pipelines, reliability under uncertainty, and secure integration.
                 </p>
                 <div className="mt-auto">
-                  <CTAButton to="/projects/ai-systems" variant="outline" icon="none">
-                    AI systems case study
-                  </CTAButton>
+                  <Button variant="outline" asChild>
+                    <a href="/projects/ai-systems">
+                      AI systems case study
+                    </a>
+                  </Button>
                 </div>
               </div>
-            </Panel>
+            </GlassPanel>
 
-            <Panel className="h-full">
+            <GlassPanel className="h-full" padding="md">
               <div className="flex h-full flex-col gap-6">
                 <Metadata>SYSTEMS</Metadata>
                 <p className="text-muted-foreground leading-relaxed">
@@ -55,12 +55,14 @@ export default function ProjectsPage() {
                   into complex software behavior.
                 </p>
                 <div className="mt-auto">
-                  <CTAButton to="/resources" variant="outline" icon="none">
-                    Read engineering notes
-                  </CTAButton>
+                  <Button variant="outline" asChild>
+                    <a href="/resources">
+                      Read engineering notes
+                    </a>
+                  </Button>
                 </div>
               </div>
-            </Panel>
+            </GlassPanel>
           </div>
         </Container>
       </section>

@@ -2,13 +2,15 @@
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { cn } from "@/platform/lib/utils";
 import { Logo as SiteWordmarkLogo } from "@/components/site/Logo";
 
 
-import { NavigationItem } from "../../../../public/halden-ui/components/navigation/NavigationItem";
-import { HamburgerButton } from "../../../../public/halden-ui/components/navigation/HamburgerButton";
-import { MobileDrawer, type MobileDrawerItem } from "../../../../public/halden-ui/components/navigation/MobileDrawer";
+
+import { NavigationItem } from "./NavigationItem";
+import { HamburgerButton } from "./HamburgerButton";
+import { MobileDrawer, type MobileDrawerItem } from "./MobileDrawer";
 
 export interface SiteNavigationProps {
   items: MobileDrawerItem[];
@@ -24,19 +26,21 @@ export interface SiteNavigationProps {
 export function SiteNavigation({
   items,
   activeHref,
-  wordmark,
-  logoLabel,
+
   cta,
   status,
   className,
   sticky = true,
 }: SiteNavigationProps) {
   const pathname = usePathname();
+
   const resolvedActiveHref = activeHref ?? pathname;
 
   const [open, setOpen] = React.useState(false);
 
   const [scrolled, setScrolled] = React.useState(false);
+
+  const onClose = React.useCallback(() => setOpen(false), []);
 
   React.useEffect(() => {
     if (!sticky) return;
@@ -63,9 +67,10 @@ export function SiteNavigation({
             : "h-16 border-b border-[var(--color-hairline)] px-6 sm:px-10"
         )}
       >
-        <a href="/" aria-label="Home" className="shrink-0">
+        <Link href="/" aria-label="Home" className="shrink-0">
           <SiteWordmarkLogo />
-        </a>
+        </Link>
+
 
 
         <nav className="ml-auto hidden items-center gap-1 md:flex">
@@ -83,18 +88,19 @@ export function SiteNavigation({
         <div className="ml-auto flex items-center gap-2 md:ml-3" aria-label="Header actions">
           {status}
           {cta && (
-            <a
+            <Link
               href={cta.href}
               className="hd-focus-ring hidden items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--color-hairline)] bg-[var(--color-surface-2)]/60 px-3 py-1.5 text-[12px] text-[var(--color-foreground)] hd-transition hover:border-[var(--color-highlight)] hover:text-[var(--color-highlight)] sm:inline-flex"
             >
               {cta.label} <span aria-hidden>→</span>
-            </a>
+            </Link>
+
           )}
           <HamburgerButton open={open} onClick={() => setOpen((v) => !v)} />
         </div>
       </div>
 
-      <MobileDrawer open={open} onClose={() => setOpen(false)} items={items} />
+      <MobileDrawer open={open} onClose={onClose} items={items} />
     </header>
   );
 }

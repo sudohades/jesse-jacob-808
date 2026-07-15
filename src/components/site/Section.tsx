@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/platform/lib/utils";
 import type { HTMLAttributes, ReactNode } from "react";
-import { Container } from "./Container";
+import { Container } from "../halden-ui/layout/Container";
 
 type SectionProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
   eyebrow?: string;

@@ -1,9 +1,9 @@
 import { SiteShell } from "@/components/site/SiteShell";
-import { Container } from "@/components/site/Container";
+import { Container } from "@/components/halden-ui/layout/Container";
 import { PageHeader } from "@/components/site/primitives/PageHeader";
-import { Panel } from "@/components/site/primitives/Panel";
+import { GlassPanel } from "@/components/halden-ui/layout/GlassPanel";
 import { Metadata } from "@/components/site/primitives/Metadata";
-import { CTAButton } from "@/components/site/CTAButton";
+import { Button } from "@/components/halden-ui/ui/Button";
 
 export default function ResourcesPage() {
   return (
@@ -13,7 +13,7 @@ export default function ResourcesPage() {
       <section className="pb-24 md:pb-32">
         <Container>
           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <Panel>
+            <GlassPanel padding="md">
               <div className="flex flex-col gap-6">
                 <Metadata>GUIDES</Metadata>
                 <p className="text-muted-foreground leading-relaxed">
@@ -21,14 +21,16 @@ export default function ResourcesPage() {
                   AI engineering—focused on reproducible reasoning.
                 </p>
                 <div className="mt-auto">
-                  <CTAButton to="/resources/guides" variant="outline" icon="none">
-                    Browse guides
-                  </CTAButton>
+                  <Button variant="outline" asChild>
+                    <a href="/resources/guides">
+                      Browse guides
+                    </a>
+                  </Button>
                 </div>
               </div>
-            </Panel>
+            </GlassPanel>
 
-            <Panel>
+            <GlassPanel padding="md">
               <div className="flex flex-col gap-6">
                 <Metadata>TEMPLATES</Metadata>
                 <p className="text-muted-foreground leading-relaxed">
@@ -36,12 +38,14 @@ export default function ResourcesPage() {
                   and architecture documentation structures.
                 </p>
                 <div className="mt-auto">
-                  <CTAButton to="/resources/templates" variant="outline" icon="none">
-                    Download templates
-                  </CTAButton>
+                  <Button variant="outline" asChild>
+                    <a href="/resources/templates">
+                      Download templates
+                    </a>
+                  </Button>
                 </div>
               </div>
-            </Panel>
+            </GlassPanel>
           </div>
         </Container>
       </section>

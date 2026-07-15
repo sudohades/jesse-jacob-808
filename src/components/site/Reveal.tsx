@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type HTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/platform/lib/utils";
 
 type RevealProps = HTMLAttributes<HTMLDivElement> & { delay?: number };
 

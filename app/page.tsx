@@ -1,10 +1,13 @@
+import Image from "next/image";
 import { SiteShell } from "@/components/site/SiteShell";
-import { Container } from "@/components/site/Container";
-import { Eyebrow } from "@/components/site/primitives/Eyebrow";
-import { Heading } from "@/components/site/primitives/Heading";
-import { Panel } from "@/components/site/primitives/Panel";
-import { Divider } from "@/components/site/primitives/Divider";
+import { Container } from "@/components/halden-ui/layout/Container";
+import { Eyebrow } from "@/components/halden-ui/typography/Eyebrow";
+import { Heading } from "@/components/halden-ui/typography/Heading";
+import { GlassPanel } from "@/components/halden-ui/layout/GlassPanel";
+import { Divider } from "@/components/halden-ui/ui/Divider";
 import { Metadata } from "@/components/site/primitives/Metadata";
+import { author } from "@/config";
+
 
 export default function HomePage() {
   return (
@@ -14,10 +17,13 @@ export default function HomePage() {
         <div className="relative h-[45dvh] min-h-[360px] max-h-[520px] overflow-hidden">
 
           {/* Background Image */}
-          <img
+          <Image
             src="/hero.jpg"
             alt=""
+            fill
+            sizes="100vw"
             className="absolute inset-0 h-full w-full object-cover"
+            priority
           />
 
           {/* Primary overlay */}
@@ -62,9 +68,11 @@ export default function HomePage() {
 
               <Heading
                 level={1}
-                className="bg-gradient-to-b from-[var(--hero-text-start)] via-[var(--hero-text-middle)] to-[var(--hero-text-end)] bg-clip-text text-transparent
-                "
+                gradient
+                className="max-w-5xl"
               >
+
+
                 I help engineering teams solve difficult
                 infrastructure, systems, and AI engineering
                 problems.
@@ -81,18 +89,18 @@ export default function HomePage() {
         <Container>
           <div className="grid gap-8 md:grid-cols-3 md:gap-10">
             <div>
-              <Panel className="h-full border-none bg-transparent">
+              <GlassPanel className="h-full border-none bg-transparent" padding="lg">
                 <Metadata className="mb-4">EXPERTISE</Metadata>
 
                 <p className="hd-body mt-0">
                   I specialize in diagnosing complex software failures, reverse engineering unfamiliar architectures, and building reliable solutions from first principles.
                 </p>
 
-              </Panel>
+              </GlassPanel>
             </div>
 
             <div>
-              <Panel className="h-full border-none bg-transparent">
+              <GlassPanel className="h-full border-none bg-transparent" padding="lg">
                 <Metadata className="mb-4">APPROACH</Metadata>
 
                 <p className="hd-body mt-0">
@@ -100,11 +108,11 @@ export default function HomePage() {
                   I investigate unfamiliar architectures, validate assumptions with evidence, trace failures to their root cause, and then design solutions that are reliable, maintainable, and well understood.
                 </p>
 
-              </Panel>
+              </GlassPanel>
             </div>
 
             <div>
-              <Panel className="h-full border-none bg-transparent">
+              <GlassPanel className="h-full border-none bg-transparent" padding="lg">
                 <Metadata className="mb-4">COLLABORATION</Metadata>
 
                 <p className="hd-body mt-0">
@@ -113,11 +121,11 @@ export default function HomePage() {
                 <p className="hd-body mt-4">
                   If that approach could help your team, reach me at
                 </p>
-                <a href="mailto:jesse.jacob.808@gmail.com" className="mt-2 inline-block hd-font-mono break-all text-[var(--hero-accent)]">
-                  jesse.jacob.808@gmail.com
+                <a href={`mailto:${author.email}`} className="mt-2 inline-block hd-font-mono break-all text-[var(--hero-accent)]">
+                  {author.email}
                 </a>
 
-              </Panel>
+              </GlassPanel>
             </div>
           </div>
 

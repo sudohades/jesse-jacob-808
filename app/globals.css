@@ -10,11 +10,11 @@
    Reference canonical tokens/utilities live in public/halden-ui/styles/*.
    ========================================================================= */
 
-@import "../public/halden-ui/styles/globals.css";
-@import "../public/halden-ui/styles/theme.css";
-@import "../public/halden-ui/styles/typography.css";
-@import "../public/halden-ui/styles/glass.css";
-@import "../public/halden-ui/styles/animations.css";
+@import "./globals.css";
+@import "./theme.css";
+@import "./typography.css";
+@import "./glass.css";
+@import "./animations.css";
 
 /* App-specific minimal base (kept last so reference can override if needed) */
 :root {

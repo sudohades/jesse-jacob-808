@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { Container } from "../Container";
-import { Eyebrow } from "./Eyebrow";
-import { Heading } from "./Heading";
+import { Container } from "../../halden-ui/layout/Container";
+import { Eyebrow } from "../../halden-ui/typography/Eyebrow";
+import { Heading } from "../../halden-ui/typography/Heading";
 
 export function PageHeader({
   eyebrow,

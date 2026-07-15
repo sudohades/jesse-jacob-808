@@ -1,10 +1,11 @@
 import { SiteShell } from "@/components/site/SiteShell";
-import { Container } from "@/components/site/Container";
+import { Container } from "@/components/halden-ui/layout/Container";
 import { PageHeader } from "@/components/site/primitives/PageHeader";
-import { Panel } from "@/components/site/primitives/Panel";
+import { GlassPanel } from "@/components/halden-ui/layout/GlassPanel";
 import { Metadata } from "@/components/site/primitives/Metadata";
-import { Divider } from "@/components/site/primitives/Divider";
-import { CTAButton } from "@/components/site/CTAButton";
+import { Divider } from "@/components/halden-ui/ui/Divider";
+import { Button } from "@/components/halden-ui/ui/Button";
+import { author } from "@/config";
 
 export default function AboutPage() {
   return (
@@ -16,7 +17,7 @@ export default function AboutPage() {
           <div className="grid gap-6 md:grid-cols-12 md:gap-8">
 
             <div className="md:col-span-7">
-              <Panel>
+              <GlassPanel padding="md">
                 <div className="flex flex-col gap-6">
                   <Metadata>METHOD</Metadata>
                   <p className="text-muted-foreground leading-relaxed">
@@ -34,11 +35,11 @@ export default function AboutPage() {
                     demoed.
                   </p>
                 </div>
-              </Panel>
+              </GlassPanel>
             </div>
 
             <div className="md:col-span-5">
-              <Panel>
+              <GlassPanel padding="md">
                 <div className="flex flex-col gap-6">
                   <Metadata>CONTACT</Metadata>
                   <p className="text-muted-foreground leading-relaxed">
@@ -47,19 +48,19 @@ export default function AboutPage() {
                     out.
                   </p>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                    <CTAButton
-                      to="mailto:jesse.jacob.808@gmail.com"
-                      variant="outline"
-                      icon="none"
-                    >
-                      Email Jesse
-                    </CTAButton>
-                    <CTAButton to="/projects" variant="outline" icon="none">
-                      See work
-                    </CTAButton>
+                    <Button variant="outline" asChild>
+                      <a href={`mailto:${author.email}`}>
+                        Email {author.name}
+                      </a>
+                    </Button>
+                    <Button variant="outline" asChild>
+                      <a href="/projects">
+                        See work
+                      </a>
+                    </Button>
                   </div>
                 </div>
-              </Panel>
+              </GlassPanel>
             </div>
           </div>
         </Container>
