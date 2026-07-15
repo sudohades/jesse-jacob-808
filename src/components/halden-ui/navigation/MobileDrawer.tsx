@@ -59,7 +59,7 @@ export function MobileDrawer({ open, onClose, items, footer, className }: Mobile
                 <span className="hd-font-mono text-[10px] opacity-50">{String(i + 1).padStart(2, "0")}</span>
               </span>
               <span aria-hidden className="text-[var(--color-muted-foreground)]">
-                ←
+                →
               </span>
             </a>
           ))}
