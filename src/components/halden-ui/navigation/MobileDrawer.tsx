@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { cn } from "@/platform/lib/utils";
 
 export interface MobileDrawerItem {
@@ -48,7 +49,8 @@ export function MobileDrawer({ open, onClose, items, footer, className }: Mobile
       >
         <nav className="mt-10 flex flex-col gap-1">
           {items.map((item, i) => (
-            <a
+            item.href.startsWith("/") ? (
+            <Link
               key={item.href}
               href={item.href}
               onClick={onClose}
@@ -61,7 +63,21 @@ export function MobileDrawer({ open, onClose, items, footer, className }: Mobile
               <span aria-hidden className="text-[var(--color-muted-foreground)]">
                 →
               </span>
-            </a>
+            </Link>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className="hd-focus-ring flex items-center justify-between rounded-[var(--radius-sm)] px-3 py-3 text-[15px] hd-transition hover:bg-[var(--color-surface-2)]/60"
+              >
+                <span className="flex items-center gap-3">
+                  {item.label}
+                  <span className="hd-font-mono text-[10px] opacity-50">{String(i + 1).padStart(2, "0")}</span>
+                </span>
+                <span aria-hidden className="text-[var(--color-muted-foreground)]">→</span>
+              </a>
+            )
           ))}
         </nav>
         {footer && <div className="mt-auto pt-6">{footer}</div>}
@@ -69,4 +85,3 @@ export function MobileDrawer({ open, onClose, items, footer, className }: Mobile
     </div>
   );
 }
-

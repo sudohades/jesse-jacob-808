@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { cn } from "@/platform/lib/cn";
 import { Container } from "../layout/Container";
 
@@ -53,9 +54,15 @@ export function Footer({
               <ul className="mt-4 space-y-2">
                 {col.items.map((it) => (
                   <li key={it.label}>
-                    <a href={it.href} className="hd-amber-underline text-sm text-[var(--color-foreground)]/90 hover:text-[var(--color-foreground)]">
-                      {it.label}
-                    </a>
+                    {it.href.startsWith("/") ? (
+                      <Link href={it.href} className="hd-amber-underline text-sm text-[var(--color-foreground)]/90 hover:text-[var(--color-foreground)]">
+                        {it.label}
+                      </Link>
+                    ) : (
+                      <a href={it.href} className="hd-amber-underline text-sm text-[var(--color-foreground)]/90 hover:text-[var(--color-foreground)]">
+                        {it.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

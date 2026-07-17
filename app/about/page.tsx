@@ -6,6 +6,7 @@ import { Metadata } from "@/components/site/primitives/Metadata";
 import { Divider } from "@/components/halden-ui/ui/Divider";
 import { Button } from "@/components/halden-ui/ui/Button";
 import { author } from "@/config";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -49,14 +50,14 @@ export default function AboutPage() {
                   </p>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <Button variant="outline" asChild>
-                      <a href={`mailto:${author.email}`}>
+                      <Link href={`mailto:${author.email}`}>
                         Email {author.name}
-                      </a>
+                      </Link>
                     </Button>
                     <Button variant="outline" asChild>
-                      <a href="/projects">
+                      <Link href="/projects">
                         See work
-                      </a>
+                      </Link>
                     </Button>
                   </div>
                 </div>

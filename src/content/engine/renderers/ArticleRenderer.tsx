@@ -10,6 +10,7 @@
 
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ContentDocument, AssetRef } from '../documents/types';
 import { Container } from '@/components/halden-ui/layout/Container';
 import { SiteShell } from '@/components/site/SiteShell';
@@ -69,15 +70,21 @@ export function ArticleRenderer({ document }: { document: ContentDocument }) {
       {links.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-3">
           {links.map((l) => (
-            <a
-              key={l.url}
-              href={l.url}
-              target={l.url.startsWith('http') ? '_blank' : undefined}
-              rel={l.url.startsWith('http') ? 'noreferrer' : undefined}
-              className="hd-link"
-            >
-              {l.label}
-            </a>
+            l.url.startsWith('/') ? (
+              <Link key={l.url} href={l.url} className="hd-link">
+                {l.label}
+              </Link>
+            ) : (
+              <a
+                key={l.url}
+                href={l.url}
+                target={l.url.startsWith('http') ? '_blank' : undefined}
+                rel={l.url.startsWith('http') ? 'noreferrer' : undefined}
+                className="hd-link"
+              >
+                {l.label}
+              </a>
+            )
           ))}
         </div>
       )}

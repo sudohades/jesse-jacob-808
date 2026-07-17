@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { InlineToken, MdxNode } from './transform';
 import { ContentDocument } from '../documents/types';
@@ -35,14 +36,18 @@ function renderInlineTokens(tokens: InlineToken[], document: ContentDocument): R
       case 'inlineCode':
         return <code key={index} className="font-mono text-[0.95em]">{token.value}</code>;
       case 'link':
-        return (
+        return token.url.startsWith('/') ? (
+          <Link key={index} href={token.url} title={token.title} className="hd-link">
+            {renderInlineTokens(token.children, document)}
+          </Link>
+        ) : (
           <a key={index} href={token.url} title={token.title} target={token.url.startsWith('http') ? '_blank' : undefined} rel={token.url.startsWith('http') ? 'noreferrer' : undefined} className="hd-link">
             {renderInlineTokens(token.children, document)}
           </a>
         );
       case 'image': {
         const resolved = assetPath(document, token.src);
-        return resolved ? <img key={index} src={resolved} alt={token.alt} title={token.title} className="inline-block max-w-full align-middle" /> : null;
+        return resolved ? <Image key={index} src={resolved} alt={token.alt} title={token.title} width={1} height={1} unoptimized className="inline-block h-auto w-auto max-w-full align-middle" /> : null;
       }
       case 'break':
         return <br key={index} />;

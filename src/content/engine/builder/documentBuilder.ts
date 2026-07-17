@@ -174,7 +174,7 @@ export function buildDocument(
   const assetMap = resolveBasicAssets(metadata, ref.collection, ref.id, contentRoot);
 
   // Inline asset resolution (engine-owned; renderers must not fall back to raw paths)
-  const transformed = content as any;
+  const transformed = content as { inlineImageSrcs?: string[] } | undefined;
   const inlineImageSrcs: string[] = transformed?.inlineImageSrcs || [];
   const inlineAssetMap = inlineImageSrcs.length
     ? resolveInlineImageAssets(inlineImageSrcs, ref.collection, ref.id, contentRoot)
