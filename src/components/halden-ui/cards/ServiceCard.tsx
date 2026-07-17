@@ -11,11 +11,12 @@ export interface ServiceCardProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   description: React.ReactNode;
   icon?: React.ReactNode;
   tags?: string[];
+  price?: { amount: number; currency: string };
 }
 
 
 export function ServiceCard({
-  code, title, description, icon, tags, className, ...props
+  code, title, description, icon, tags, price, className, ...props
 }: ServiceCardProps) {
   return (
     <Surface className={cn("hd-hover-lift group flex flex-col gap-5 p-6", className)} {...props}>
@@ -26,6 +27,14 @@ export function ServiceCard({
           </div>
         )}
         {code && <CodeLabel prefix="§">{code}</CodeLabel>}
+        {price && (
+          <div className="ml-auto text-right">
+            <div className="hd-label-mono">From</div>
+            <div className="hd-font-display text-sm text-[var(--color-foreground)]">
+              {new Intl.NumberFormat(undefined, { style: "currency", currency: price.currency }).format(price.amount)}
+            </div>
+          </div>
+        )}
       </div>
       <Heading level={4}>{title}</Heading>
       <Body muted>{description}</Body>

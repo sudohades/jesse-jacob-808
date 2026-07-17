@@ -2,6 +2,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { Container } from "@/components/halden-ui/layout/Container";
 import { PageHeader } from "@/components/site/primitives/PageHeader";
 import { ProjectCard } from "@/components/halden-ui/cards/ProjectCard";
+import { ServiceCard } from "@/components/halden-ui/cards/ServiceCard";
 import { getContentRegistry } from "@/content/engine/server";
 import { renderCards } from "@/content/engine";
 
@@ -29,7 +30,9 @@ export default async function ServicesPage() {
           {cardResults.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-3 md:gap-8">
               {cardResults.map((result, index) => (
-                <ProjectCard key={index} {...result.props} />
+                result.component === 'ServiceCard'
+                  ? <ServiceCard key={index} {...result.props} />
+                  : <ProjectCard key={index} {...result.props} />
               ))}
             </div>
           ) : (

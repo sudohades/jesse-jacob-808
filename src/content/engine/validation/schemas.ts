@@ -162,6 +162,17 @@ function validateOptionalLinksArray(value: unknown, fieldName: string): Array<{ 
   });
 }
 
+function validateOptionalServicePrice(value: unknown): ContentMetadata['price'] | undefined {
+  if (value === undefined || value === null) return undefined;
+  if (!isObject(value) || typeof value.amount !== 'number' || !Number.isFinite(value.amount) || value.amount < 0) {
+    throw new ValidationError("Field 'price' must have a non-negative numeric 'amount'", 'price');
+  }
+  if (!isString(value.currency) || !/^[A-Z]{3}$/.test(value.currency)) {
+    throw new ValidationError("Field 'price.currency' must be a three-letter uppercase currency code", 'price.currency');
+  }
+  return { amount: value.amount, currency: value.currency };
+}
+
 function validateOptionalSeo(value: unknown, fieldName: string): ContentMetadata['seo'] | undefined {
   if (value === undefined || value === null) return undefined;
   if (!isObject(value)) {
@@ -214,6 +225,7 @@ function validateMetadata(frontmatter: Record<string, unknown>): ContentMetadata
   const authors = validateOptionalStringArray(frontmatter.authors, 'authors');
   const technologies = validateOptionalStringArray(frontmatter.technologies, 'technologies');
   const links = validateOptionalLinksArray(frontmatter.links, 'links');
+  const price = validateOptionalServicePrice(frontmatter.price);
   const seo = validateOptionalSeo(frontmatter.seo, 'seo');
   
   return {
@@ -231,6 +243,7 @@ function validateMetadata(frontmatter: Record<string, unknown>): ContentMetadata
     authors,
     technologies,
     links,
+    price,
     seo,
   };
 }

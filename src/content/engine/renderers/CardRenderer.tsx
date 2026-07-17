@@ -15,15 +15,15 @@
 
 import { ContentDocument } from '../documents/types';
 import { ProjectCardProps } from '@/components/halden-ui/cards/ProjectCard';
+import { ServiceCardProps } from '@/components/halden-ui/cards/ServiceCard';
 
 // ============================================================================
 // Renderer Types
 // ============================================================================
 
-export interface RenderResult {
-  component: 'ProjectCard';
-  props: ProjectCardProps;
-}
+export type RenderResult =
+  | { component: 'ProjectCard'; props: ProjectCardProps }
+  | { component: 'ServiceCard'; props: ServiceCardProps };
 
 // ============================================================================
 // Card Renderer
@@ -35,6 +35,19 @@ export interface RenderResult {
  */
 export function renderCard(document: ContentDocument): RenderResult {
   const { metadata, slug, collection, assetMap } = document;
+
+  if (collection === 'services') {
+    return {
+      component: 'ServiceCard',
+      props: {
+        title: metadata.title,
+        description: metadata.summary || metadata.description,
+        tags: metadata.tags,
+        code: metadata.tags?.[0],
+        price: metadata.price,
+      },
+    };
+  }
   
   // Extract cover image from asset map if available
   const coverImage = assetMap?.['cover'];

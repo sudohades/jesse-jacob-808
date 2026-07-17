@@ -24,6 +24,11 @@ export interface AssetRef {
 export type DocumentStatus = 'draft' | 'published';
 export type DocumentVisibility = 'public' | 'private' | 'unlisted';
 
+export interface ServicePrice {
+  amount: number;
+  currency: string;
+}
+
 export interface ContentMetadata {
   title: string;
   description: string;
@@ -41,6 +46,7 @@ export interface ContentMetadata {
   authors?: string[];
   links?: Array<{ label: string; url: string }>;
   technologies?: string[];
+  price?: ServicePrice;
   
   seo?: {
     ogImage?: AssetRef;
