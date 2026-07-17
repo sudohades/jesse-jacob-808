@@ -1,55 +1,44 @@
 import { SiteShell } from "@/components/site/SiteShell";
 import { Container } from "@/components/halden-ui/layout/Container";
 import { PageHeader } from "@/components/site/primitives/PageHeader";
-import { GlassPanel } from "@/components/halden-ui/layout/GlassPanel";
-import { Metadata } from "@/components/site/primitives/Metadata";
-import { Button } from "@/components/halden-ui/ui/Button";
+import { ProjectCard } from "@/components/halden-ui/cards/ProjectCard";
+import { getContentRegistry } from "@/content/engine/server";
+import { renderCards } from "@/content/engine";
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+  // Initialize the content engine and get the registry
+  const registry = await getContentRegistry({ collections: ['resources'] });
+  
+  // Query published resource cards
+  const resources = registry.query({
+    collection: 'resources',
+    status: 'published',
+    visibility: 'public',
+    kind: 'card',
+  });
+  
+  // Render documents as cards
+  const cardResults = renderCards(resources);
+  
   return (
     <SiteShell>
       <PageHeader eyebrow="Resources" title="Engineering notes & templates" />
 
       <section className="pb-24 md:pb-32">
         <Container>
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <GlassPanel padding="md">
-              <div className="flex flex-col gap-6">
-                <Metadata>GUIDES</Metadata>
-                <p className="text-muted-foreground leading-relaxed">
-                  Deep technical writeups for infrastructure, systems diagnosis, and
-                  AI engineering—focused on reproducible reasoning.
-                </p>
-                <div className="mt-auto">
-                  <Button variant="outline" asChild>
-                    <a href="/resources/guides">
-                      Browse guides
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </GlassPanel>
-
-            <GlassPanel padding="md">
-              <div className="flex flex-col gap-6">
-                <Metadata>TEMPLATES</Metadata>
-                <p className="text-muted-foreground leading-relaxed">
-                  Practical starting points: evaluation checklists, runbook patterns,
-                  and architecture documentation structures.
-                </p>
-                <div className="mt-auto">
-                  <Button variant="outline" asChild>
-                    <a href="/resources/templates">
-                      Download templates
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </GlassPanel>
-          </div>
+          {cardResults.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+              {cardResults.map((result, index) => (
+                <ProjectCard key={index} {...result.props} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground">
+              <p>No resources found.</p>
+            </div>
+          )}
         </Container>
       </section>
     </SiteShell>
   );
 }
-

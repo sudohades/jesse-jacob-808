@@ -1,0 +1,51 @@
+---
+title: "Hello from the Blog"
+description: "A minimal blog article to validate the MDX rendering pipeline."
+summary: "Validation-only content for Vertical Slice 003."
+status: "published"
+visibility: "public"
+date: "2026-01-01"
+updated: "2026-01-01"
+kind: "card"
+layout: "project"
+tags: ["mdx", "pipeline", "validation"]
+technologies: ["TypeScript", "React", "Next.js"]
+links:
+  - label: "Repository"
+    url: "https://example.com"
+cover:
+  type: "image"
+  path: "/placeholder-images/hero-placeholder.svg"
+---
+
+# Heading inside blog
+
+This paragraph includes **bold**, *italic*, and `inline code`.
+
+It also includes a link to [Halden](https://example.com) inside a paragraph.
+
+## List test
+
+- Bullet with **nested bold** and `inline code`.
+- Bullet with *italic* and a [link](https://example.com).
+
+1. Ordered list item with **strong**.
+2. Ordered list item with *emphasis*.
+
+> Blockquote with **bold**, *italic*, and `inline code`.
+
+---
+
+Inline image test:
+
+![inline image](/placeholder-images/hero-placeholder.svg)
+
+```ts
+export const fenced = (x: number) => x * 2;
+```
+
+| Feature | Status |
+| --- | --- |
+| Images | inline + assetMap |
+| Links | paragraph + list | 
+
